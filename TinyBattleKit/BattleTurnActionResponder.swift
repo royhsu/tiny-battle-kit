@@ -8,12 +8,42 @@
 
 // MARK: - BattleTurnActionResponder
 
-public protocol BattleTurnActionResponder {
+public protocol BattleTurnActionResponder: class {
     
     func respond(to turnAction: BattleTurnAction) -> BattleTurnActionResponder
     
-    func run() -> BattleResult
+    func run(with initialResult: BattleResult) -> BattleResult
     
 }
 
 // MARK: - TurnBasedBattle
+
+public protocol TurnBasedBattle: class {
+    
+    var turnActions: [BattleTurnAction] { get set }
+    
+}
+
+// MARK: - BattleTurnActionResponder (Default Implementation)
+
+public extension TurnBasedBattle where Self: BattleTurnActionResponder {
+    
+    public func respond(to turnAction: BattleTurnAction) -> BattleTurnActionResponder {
+        
+        turnActions.append(turnAction)
+        
+        return self
+        
+    }
+    
+    public func run(with initalResult: BattleResult) -> BattleResult {
+        
+        return turnActions.reduce(initalResult) { currentResult, turnAction in
+            
+            return turnAction.apply(on: currentResult)
+            
+        }
+        
+    }
+    
+}
