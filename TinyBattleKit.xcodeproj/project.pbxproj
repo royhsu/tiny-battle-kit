@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		B024ED3A1FD0484200E6DB72 /* TinyBattleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024ED301FD0484200E6DB72 /* TinyBattleKit.framework */; };
 		B024ED411FD0484200E6DB72 /* TinyBattleKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B024ED331FD0484200E6DB72 /* TinyBattleKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B024ED4B1FD0499400E6DB72 /* BattleTurnAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */; };
-		B024ED4D1FD04A1300E6DB72 /* BattleTurnActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */; };
+		B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4A1FD0499400E6DB72 /* BattleActionProvider.swift */; };
+		B024ED4D1FD04A1300E6DB72 /* BattleActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4C1FD04A1300E6DB72 /* BattleActionResponder.swift */; };
 		B024ED4F1FD04D6700E6DB72 /* TurnBasedBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4E1FD04D6700E6DB72 /* TurnBasedBattleTests.swift */; };
 		B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED501FD0600100E6DB72 /* BattleResult.swift */; };
 		B024ED531FD066E400E6DB72 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED521FD066E400E6DB72 /* Calculator.swift */; };
@@ -34,8 +34,8 @@
 		B024ED341FD0484200E6DB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B024ED391FD0484200E6DB72 /* TinyBattleKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyBattleKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B024ED401FD0484200E6DB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleTurnAction.swift; sourceTree = "<group>"; };
-		B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleTurnActionResponder.swift; sourceTree = "<group>"; };
+		B024ED4A1FD0499400E6DB72 /* BattleActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionProvider.swift; sourceTree = "<group>"; };
+		B024ED4C1FD04A1300E6DB72 /* BattleActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionResponder.swift; sourceTree = "<group>"; };
 		B024ED4E1FD04D6700E6DB72 /* TurnBasedBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleTests.swift; sourceTree = "<group>"; };
 		B024ED501FD0600100E6DB72 /* BattleResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleResult.swift; sourceTree = "<group>"; };
 		B024ED521FD066E400E6DB72 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				B024ED331FD0484200E6DB72 /* TinyBattleKit.h */,
-				B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */,
-				B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */,
+				B024ED4A1FD0499400E6DB72 /* BattleActionProvider.swift */,
+				B024ED4C1FD04A1300E6DB72 /* BattleActionResponder.swift */,
 				B024ED501FD0600100E6DB72 /* BattleResult.swift */,
 				B024ED341FD0484200E6DB72 /* Info.plist */,
 			);
@@ -216,8 +216,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B024ED4B1FD0499400E6DB72 /* BattleTurnAction.swift in Sources */,
-				B024ED4D1FD04A1300E6DB72 /* BattleTurnActionResponder.swift in Sources */,
+				B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */,
+				B024ED4D1FD04A1300E6DB72 /* BattleActionResponder.swift in Sources */,
 				B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

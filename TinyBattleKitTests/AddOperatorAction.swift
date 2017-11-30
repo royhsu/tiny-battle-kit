@@ -10,15 +10,15 @@
 
 import TinyBattleKit
 
-internal struct AddOperatorAction: BattleTurnAction {
+internal struct AddOperatorAction: BattleActionProvider {
     
     // MARK: Property
     
     internal let byValue: Double
     
-    // MARK: BattleTurnAction
+    // MARK: BattleActionProvider
     
-    internal func apply(on result: BattleResult) -> BattleResult {
+    internal func applyAction(on result: BattleResult) -> BattleResult {
         
         guard
             let result = result as? CalculatorResult
