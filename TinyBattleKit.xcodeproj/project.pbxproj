@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		B024ED3A1FD0484200E6DB72 /* TinyBattleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B024ED301FD0484200E6DB72 /* TinyBattleKit.framework */; };
 		B024ED411FD0484200E6DB72 /* TinyBattleKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B024ED331FD0484200E6DB72 /* TinyBattleKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B024ED4B1FD0499400E6DB72 /* BattleTurnAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */; };
+		B024ED4D1FD04A1300E6DB72 /* BattleTurnActionResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */; };
+		B024ED4F1FD04D6700E6DB72 /* TurnBasedBattleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED4E1FD04D6700E6DB72 /* TurnBasedBattleTests.swift */; };
+		B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED501FD0600100E6DB72 /* BattleResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +31,10 @@
 		B024ED341FD0484200E6DB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B024ED391FD0484200E6DB72 /* TinyBattleKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyBattleKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B024ED401FD0484200E6DB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleTurnAction.swift; sourceTree = "<group>"; };
+		B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleTurnActionResponder.swift; sourceTree = "<group>"; };
+		B024ED4E1FD04D6700E6DB72 /* TurnBasedBattleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleTests.swift; sourceTree = "<group>"; };
+		B024ED501FD0600100E6DB72 /* BattleResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				B024ED331FD0484200E6DB72 /* TinyBattleKit.h */,
+				B024ED4A1FD0499400E6DB72 /* BattleTurnAction.swift */,
+				B024ED4C1FD04A1300E6DB72 /* BattleTurnActionResponder.swift */,
+				B024ED501FD0600100E6DB72 /* BattleResult.swift */,
 				B024ED341FD0484200E6DB72 /* Info.plist */,
 			);
 			path = TinyBattleKit;
@@ -78,6 +89,7 @@
 		B024ED3D1FD0484200E6DB72 /* TinyBattleKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B024ED4E1FD04D6700E6DB72 /* TurnBasedBattleTests.swift */,
 				B024ED401FD0484200E6DB72 /* Info.plist */,
 			);
 			path = TinyBattleKitTests;
@@ -145,10 +157,12 @@
 				TargetAttributes = {
 					B024ED2F1FD0484200E6DB72 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					B024ED381FD0484200E6DB72 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -193,6 +207,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B024ED4B1FD0499400E6DB72 /* BattleTurnAction.swift in Sources */,
+				B024ED4D1FD04A1300E6DB72 /* BattleTurnActionResponder.swift in Sources */,
+				B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B024ED4F1FD04D6700E6DB72 /* TurnBasedBattleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +348,7 @@
 		B024ED451FD0484200E6DB72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -343,6 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinyworld.TinyBattleKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -351,6 +371,7 @@
 		B024ED461FD0484200E6DB72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -372,12 +393,15 @@
 		B024ED481FD0484200E6DB72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CE6946X84;
 				INFOPLIST_FILE = TinyBattleKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinyworld.TinyBattleKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -386,6 +410,8 @@
 		B024ED491FD0484200E6DB72 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CE6946X84;
 				INFOPLIST_FILE = TinyBattleKitTests/Info.plist;
