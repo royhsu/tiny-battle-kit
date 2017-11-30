@@ -1,20 +1,20 @@
 //
-//  AddOperatorAction.swift
+//  AddActionProvider.swift
 //  TinyBattleKitTests
 //
 //  Created by Roy Hsu on 01/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - AddOperatorAction
+// MARK: - AddActionProvider
 
 import TinyBattleKit
 
-internal struct AddOperatorAction: BattleActionProvider {
+internal struct AddActionProvider: BattleActionProvider {
     
     // MARK: Property
     
-    internal let byValue: Double
+    internal let value: Double
     
     // MARK: BattleActionProvider
     
@@ -25,7 +25,7 @@ internal struct AddOperatorAction: BattleActionProvider {
         else { fatalError() }
         
         return CalculatorResult(
-            value: result.value + byValue
+            value: result.value + value
         )
         
     }
