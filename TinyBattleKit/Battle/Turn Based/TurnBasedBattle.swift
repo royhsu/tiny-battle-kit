@@ -20,6 +20,8 @@ public protocol TurnBasedBattle: BattleActionResponder {
 
 public extension TurnBasedBattle {
     
+    public func shouldRespond(to provider: Provider) -> Bool { return true }
+    
     public func respond(to provider: Provider) -> Self {
         
         actionProviders.append(provider)

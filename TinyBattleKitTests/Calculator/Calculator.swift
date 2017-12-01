@@ -18,8 +18,4 @@ internal final class Calculator: TurnBasedBattle {
     
     internal final var actionProviders: [Provider] = []
     
-    // MARK: TurnBasedBattle
-    
-    internal func shouldRespond(to provider: Provider) -> Bool { return true }
-    
 }
