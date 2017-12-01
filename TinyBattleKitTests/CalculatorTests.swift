@@ -14,7 +14,7 @@ import XCTest
 
 internal final class CalculatorTests: XCTestCase {
     
-    // MARK: Chainable Turn Actions
+    // MARK: Chainable Operators
     
     internal final func testChainableOperators() {
         
