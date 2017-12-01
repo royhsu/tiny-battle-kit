@@ -54,7 +54,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             
             let server = TurnBasedBattleServer(
                 ownerId: ownerId,
-                recordId: ownerId
+                recordId: recordId
             )
             
             server.serverDataProvider = mockServerDataProvider
@@ -92,6 +92,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 
                 let serverDataProvider = server.serverDataProvider as? MockTurnBasedBattleServerDataProvider
                 
+                XCTAssertNotNil(server.owner)
+                
+                XCTAssertNotNil(server.record)
+                
                 XCTAssertEqual(
                     serverDataProvider?.serverState,
                     .online
@@ -108,7 +112,13 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             shouldEnd: { server in return false },
             didEnd: { server in XCTFail() },
             didRespondToRequest: { server, request in XCTFail() },
-            didFail: { server, error in XCTFail()}
+            didFail: { server, error in
+                
+                promise.fulfill()
+                
+                XCTFail("\(error)")
+                
+            }
         )
         
         performTest {

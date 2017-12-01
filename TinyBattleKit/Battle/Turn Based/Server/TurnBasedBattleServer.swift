@@ -46,6 +46,10 @@ public enum TurnBasedBattleServerError: Error {
     
     case serverDataProviderNotFound
     
+    case battleOwnerNotFound(ownerId: String)
+    
+    case battleRecordNotFound(recordId: String)
+    
 }
 
 // MARK: - TurnBasedBattleServer
@@ -81,6 +85,8 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.recordId = recordId
         
+        stateMachine.machineDelegate = self
+        
     }
     
     // MARK: BattleServer
@@ -102,10 +108,42 @@ public final class TurnBasedBattleServer: BattleServer {
             
         }
         
+        guard
+            let owner = serverDataProvider.fetchPlayer(id: ownerId)
+        else {
+            
+            let error: TurnBasedBattleServerError = .battleOwnerNotFound(ownerId: ownerId)
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return
+            
+        }
+        
+        guard
+            let record = serverDataProvider.fetchRecord(id: recordId)
+        else {
+            
+            let error: TurnBasedBattleServerError = .battleRecordNotFound(recordId: recordId)
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return
+                
+        }
+        
+        self.owner = owner
+        
+        self.record = record
+        
         serverDataProvider.updateServerState(.online)
-        
-        stateMachine.machineDelegate = self
-        
+
         stateMachine.state = .start
         
     }
