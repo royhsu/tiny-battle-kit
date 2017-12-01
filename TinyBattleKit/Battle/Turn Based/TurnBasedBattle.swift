@@ -12,6 +12,8 @@ public protocol TurnBasedBattle: BattleActionResponder {
     
     var actionProviders: [Provider] { get set }
     
+    func shouldRespond(to provider: Provider) -> Bool
+    
 }
 
 // MARK: - BattleActionResponder (Default Implementation)
@@ -30,7 +32,13 @@ public extension TurnBasedBattle {
         
         return actionProviders.reduce(initalResult) { currentResult, provider in
             
-            return provider.applyAction(on: currentResult)
+            if shouldRespond(to: provider) {
+                
+                return provider.applyAction(on: currentResult)
+                
+            }
+            
+            return currentResult
             
         }
         
