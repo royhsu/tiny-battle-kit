@@ -33,3 +33,18 @@ internal final class MultiplyOperatorProvider: BattleActionProvider {
     }
     
 }
+
+// MARK: Factory
+
+internal extension BattleActionProvider
+where Self.Result == CalculatorResult {
+    
+    internal static func multiply(by value: Double) -> AnyBattleActionProvider<Result> {
+        
+        let provider = MultiplyOperatorProvider(value: value)
+        
+        return AnyBattleActionProvider(provider)
+        
+    }
+    
+}

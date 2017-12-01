@@ -22,22 +22,18 @@ internal final class TurnBasedBattleTests: XCTestCase {
 
         let result = caculator
             .respond(
-                to: AnyBattleActionProvider(
-                    AddOperatorProvider(value: 5)
-                )
+                to: .add(by: 5.0)
             )
             .respond(
-                to: AnyBattleActionProvider(
-                    MultiplyOperatorProvider(value: 4)
-                )
+                to: .multiply(by: 4.0)
             )
             .run(
-                with: CalculatorResult(value: 3)
+                with: .init(value: 3.0)
             )
 
         XCTAssertEqual(
             result.value,
-            (3 + 5) * 4
+            (3.0 + 5.0) * 4.0
         )
         
     }

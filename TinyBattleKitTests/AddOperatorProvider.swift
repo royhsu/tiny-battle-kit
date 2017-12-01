@@ -33,3 +33,18 @@ internal final class AddOperatorProvider: BattleActionProvider {
     }
     
 }
+
+// MARK: Factory
+
+internal extension BattleActionProvider
+where Self.Result == CalculatorResult {
+    
+    internal static func add(by value: Double) -> AnyBattleActionProvider<Result> {
+        
+        let provider = AddOperatorProvider(value: value)
+        
+        return AnyBattleActionProvider(provider)
+        
+    }
+    
+}
