@@ -16,12 +16,6 @@ internal final class Calculator: TurnBasedBattle {
     
     // MARK: Property
     
-    internal var joinedPlayers: [BattlePlayer] = []
-    
-    internal var owner: BattlePlayer = MockBattlePlayer(
-        id: UUID().uuidString
-    )
-    
     internal final var actionProviders: [Provider] = []
     
 }

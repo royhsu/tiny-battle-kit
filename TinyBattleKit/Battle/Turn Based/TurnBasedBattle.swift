@@ -10,10 +10,6 @@
 
 public protocol TurnBasedBattle: BattleActionResponder {
     
-    var joinedPlayers: [BattlePlayer] { get }
-    
-    var owner: BattlePlayer { get }
-    
     var actionProviders: [Provider] { get set }
     
     func shouldRespond(to provider: Provider) -> Bool
