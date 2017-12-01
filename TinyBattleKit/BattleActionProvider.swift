@@ -8,8 +8,10 @@
 
 // MARK: - BattleActionProvider
 
-public protocol BattleActionProvider {
+public protocol BattleActionProvider: class {
     
-    func applyAction(on result: BattleResult) -> BattleResult
+    associatedtype Result: BattleResult
+    
+    func applyAction(on result: Result) -> Result
     
 }

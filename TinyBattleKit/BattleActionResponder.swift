@@ -10,40 +10,42 @@
 
 public protocol BattleActionResponder: class {
     
-    func respond(to provider: BattleActionProvider) -> BattleActionResponder
+    associatedtype Provider: BattleActionProvider
     
-    func run(with initialResult: BattleResult) -> BattleResult
+    func respond(to provider: Provider) -> Self
+    
+    func run(with initialResult: Provider.Result) -> Provider.Result
     
 }
 
 // MARK: - TurnBasedBattle
 
-public protocol TurnBasedBattle: class {
+public protocol TurnBasedBattle: BattleActionResponder {
     
-    var actionProviders: [BattleActionProvider] { get set }
+    var actionProviders: [Provider] { get set }
     
 }
 
 // MARK: - BattleActionResponder (Default Implementation)
 
-public extension TurnBasedBattle where Self: BattleActionResponder {
+public extension TurnBasedBattle {
     
-    public func respond(to provider: BattleActionProvider) -> BattleActionResponder {
-        
+    public func respond(to provider: Provider) -> Self {
+
         actionProviders.append(provider)
-        
+
         return self
-        
+
     }
-    
-    public func run(with initalResult: BattleResult) -> BattleResult {
-        
+
+    public func run(with initalResult: Provider.Result) -> Provider.Result {
+
         return actionProviders.reduce(initalResult) { currentResult, provider in
-            
+
             return provider.applyAction(on: currentResult)
-            
+
         }
-        
+
     }
     
 }

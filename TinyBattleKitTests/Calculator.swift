@@ -10,10 +10,12 @@
 
 import TinyBattleKit
 
-internal final class Calculator: TurnBasedBattle, BattleActionResponder {
+internal final class Calculator: TurnBasedBattle {
+
+    internal typealias Provider = AnyBattleActionProvider<CalculatorResult>
     
     // MARK: Property
     
-    internal final var actionProviders: [BattleActionProvider] = []
+    internal final var actionProviders: [Provider] = []
     
 }
