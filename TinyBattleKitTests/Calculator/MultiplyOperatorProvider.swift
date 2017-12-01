@@ -16,7 +16,9 @@ internal final class MultiplyOperatorProvider: BattleActionProvider {
     
     // MARK: Property
     
-    internal let value: Double
+    internal final let priority = 110.0
+    
+    internal final let value: Double
     
     // MARK: Init
     

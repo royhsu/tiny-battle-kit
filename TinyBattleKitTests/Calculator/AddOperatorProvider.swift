@@ -16,6 +16,8 @@ internal final class AddOperatorProvider: BattleActionProvider {
     
     // MARK: Property
     
+    internal final let priority = 100.0
+    
     internal final let value: Double
     
     // MARK: Init

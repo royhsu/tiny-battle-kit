@@ -33,7 +33,7 @@ internal final class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(
             result.value,
-            (3.0 + 5.0) * 4.0
+            (3.0 * 4.0) + 5.0
         )
         
     }

@@ -8,19 +8,26 @@
 
 // MARK: - AnyBattleActionProvider
 
-public class AnyBattleActionProvider
+public final class AnyBattleActionProvider
 <Result: BattleResult>:
 BattleActionProvider {
     
     // MARK: Property
     
-    private let _applyAction: (_ result: Result) -> Result
+    public final var priority: Double
+    
+    private final let _applyAction: (_ result: Result) -> Result
     
     // MARK: Init
     
     public init<Provider: BattleActionProvider>(_ provider: Provider)
-    where Provider.Result == Result
-    { self._applyAction = provider.applyAction }
+    where Provider.Result == Result {
+        
+        self.priority = provider.priority
+        
+        self._applyAction = provider.applyAction
+    
+    }
     
     // MARK: BattleActionProvider
     

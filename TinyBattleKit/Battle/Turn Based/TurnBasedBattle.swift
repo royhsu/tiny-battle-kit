@@ -30,9 +30,15 @@ public extension TurnBasedBattle {
         
     }
     
+    // Run this method won't modify the original actionProviders.
+    // It sorts providers depends on their priority before executes each of them.
     public func run(with initalResult: Provider.Result) -> Provider.Result {
         
-        return actionProviders.reduce(initalResult) { currentResult, provider in
+        return actionProviders
+            .sorted(
+                by: { $0.priority > $1.priority }
+            )
+            .reduce(initalResult) { currentResult, provider in
             
             if shouldRespond(to: provider) {
                 

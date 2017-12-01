@@ -12,6 +12,8 @@ public protocol BattleActionProvider: class {
     
     associatedtype Result: BattleResult
     
+    var priority: Double { get }
+    
     func applyAction(on result: Result) -> Result
     
 }
