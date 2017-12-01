@@ -9,7 +9,8 @@
 // MARK: - AnyBattleActionProvider
 
 public class AnyBattleActionProvider
-<Result: BattleResult>: BattleActionProvider {
+<Result: BattleResult>:
+BattleActionProvider {
     
     // MARK: Property
     
@@ -17,14 +18,9 @@ public class AnyBattleActionProvider
     
     // MARK: Init
     
-    public init<Provider: BattleActionProvider>(
-        _ provider: Provider
-        )
-        where Provider.Result == Result {
-            
-            self._applyAction = provider.applyAction
-            
-    }
+    public init<Provider: BattleActionProvider>(_ provider: Provider)
+    where Provider.Result == Result
+    { self._applyAction = provider.applyAction }
     
     // MARK: BattleActionProvider
     
