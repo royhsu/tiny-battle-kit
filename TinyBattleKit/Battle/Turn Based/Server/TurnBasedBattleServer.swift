@@ -56,6 +56,8 @@ public final class TurnBasedBattleServer: BattleServer {
         
         stateMachine.machineDelegate = self
         
+        stateMachine.state = .start
+        
     }
     
     public final func respond(to request: BattleRequest) {
@@ -74,12 +76,27 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
         to: TurnBasedBattleServerState
     ) {
         
+        switch (from, to) {
+            
+        case (.end, .start):
+            
+            serverDelegate?.serverDidStart(self)
+            
+        default: fatalError("Invalid state transition.")
+            
+        }
+        
     }
     
     public final func machine(
         _ machine: TurnBasedBattleServerStateMachine,
         didFailWith error: Error
     ) {
+       
+        serverDelegate?.server(
+            self,
+            didFailWith: error
+        )
         
     }
     
