@@ -60,7 +60,28 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public final weak var serverDataProvider: TurnBasedBattleServerDataProvider?
     
+    public final let ownerId: String
+    
+    public final let recordId: String
+    
+    public final var owner: BattlePlayer?
+    
+    public final var record: TurnBasedBattleRecord?
+    
     public final weak var serverDelegate: TurnBasedBattleServerDelegate?
+    
+    // MARK: Init
+    
+    public init(
+        ownerId: String,
+        recordId: String
+    ) {
+        
+        self.ownerId = ownerId
+        
+        self.recordId = recordId
+        
+    }
     
     // MARK: BattleServer
     

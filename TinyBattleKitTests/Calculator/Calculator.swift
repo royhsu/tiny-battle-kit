@@ -11,10 +11,16 @@
 import TinyBattleKit
 
 internal final class Calculator: TurnBasedBattle {
-    
+
     internal typealias Provider = AnyBattleActionProvider<CalculatorResult>
     
     // MARK: Property
+    
+    internal var joinedPlayers: [BattlePlayer] = []
+    
+    internal var owner: BattlePlayer = MockBattlePlayer(
+        id: UUID().uuidString
+    )
     
     internal final var actionProviders: [Provider] = []
     

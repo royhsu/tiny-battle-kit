@@ -10,6 +10,10 @@
 
 public protocol TurnBasedBattleServerDataProvider: class {
     
+    func fetchPlayer(id: String) -> BattlePlayer?
+    
+    func fetchRecord(id: String) -> TurnBasedBattleRecord?
+    
     func updateServerState(_ state: BattleServerState)
     
 }
