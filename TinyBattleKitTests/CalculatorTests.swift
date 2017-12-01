@@ -1,22 +1,22 @@
 //
-//  TurnBasedBattleTests.swift
+//  CalculatorTests.swift
 //  TinyBattleKitTests
 //
 //  Created by Roy Hsu on 30/11/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - TurnBasedBattleTests
+// MARK: - CalculatorTests
 
 import XCTest
 
 @testable import TinyBattleKit
 
-internal final class TurnBasedBattleTests: XCTestCase {
+internal final class CalculatorTests: XCTestCase {
     
     // MARK: Chainable Turn Actions
     
-    internal final func testChainableTurnActions() {
+    internal final func testChainableOperators() {
         
         let caculator = Calculator()
 
