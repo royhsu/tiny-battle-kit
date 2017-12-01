@@ -12,7 +12,7 @@ public enum TurnBasedBattleServerState {
     
     // MARK: Case
     
-    /// Server starts.
+    /// Server starts. (Online)
     case start
     
     /// Server starts a new / old turn.
@@ -21,7 +21,7 @@ public enum TurnBasedBattleServerState {
     /// Server ends the current turn.
     case turnEnd
     
-    /// Server ends.
+    /// Server ends. (Offline)
     case end
     
 }

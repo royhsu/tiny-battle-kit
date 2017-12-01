@@ -26,6 +26,9 @@
 		B0A6767B1FD172A400278CBE /* TurnBasedBattleServerStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6767A1FD172A400278CBE /* TurnBasedBattleServerStateMachine.swift */; };
 		B0A6767D1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */; };
 		B0A676801FD1766800278CBE /* TurnBasedBattleServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6767F1FD1766800278CBE /* TurnBasedBattleServer.swift */; };
+		B0A676821FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676811FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift */; };
+		B0A676841FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */; };
+		B0A676861FD182C300278CBE /* BattleServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676851FD182C300278CBE /* BattleServerState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		B0A6767A1FD172A400278CBE /* TurnBasedBattleServerStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerStateMachine.swift; sourceTree = "<group>"; };
 		B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTurnBasedBattleServerDelegate.swift; sourceTree = "<group>"; };
 		B0A6767F1FD1766800278CBE /* TurnBasedBattleServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServer.swift; sourceTree = "<group>"; };
+		B0A676811FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerDataProvider.swift; sourceTree = "<group>"; };
+		B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTurnBasedBattleServerDataProvider.swift; sourceTree = "<group>"; };
+		B0A676851FD182C300278CBE /* BattleServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BattleServerState.swift; path = TinyBattleKit/Battle/Server/BattleServerState.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 			children = (
 				B0A6767E1FD1753000278CBE /* Server */,
 				B0A0EC3B1FD0F02600F2CAD8 /* TurnBasedBattle.swift */,
+				B0A676811FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -159,6 +166,7 @@
 			children = (
 				B0A6766F1FD170E600278CBE /* BattleRequest.swift */,
 				B0A676701FD170E600278CBE /* BattleServer.swift */,
+				B0A676851FD182C300278CBE /* BattleServerState.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -167,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */,
+				B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */,
 				B0A676741FD1710C00278CBE /* TurnBasedBattleServerTests.swift */,
 			);
 			path = Server;
@@ -295,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */,
+				B0A676821FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0A676801FD1766800278CBE /* TurnBasedBattleServer.swift in Sources */,
 				B0A676711FD170E600278CBE /* BattleRequest.swift in Sources */,
 				B0A0EC3C1FD0F02600F2CAD8 /* TurnBasedBattle.swift in Sources */,
@@ -303,6 +313,7 @@
 				B0A676721FD170E600278CBE /* BattleServer.swift in Sources */,
 				B0A6767B1FD172A400278CBE /* TurnBasedBattleServerStateMachine.swift in Sources */,
 				B0A676791FD1722000278CBE /* TurnBasedBattleServerState.swift in Sources */,
+				B0A676861FD182C300278CBE /* BattleServerState.swift in Sources */,
 				B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A676841FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift in Sources */,
 				B024ED4F1FD04D6700E6DB72 /* CalculatorTests.swift in Sources */,
 				B024ED531FD066E400E6DB72 /* Calculator.swift in Sources */,
 				B0A6767D1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift in Sources */,

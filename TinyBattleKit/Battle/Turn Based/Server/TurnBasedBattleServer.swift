@@ -38,6 +38,16 @@ public protocol TurnBasedBattleServerDelegate: class {
     
 }
 
+// MARK: - TurnBasedBattleServerError
+
+public enum TurnBasedBattleServerError: Error {
+    
+    // MARK: Case
+    
+    case serverDataProviderNotFound
+    
+}
+
 // MARK: - TurnBasedBattleServer
 
 public final class TurnBasedBattleServer: BattleServer {
@@ -48,11 +58,30 @@ public final class TurnBasedBattleServer: BattleServer {
     
     private final var stateMachine = TurnBasedBattleServerStateMachine(state: .end)
     
+    public final weak var serverDataProvider: TurnBasedBattleServerDataProvider?
+    
     public final weak var serverDelegate: TurnBasedBattleServerDelegate?
     
     // MARK: BattleServer
     
     public final func resume() {
+        
+        guard
+            let serverDataProvider = serverDataProvider
+        else {
+            
+            let error: TurnBasedBattleServerError = .serverDataProviderNotFound
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return
+            
+        }
+        
+        serverDataProvider.updateServerState(.online)
         
         stateMachine.machineDelegate = self
         

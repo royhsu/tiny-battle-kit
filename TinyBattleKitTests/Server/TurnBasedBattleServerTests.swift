@@ -22,15 +22,17 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         
         let server = TurnBasedBattleServer()
         
-        XCTAssertEqual(
-            server.state,
-            .end
-        )
-        
         let stubServerDelegate = StubTurnBasedBattleServerDelegate(
             didStart: { server in
             
                 promise.fulfill()
+                
+                let serverDataProvider = server.serverDataProvider as? MockTurnBasedBattleServerDataProvider
+                
+                XCTAssertEqual(
+                    serverDataProvider?.serverState,
+                    .online
+                )
                 
                 XCTAssertEqual(
                     server.state,
@@ -46,7 +48,21 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             didFail: { server, error in XCTFail()}
         )
         
+        let mockServerDataProvider = MockTurnBasedBattleServerDataProvider()
+        
+        XCTAssertEqual(
+            mockServerDataProvider.serverState,
+            .offline
+        )
+        
+        server.serverDataProvider = mockServerDataProvider
+        
         server.serverDelegate = stubServerDelegate
+        
+        XCTAssertEqual(
+            server.state,
+            .end
+        )
         
         server.resume()
         
