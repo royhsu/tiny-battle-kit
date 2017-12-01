@@ -12,7 +12,8 @@ public enum TurnBasedBattleServerState {
     
     // MARK: Case
     
-    /// Server starts. (Online)
+    /// Server starts. (Online).
+    /// Waiting for players to join.
     case start
     
     /// Server starts a new / old turn.

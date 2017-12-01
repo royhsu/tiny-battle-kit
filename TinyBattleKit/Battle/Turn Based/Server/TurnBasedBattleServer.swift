@@ -48,7 +48,11 @@ public enum TurnBasedBattleServerError: Error {
     
     case battleOwnerNotFound(ownerId: String)
     
+    case battlePlayerNotFound(playerId: String)
+    
     case battleRecordNotFound(recordId: String)
+    
+    case unsupportedBattleRequest
     
 }
 
@@ -71,6 +75,8 @@ public final class TurnBasedBattleServer: BattleServer {
     public final var owner: BattlePlayer?
     
     public final var record: TurnBasedBattleRecord?
+    
+    public private(set) final var joinedPlayers: [BattlePlayer] = []
     
     public final weak var serverDelegate: TurnBasedBattleServerDelegate?
     
@@ -149,6 +155,58 @@ public final class TurnBasedBattleServer: BattleServer {
     }
     
     public final func respond(to request: BattleRequest) {
+        
+        guard
+            let serverDataProvider = serverDataProvider
+        else {
+            
+            let error: TurnBasedBattleServerError = .serverDataProviderNotFound
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return
+                
+        }
+        
+        if let request = request as? JoinBattleRequest {
+        
+            let playerId = request.playerId
+            
+            guard
+                let player = serverDataProvider.fetchPlayer(id: playerId)
+            else {
+                
+                let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            joinedPlayers.append(player)
+            
+            serverDelegate?.server(
+                self,
+                didRespondTo: request
+            )
+            
+            return
+            
+        }
+        
+        let error: TurnBasedBattleServerError = .unsupportedBattleRequest
+        
+        serverDelegate?.server(
+            self,
+            didFailWith: error
+        )
         
     }
     

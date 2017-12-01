@@ -20,16 +20,26 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     
     private final var record: TurnBasedBattleRecord?
     
+    private final var playerA: BattlePlayer?
+    
+    private final var playerB: BattlePlayer?
+    
     // MARK: Init
     
     internal init(
         ownerId: String,
-        recordId: String
+        recordId: String,
+        playerAId: String,
+        playerBId: String
     ) {
         
         self.owner = MockBattlePlayer(id: ownerId)
         
         self.record = MockBattleRecord(id: recordId)
+        
+        self.playerA = MockBattlePlayer(id: playerAId)
+        
+        self.playerB = MockBattlePlayer(id: playerBId)
         
     }
     
@@ -38,6 +48,10 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     internal final func fetchPlayer(id: String) -> BattlePlayer? {
         
         if owner?.id == id { return owner }
+        
+        if playerA?.id == id { return playerA }
+        
+        if playerB?.id == id { return playerB }
         
         return nil
         

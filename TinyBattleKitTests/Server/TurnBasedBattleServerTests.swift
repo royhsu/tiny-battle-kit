@@ -22,6 +22,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
     
     internal final let recordId = UUID().uuidString
     
+    internal final let playerAId = UUID().uuidString
+    
+    internal final let playerBId = UUID().uuidString
+    
     internal final var owner: BattlePlayer?
     
     internal final var record: TurnBasedBattleRecord?
@@ -38,7 +42,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             
             let mockServerDataProvider = MockTurnBasedBattleServerDataProvider(
                 ownerId: ownerId,
-                recordId: recordId
+                recordId: recordId,
+                playerAId: playerAId,
+                playerBId: playerBId
             )
             
             XCTAssertEqual(
@@ -106,12 +112,39 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     .start
                 )
                 
+                let joinRequest = JoinBattleRequest(
+                    playerId: self.playerAId
+                )
+                
+                server.respond(to: joinRequest)
+                
             },
             didStartTurn: { server, turn in XCTFail() },
             didEndTurn: { server, turn in XCTFail() },
             shouldEnd: { server in return false },
             didEnd: { server in XCTFail() },
-            didRespondToRequest: { server, request in XCTFail() },
+            didRespondToRequest: { server, request in
+                
+                if let request = request as? JoinBattleRequest {
+
+                    performTest {
+                        
+                        let playerId = request.playerId
+                        
+                        let hasPlayerJoined = server.joinedPlayers.contains { $0.id == playerId }
+    
+                        XCTAssert(hasPlayerJoined)
+                        
+                        
+                    }
+                    
+                    return
+
+                }
+            
+                XCTFail("Unknown request.")
+                
+            },
             didFail: { server, error in
                 
                 promise.fulfill()
