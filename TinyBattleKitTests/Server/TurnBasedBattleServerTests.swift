@@ -93,8 +93,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         
         let stubServerDelegate = StubTurnBasedBattleServerDelegate(
             didStart: { server in
-            
-                promise.fulfill()
                 
                 let serverDataProvider = server.serverDataProvider as? MockTurnBasedBattleServerDataProvider
                 
@@ -112,6 +110,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     .start
                 )
                 
+                XCTAssert(
+                    server.joinedPlayers.contains { $0.id == self.ownerId }
+                )
+                
                 server.respond(to:
                     JoinBattleRequest(playerId: self.playerAId)
                 )
@@ -121,7 +123,13 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 )
                 
             },
-            didStartTurn: { server, turn in XCTFail() },
+            didStartTurn: { server, turn in
+                
+                promise.fulfill()
+                
+                XCTFail()
+                
+            },
             didEndTurn: { server, turn in XCTFail() },
             shouldEnd: { server in return false },
             didEnd: { server in XCTFail() },
@@ -137,6 +145,20 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
     
                         XCTAssert(hasPlayerJoined)
                         
+                    }
+                    
+                    let joinedPlayerIds = server.joinedPlayers.map { $0.id }
+                    
+                    if
+                        joinedPlayerIds == [
+                            self.ownerId,
+                            self.playerAId,
+                            self.playerBId
+                        ] {
+                        
+                        server.respond(
+                            to: ContinueBattleRequest(ownerId: self.ownerId)
+                        )
                         
                     }
                     

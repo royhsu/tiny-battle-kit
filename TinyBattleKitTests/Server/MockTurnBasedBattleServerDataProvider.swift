@@ -35,7 +35,10 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         self.owner = MockBattlePlayer(id: ownerId)
         
-        self.record = MockBattleRecord(id: recordId)
+        self.record = MockBattleRecord(
+            id: recordId,
+            turns: []
+        )
         
         self.playerA = MockBattlePlayer(id: playerAId)
         

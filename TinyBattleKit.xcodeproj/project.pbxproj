@@ -35,6 +35,8 @@
 		B0A676901FD1A6D200278CBE /* MockBattlePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6768F1FD1A6D200278CBE /* MockBattlePlayer.swift */; };
 		B0A676921FD1A75300278CBE /* MockBattleRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676911FD1A75300278CBE /* MockBattleRecord.swift */; };
 		B0A676941FD1B4F300278CBE /* JoinBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676931FD1B4F300278CBE /* JoinBattleRequest.swift */; };
+		B0CC87C31FD2314C001D1532 /* ContinueBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC87C21FD2314C001D1532 /* ContinueBattleRequest.swift */; };
+		B0CC87C51FD23447001D1532 /* TurnBasedBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC87C41FD23447001D1532 /* TurnBasedBattleTurn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		B0A6768F1FD1A6D200278CBE /* MockBattlePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattlePlayer.swift; sourceTree = "<group>"; };
 		B0A676911FD1A75300278CBE /* MockBattleRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleRecord.swift; sourceTree = "<group>"; };
 		B0A676931FD1B4F300278CBE /* JoinBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinBattleRequest.swift; sourceTree = "<group>"; };
+		B0CC87C21FD2314C001D1532 /* ContinueBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueBattleRequest.swift; sourceTree = "<group>"; };
+		B0CC87C41FD23447001D1532 /* TurnBasedBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleTurn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,7 @@
 				B0A0EC3B1FD0F02600F2CAD8 /* TurnBasedBattle.swift */,
 				B0A676811FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift */,
 				B0A6768D1FD1A5B000278CBE /* TurnBasedBattleRecord.swift */,
+				B0CC87C41FD23447001D1532 /* TurnBasedBattleTurn.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				B0A676931FD1B4F300278CBE /* JoinBattleRequest.swift */,
 				B0A676701FD170E600278CBE /* BattleServer.swift */,
 				B0A676851FD182C300278CBE /* BattleServerState.swift */,
+				B0CC87C21FD2314C001D1532 /* ContinueBattleRequest.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0CC87C31FD2314C001D1532 /* ContinueBattleRequest.swift in Sources */,
 				B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */,
 				B0A676821FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0A676801FD1766800278CBE /* TurnBasedBattleServer.swift in Sources */,
@@ -345,6 +352,7 @@
 				B0A676941FD1B4F300278CBE /* JoinBattleRequest.swift in Sources */,
 				B0A676711FD170E600278CBE /* BattleRequest.swift in Sources */,
 				B0A0EC3C1FD0F02600F2CAD8 /* TurnBasedBattle.swift in Sources */,
+				B0CC87C51FD23447001D1532 /* TurnBasedBattleTurn.swift in Sources */,
 				B0A0EC371FD0E3B000F2CAD8 /* AnyBattleActionProvider.swift in Sources */,
 				B024ED4D1FD04A1300E6DB72 /* BattleActionResponder.swift in Sources */,
 				B0A676721FD170E600278CBE /* BattleServer.swift in Sources */,

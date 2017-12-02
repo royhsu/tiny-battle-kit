@@ -12,4 +12,6 @@ public protocol TurnBasedBattleRecord {
     
     var id: String { get }
     
+    var turns: [TurnBasedBattleTurn] { get }
+    
 }

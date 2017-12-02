@@ -54,6 +54,8 @@ public enum TurnBasedBattleServerError: Error {
     
     case unsupportedBattleRequest
     
+    case permissionDenied
+    
 }
 
 // MARK: - TurnBasedBattleServer
@@ -155,6 +157,8 @@ public final class TurnBasedBattleServer: BattleServer {
         
         serverDataProvider.updateServerState(.online)
 
+        joinedPlayers = [ owner ]
+        
         stateMachine.state = .start
         
     }
@@ -206,6 +210,29 @@ public final class TurnBasedBattleServer: BattleServer {
             
         }
         
+        if let request = request as? ContinueBattleRequest {
+            
+            guard
+                request.ownerId == ownerId
+            else {
+                
+                let error: TurnBasedBattleServerError = .permissionDenied
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            stateMachine.state = .turnStart
+            
+            return
+            
+        }
+        
         let error: TurnBasedBattleServerError = .unsupportedBattleRequest
         
         serverDelegate?.server(
@@ -232,6 +259,15 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
         case (.end, .start):
             
             serverDelegate?.serverDidStart(self)
+            
+        case (.start, .turnStart):
+            
+            let record = self.record!
+        
+            serverDelegate?.server(
+                self,
+                didStartTurn: record.turns.count
+            )
             
         default: fatalError("Invalid state transition.")
             
