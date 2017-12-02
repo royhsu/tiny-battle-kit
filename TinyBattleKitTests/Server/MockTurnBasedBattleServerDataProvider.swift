@@ -68,6 +68,21 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
+    func addNewTurnForRecord(id: String) -> TurnBasedBattleRecord {
+        
+        var record = self.record as! MockBattleRecord
+        
+        record.turns.append(
+            MockBattleTurn(
+                id: UUID().uuidString,
+                involvedPlayers: []
+            )
+        )
+        
+        return record
+        
+    }
+    
     internal final func updateServerState(_ state: BattleServerState) {
         
         serverState = state

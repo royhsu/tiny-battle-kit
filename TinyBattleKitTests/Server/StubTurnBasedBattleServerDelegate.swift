@@ -11,18 +11,18 @@
 import TinyBattleKit
 
 internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDelegate {
-
+    
     internal typealias DidStart = (_ server: TurnBasedBattleServer) -> Void
 
     internal typealias DidStartTurn = (
         _ server: TurnBasedBattleServer,
-        _ turn: Int
+        _ turn: TurnBasedBattleTurn
     )
     -> Void
 
     internal typealias DidEndTurn = (
         _ server: TurnBasedBattleServer,
-        _ turn: Int
+        _ turn: TurnBasedBattleTurn
     )
     -> Void
 
@@ -92,7 +92,7 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
 
     internal final func server(
         _ server: TurnBasedBattleServer,
-        didStartTurn turn: Int
+        didStartTurn turn: TurnBasedBattleTurn
     ) {
         
         didStartTurn?(
@@ -104,7 +104,7 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
 
     internal final func server(
         _ server: TurnBasedBattleServer,
-        didEndTurn turn: Int
+        didEndTurn turn: TurnBasedBattleTurn
     ) {
         
         didEndTurn?(

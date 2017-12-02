@@ -16,6 +16,6 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
     
     internal let id: String
     
-    internal var turns: [TurnBasedBattleTurn] = []
+    internal var turns: [TurnBasedBattleTurn]
     
 }

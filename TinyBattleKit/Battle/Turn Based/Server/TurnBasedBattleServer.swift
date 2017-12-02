@@ -14,12 +14,12 @@ public protocol TurnBasedBattleServerDelegate: class {
     
     func server(
         _ server: TurnBasedBattleServer,
-        didStartTurn turn: Int
+        didStartTurn turn: TurnBasedBattleTurn
     )
     
     func server(
         _ server: TurnBasedBattleServer,
-        didEndTurn turn: Int
+        didEndTurn turn: TurnBasedBattleTurn
     )
     
     func serverShouldEnd(_ server: TurnBasedBattleServer) -> Bool
@@ -35,26 +35,6 @@ public protocol TurnBasedBattleServerDelegate: class {
         _ server: TurnBasedBattleServer,
         didFailWith error: Error
     )
-    
-}
-
-// MARK: - TurnBasedBattleServerError
-
-public enum TurnBasedBattleServerError: Error {
-    
-    // MARK: Case
-    
-    case serverDataProviderNotFound
-    
-    case battleOwnerNotFound(ownerId: String)
-    
-    case battlePlayerNotFound(playerId: String)
-    
-    case battleRecordNotFound(recordId: String)
-    
-    case unsupportedBattleRequest
-    
-    case permissionDenied
     
 }
 
@@ -153,12 +133,17 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.owner = owner
         
-        self.record = record
-        
         serverDataProvider.updateServerState(.online)
 
         joinedPlayers = [ owner ]
         
+        let isNewBattle = record.turns.isEmpty
+        
+        self.record =
+            isNewBattle
+            ? serverDataProvider.addNewTurnForRecord(id: recordId)
+            : record
+            
         stateMachine.state = .start
         
     }
@@ -264,9 +249,11 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
             
             let record = self.record!
         
+            let currentTurn = record.turns.last!
+            
             serverDelegate?.server(
                 self,
-                didStartTurn: record.turns.count
+                didStartTurn: currentTurn
             )
             
         default: fatalError("Invalid state transition.")

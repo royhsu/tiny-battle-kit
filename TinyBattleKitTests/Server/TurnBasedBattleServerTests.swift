@@ -127,7 +127,16 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 
                 promise.fulfill()
                 
-                XCTFail()
+                performTest {
+                   
+                    let currenTurn = try unwrap(server.record?.turns.last)
+                    
+                    XCTAssertEqual(
+                        currenTurn.id,
+                        turn.id
+                    )
+                    
+                }
                 
             },
             didEndTurn: { server, turn in XCTFail() },

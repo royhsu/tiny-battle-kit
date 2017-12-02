@@ -13,3 +13,15 @@ public protocol BattlePlayer {
     var id: String { get }
     
 }
+
+// MARK: - Equatable (Default Implementation)
+
+extension BattlePlayer where Self: Equatable {
+    
+    public static func ==(
+        lhs: Self,
+        rhs: Self
+    )
+    -> Bool { return lhs.id == rhs.id }
+    
+}
