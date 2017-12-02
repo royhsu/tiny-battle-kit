@@ -49,7 +49,7 @@ public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
     
-    internal final var state: TurnBasedBattleServerState { return stateMachine.state }
+    public final var state: TurnBasedBattleServerState { return stateMachine.state }
     
     private final var stateMachine = TurnBasedBattleServerStateMachine(state: .end)
     
