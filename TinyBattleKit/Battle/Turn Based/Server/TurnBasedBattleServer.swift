@@ -53,8 +53,6 @@ public final class TurnBasedBattleServer: BattleServer {
     
     private final var stateMachine = TurnBasedBattleServerStateMachine(state: .end)
     
-    public final weak var serverDataProvider: TurnBasedBattleServerDataProvider?
-    
     public final let ownerId: String
     
     public final let recordId: String
@@ -64,6 +62,8 @@ public final class TurnBasedBattleServer: BattleServer {
     public final var record: TurnBasedBattleRecord?
     
     public private(set) final var joinedPlayers: [BattlePlayer] = []
+    
+    public final weak var serverDataProvider: TurnBasedBattleServerDataProvider?
     
     public final weak var serverDelegate: TurnBasedBattleServerDelegate?
     
@@ -162,8 +162,6 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.owner = owner
         
-        serverDataProvider.updateServerState(.online)
-
         joinedPlayers = [ owner ]
         
         let isNewBattle = record.turns.isEmpty

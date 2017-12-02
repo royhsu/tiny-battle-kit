@@ -14,4 +14,10 @@ public protocol TurnBasedBattleRecord {
     
     var turns: [TurnBasedBattleTurn] { get }
     
+    var createdAtDate: Date { get }
+    
+    /// Use this timestamp to determine whether the server is running. (Online)
+    /// The data provider must update this property even if record has been read only but not modified.
+    var updatedAtDate: Date { get }
+    
 }

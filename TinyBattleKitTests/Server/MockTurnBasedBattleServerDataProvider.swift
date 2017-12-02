@@ -14,8 +14,6 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     
     // MARK: Property
     
-    internal final var serverState: BattleServerState = .offline
-    
     private final var owner: BattlePlayer?
     
     private final var record: TurnBasedBattleRecord?
@@ -35,9 +33,13 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         self.owner = MockBattlePlayer(id: ownerId)
         
+        let now = Date()
+        
         self.record = MockBattleRecord(
             id: recordId,
-            turns: []
+            turns: [],
+            createdAtDate: now,
+            updatedAtDate: now
         )
         
         self.playerA = MockBattlePlayer(id: playerAId)
@@ -102,12 +104,6 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         self.record = updatedRecord
         
         return updatedRecord
-        
-    }
-    
-    internal final func updateServerState(_ state: BattleServerState) {
-        
-        serverState = state
         
     }
     

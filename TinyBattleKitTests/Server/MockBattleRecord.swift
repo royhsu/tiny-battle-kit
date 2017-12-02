@@ -18,4 +18,8 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
     
     internal var turns: [TurnBasedBattleTurn]
     
+    internal let createdAtDate: Date
+    
+    internal var updatedAtDate: Date
+    
 }

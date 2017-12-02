@@ -23,6 +23,4 @@ public protocol TurnBasedBattleServerDataProvider: class {
     )
     -> TurnBasedBattleRecord
     
-    func updateServerState(_ state: BattleServerState)
-    
 }

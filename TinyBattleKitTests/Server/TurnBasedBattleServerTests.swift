@@ -47,11 +47,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 playerBId: playerBId
             )
             
-            XCTAssertEqual(
-                mockServerDataProvider.serverState,
-                .offline
-            )
-            
             self.serverDataProvider = mockServerDataProvider
             
             self.owner = mockServerDataProvider.fetchPlayer(id: ownerId)
@@ -94,34 +89,37 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         let stubServerDelegate = StubTurnBasedBattleServerDelegate(
             didStart: { server in
                 
-                let serverDataProvider = server.serverDataProvider as? MockTurnBasedBattleServerDataProvider
+                performTest {
                 
-                XCTAssertNotNil(server.owner)
+                    XCTAssertNotNil(server.owner)
                 
-                XCTAssertNotNil(server.record)
+                    let record = try unwrap(server.record)
                 
-                XCTAssertEqual(
-                    serverDataProvider?.serverState,
-                    .online
-                )
+                    let now = Date()
                 
-                XCTAssertEqual(
-                    server.state,
-                    .start
-                )
+                    let onlineTimeInterval = now.timeIntervalSince(record.updatedAtDate)
                 
-                XCTAssert(
-                    server.joinedPlayers.contains { $0.id == self.ownerId }
-                )
+                    XCTAssert(onlineTimeInterval > 0.0)
+                    
+                    XCTAssertEqual(
+                        server.state,
+                        .start
+                    )
                 
-                server.respond(to:
-                    JoinBattleRequest(playerId: self.playerAId)
-                )
+                    XCTAssert(
+                        server.joinedPlayers.contains { $0.id == self.ownerId }
+                    )
                 
-                server.respond(to:
-                    JoinBattleRequest(playerId: self.playerBId)
-                )
+                    server.respond(to:
+                        JoinBattleRequest(playerId: self.playerAId)
+                    )
                 
+                    server.respond(to:
+                        JoinBattleRequest(playerId: self.playerBId)
+                    )
+                
+                }
+                    
             },
             didStartTurn: { server, turn in
                 
