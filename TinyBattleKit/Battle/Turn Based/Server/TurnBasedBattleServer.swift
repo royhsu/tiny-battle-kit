@@ -269,6 +269,11 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             
+            serverDelegate?.server(
+                self,
+                didRespondTo: request
+            )
+            
             stateMachine.state = .turnStart
             
             return
@@ -342,6 +347,11 @@ public final class TurnBasedBattleServer: BattleServer {
             self.record = serverDataProvider.addInvolvedPlayer(
                 player,
                 forCurrentTurnOfRecordId: recordId
+            )
+            
+            serverDelegate?.server(
+                self,
+                didRespondTo: request
             )
             
             if shouldEndCurrentTurn { stateMachine.state = .turnEnd }
