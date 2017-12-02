@@ -387,7 +387,9 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
             
             serverDelegate?.serverDidStart(self)
             
-        case (.start, .turnStart):
+        case
+            (.start, .turnStart),
+            (.turnEnd, .turnStart):
         
             let currentTurn = record!.turns.last!
             
@@ -404,6 +406,17 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                 self,
                 didEndTurn: currentTurn
             )
+            
+            let shouldEnd =
+                serverDelegate?.serverShouldEnd(self)
+                ?? false
+            
+            if !shouldEnd { record = serverDataProvider!.addNewTurnForRecord(id: recordId) }
+            
+            stateMachine.state =
+                shouldEnd
+                ? .end
+                : .turnStart
             
         default: fatalError("Invalid state transition.")
             
