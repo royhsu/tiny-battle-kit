@@ -112,11 +112,13 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     .start
                 )
                 
-                let joinRequest = JoinBattleRequest(
-                    playerId: self.playerAId
+                server.respond(to:
+                    JoinBattleRequest(playerId: self.playerAId)
                 )
                 
-                server.respond(to: joinRequest)
+                server.respond(to:
+                    JoinBattleRequest(playerId: self.playerBId)
+                )
                 
             },
             didStartTurn: { server, turn in XCTFail() },

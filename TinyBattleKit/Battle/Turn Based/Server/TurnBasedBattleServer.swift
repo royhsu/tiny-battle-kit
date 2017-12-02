@@ -58,6 +58,11 @@ public enum TurnBasedBattleServerError: Error {
 
 // MARK: - TurnBasedBattleServer
 
+// Todo:
+// 1. Constantly verify state of owner and joined players.
+// 2. Disconnect the server while its owner drops connection.
+// 3. Set a timeout for each turn.
+
 public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
