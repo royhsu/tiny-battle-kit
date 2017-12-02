@@ -14,4 +14,8 @@ public struct PlayerInvolvedRequest: BattleRequest {
     
     public let playerId: String
     
+    // MARK: Init
+    
+    public init(playerId: String) { self.playerId = playerId }
+    
 }

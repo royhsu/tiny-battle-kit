@@ -16,4 +16,8 @@ public struct ContinueBattleRequest: BattleRequest {
     // 1. Find a better way to secure server once other players send this kind of requests should block them. Only onwer of the server can send this request.
     public let ownerId: String
     
+    // MARK: Init
+    
+    public init(ownerId: String) { self.ownerId = ownerId }
+    
 }
