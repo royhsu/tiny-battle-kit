@@ -82,6 +82,35 @@ public final class TurnBasedBattleServer: BattleServer {
         
     }
     
+    // MARK: Helper
+    
+    private final var shouldEndCurrentTurn: Bool {
+        
+        guard
+            let currentTurn = record?.turns.last,
+            !joinedPlayers.isEmpty,
+            !currentTurn.involvedPlayers.isEmpty
+        else {
+            
+            let error: TurnBasedBattleServerError = .battleCurrentTurnNotFound(recordId: recordId)
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return false
+            
+        }
+    
+        let joinedPlayerIds = joinedPlayers.map { $0.id }
+        
+        let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
+        
+        return joinedPlayerIds == involvedPlayerIds
+        
+    }
+    
     // MARK: BattleServer
     
     public final func resume() {
@@ -218,6 +247,66 @@ public final class TurnBasedBattleServer: BattleServer {
             
         }
         
+        if let request = request as? PlayerInvolvedRequest {
+            
+            let playerId = request.playerId
+            
+            guard
+                let player = serverDataProvider.fetchPlayer(id: playerId)
+            else {
+                
+                let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            guard
+                let currentTurn = record?.turns.last
+            else {
+                
+                let error: TurnBasedBattleServerError = .battleCurrentTurnNotFound(recordId: recordId)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            let hasPlayerInvovled = currentTurn.involvedPlayers.contains { $0.id == playerId }
+            
+            if hasPlayerInvovled {
+                
+                let error: TurnBasedBattleServerError = .battlePlayerHasInvolvedCurrentTurn(playerId: playerId)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            self.record = serverDataProvider.addInvolvedPlayer(
+                player,
+                forCurrentTurnOfRecordId: recordId
+            )
+            
+            if shouldEndCurrentTurn { stateMachine.state = .turnEnd }
+            
+            return
+            
+        }
+        
         let error: TurnBasedBattleServerError = .unsupportedBattleRequest
         
         serverDelegate?.server(
@@ -246,14 +335,21 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
             serverDelegate?.serverDidStart(self)
             
         case (.start, .turnStart):
-            
-            let record = self.record!
         
-            let currentTurn = record.turns.last!
+            let currentTurn = record!.turns.last!
             
             serverDelegate?.server(
                 self,
                 didStartTurn: currentTurn
+            )
+            
+        case (.turnStart, .turnEnd):
+            
+            let currentTurn = record!.turns.last!
+            
+            serverDelegate?.server(
+                self,
+                didEndTurn: currentTurn
             )
             
         default: fatalError("Invalid state transition.")

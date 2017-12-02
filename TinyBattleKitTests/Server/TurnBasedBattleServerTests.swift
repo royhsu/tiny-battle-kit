@@ -125,8 +125,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             },
             didStartTurn: { server, turn in
                 
-                promise.fulfill()
-                
                 performTest {
                    
                     let currenTurn = try unwrap(server.record?.turns.last)
@@ -138,8 +136,40 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                 }
                 
+                server.respond(
+                    to: PlayerInvolvedRequest(playerId: self.ownerId)
+                )
+                
+                server.respond(
+                    to: PlayerInvolvedRequest(playerId: self.playerAId)
+                )
+                
+                server.respond(
+                    to: PlayerInvolvedRequest(playerId: self.playerBId)
+                )
+                
             },
-            didEndTurn: { server, turn in XCTFail() },
+            didEndTurn: { server, turn in
+                
+                promise.fulfill()
+                
+                performTest {
+                    
+                    let currenTurn = try unwrap(server.record?.turns.last)
+                    
+                    XCTAssertEqual(
+                        currenTurn.id,
+                        turn.id
+                    )
+                    
+                    XCTAssertEqual(
+                        server.joinedPlayers.map { $0.id },
+                        currenTurn.involvedPlayers.map { $0.id }
+                    )
+                    
+                }
+                
+            },
             shouldEnd: { server in return false },
             didEnd: { server in XCTFail() },
             didRespondToRequest: { server, request in
