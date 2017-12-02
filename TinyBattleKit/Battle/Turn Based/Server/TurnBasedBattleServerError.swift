@@ -14,6 +14,8 @@ public enum TurnBasedBattleServerError: Error {
     
     case serverDataProviderNotFound
     
+    case serverNotInState(TurnBasedBattleServerState)
+    
     case battleOwnerNotFound(ownerId: String)
     
     case battlePlayerNotFound(playerId: String)

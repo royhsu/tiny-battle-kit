@@ -193,6 +193,21 @@ public final class TurnBasedBattleServer: BattleServer {
         }
         
         if let request = request as? JoinBattleRequest {
+            
+            let requiredState: TurnBasedBattleServerState = .start
+            
+            if stateMachine.state != requiredState {
+                
+                let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
         
             let playerId = request.playerId
             
@@ -224,6 +239,21 @@ public final class TurnBasedBattleServer: BattleServer {
         
         if let request = request as? ContinueBattleRequest {
             
+            let requiredState: TurnBasedBattleServerState = .start
+            
+            if stateMachine.state != requiredState {
+                
+                let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
             guard
                 request.ownerId == ownerId
             else {
@@ -246,6 +276,21 @@ public final class TurnBasedBattleServer: BattleServer {
         }
         
         if let request = request as? PlayerInvolvedRequest {
+            
+            let requiredState: TurnBasedBattleServerState = .turnStart
+            
+            if stateMachine.state != requiredState {
+                
+                let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+                
+                serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
             
             let playerId = request.playerId
             
