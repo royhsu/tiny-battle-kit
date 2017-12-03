@@ -21,7 +21,7 @@ public struct DefaultBattleActionAnimator<Result: BattleResult>: BattleActionAni
     public func animate(
         from oldResult: Result,
         to newResult: Result,
-        completion: () -> Void
+        completion: @escaping () -> Void
     ) { completion() }
     
 }

@@ -19,7 +19,7 @@ public protocol BattleActionAnimator {
     func animate(
         from oldResult: Result,
         to newResult: Result,
-        completion: () -> Void
+        completion: @escaping () -> Void
     )
     
 }
