@@ -17,6 +17,7 @@
 		B024ED551FD0670600E6DB72 /* AddOperatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED541FD0670600E6DB72 /* AddOperatorProvider.swift */; };
 		B024ED571FD0673600E6DB72 /* CalculatorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED561FD0673600E6DB72 /* CalculatorResult.swift */; };
 		B024ED591FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED581FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift */; };
+		B03E69F41FD37966004001A6 /* Hydra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03E69F31FD37966004001A6 /* Hydra.framework */; };
 		B04272A01FD241F400ED3D74 /* TurnBasedBattleServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B042729F1FD241F400ED3D74 /* TurnBasedBattleServerError.swift */; };
 		B04272A21FD243E100ED3D74 /* MockBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */; };
 		B04272A41FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A31FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift */; };
@@ -66,6 +67,7 @@
 		B024ED541FD0670600E6DB72 /* AddOperatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOperatorProvider.swift; sourceTree = "<group>"; };
 		B024ED561FD0673600E6DB72 /* CalculatorResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResult.swift; sourceTree = "<group>"; };
 		B024ED581FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplyOperatorProvider.swift; sourceTree = "<group>"; };
+		B03E69F31FD37966004001A6 /* Hydra.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hydra.framework; path = Carthage/Build/iOS/Hydra.framework; sourceTree = "<group>"; };
 		B042729F1FD241F400ED3D74 /* TurnBasedBattleServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerError.swift; sourceTree = "<group>"; };
 		B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleTurn.swift; sourceTree = "<group>"; };
 		B04272A31FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInvolvedRequest.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03E69F41FD37966004001A6 /* Hydra.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +119,7 @@
 				B024ED321FD0484200E6DB72 /* TinyBattleKit */,
 				B024ED3D1FD0484200E6DB72 /* TinyBattleKitTests */,
 				B024ED311FD0484200E6DB72 /* Products */,
+				B03E69F21FD37966004001A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +151,14 @@
 				B024ED401FD0484200E6DB72 /* Info.plist */,
 			);
 			path = TinyBattleKitTests;
+			sourceTree = "<group>";
+		};
+		B03E69F21FD37966004001A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B03E69F31FD37966004001A6 /* Hydra.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B0A0EC381FD0EFDD00F2CAD8 /* Calculator */ = {
@@ -262,6 +274,7 @@
 				B024ED2C1FD0484200E6DB72 /* Frameworks */,
 				B024ED2D1FD0484200E6DB72 /* Headers */,
 				B024ED2E1FD0484200E6DB72 /* Resources */,
+				B03E69F51FD3796B004001A6 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -346,6 +359,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B03E69F51FD3796B004001A6 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Hydra.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Hydra.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B024ED2B1FD0484200E6DB72 /* Sources */ = {
@@ -528,6 +560,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TinyBattleKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -551,6 +587,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TinyBattleKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
