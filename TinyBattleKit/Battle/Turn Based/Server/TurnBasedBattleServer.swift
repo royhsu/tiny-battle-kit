@@ -418,6 +418,10 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                 ? .end
                 : .turnStart
             
+        case (.turnEnd, .end):
+            
+            serverDelegate?.serverDidEnd(self)
+            
         default: fatalError("Invalid state transition.")
             
         }
