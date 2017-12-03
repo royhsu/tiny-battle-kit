@@ -66,6 +66,7 @@
 		B0EF52DB1FD39F300043014F /* BattleActionAnimatorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52D91FD39EF00043014F /* BattleActionAnimatorContext.swift */; };
 		B0EF52DF1FD3A8B70043014F /* BattleActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52DE1FD3A8B70043014F /* BattleActionAnimator.swift */; };
 		B0EF52E11FD3ADB70043014F /* DefaultBattleActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52E01FD3ADB70043014F /* DefaultBattleActionAnimator.swift */; };
+		B0EF52EB1FD4071A0043014F /* BattleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52EA1FD4071A0043014F /* BattleEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		B0EF52D91FD39EF00043014F /* BattleActionAnimatorContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionAnimatorContext.swift; sourceTree = "<group>"; };
 		B0EF52DE1FD3A8B70043014F /* BattleActionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionAnimator.swift; sourceTree = "<group>"; };
 		B0EF52E01FD3ADB70043014F /* DefaultBattleActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBattleActionAnimator.swift; sourceTree = "<group>"; };
+		B0EF52EA1FD4071A0043014F /* BattleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				B024ED4C1FD04A1300E6DB72 /* BattleActionResponder.swift */,
 				B024ED501FD0600100E6DB72 /* BattleResult.swift */,
 				B0A676871FD19F8200278CBE /* BattlePlayer.swift */,
+				B0EF52EA1FD4071A0043014F /* BattleEntity.swift */,
 			);
 			path = Battle;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				B0A676941FD1B4F300278CBE /* JoinBattleRequest.swift in Sources */,
 				B0EF52CF1FD393C80043014F /* Context.swift in Sources */,
 				B0A676711FD170E600278CBE /* BattleRequest.swift in Sources */,
+				B0EF52EB1FD4071A0043014F /* BattleEntity.swift in Sources */,
 				B0EF52D01FD393C80043014F /* Promise+Observer.swift in Sources */,
 				B0EF52E11FD3ADB70043014F /* DefaultBattleActionAnimator.swift in Sources */,
 				B04272A01FD241F400ED3D74 /* TurnBasedBattleServerError.swift in Sources */,

@@ -16,6 +16,8 @@ BattleActionProvider {
     
     // MARK: Property
     
+    public final let _id: String
+    
     public final let _priority: Double
     
     public final let _animator: Animator?
@@ -29,6 +31,8 @@ BattleActionProvider {
     ( _ provider: Provider)
     where Provider.Animator == Animator {
         
+        self._id = provider.id
+        
         self._priority = provider.priority
         
         self._animator = provider.animator
@@ -38,6 +42,8 @@ BattleActionProvider {
     }
     
     // MARK: BattleActionProvider
+    
+    public final var id: String { return _id }
     
     public final var priority: Double { return _priority }
 

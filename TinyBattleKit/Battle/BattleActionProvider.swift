@@ -14,6 +14,8 @@ public protocol BattleActionProvider: class {
     
     typealias Result = Animator.Result
     
+    var id: String { get }
+    
     var priority: Double { get }
     
     var animator: Animator? { get }

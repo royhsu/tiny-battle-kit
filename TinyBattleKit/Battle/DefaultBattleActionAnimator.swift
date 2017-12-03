@@ -8,6 +8,7 @@
 
 // MARK: - DefaultBattleActionAnimator
 
+// Use this default animator if you don't want to provide any animation for your action provider.
 public struct DefaultBattleActionAnimator<Result: BattleResult>: BattleActionAnimator {
     
     public struct Context: BattleActionAnimatorContext { }
