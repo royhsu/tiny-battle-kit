@@ -12,8 +12,10 @@ public protocol BattleActionResponder: class {
     
     associatedtype Provider: BattleActionProvider
     
+    typealias Result = Provider.Animator.Result
+    
     func respond(to provider: Provider) -> Self
     
-    func run(with initialResult: Provider.Result) -> Promise<Provider.Result>
+    func run(with initialResult: Result) -> Promise<Result>
     
 }

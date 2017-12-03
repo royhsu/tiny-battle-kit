@@ -8,9 +8,9 @@
 
 // MARK: - TurnBasedBattle
 
-open class TurnBasedBattle<Result: BattleResult>: BattleActionResponder {
+open class TurnBasedBattle<Animator: BattleActionAnimator>: BattleActionResponder {
     
-    public typealias Provider = AnyBattleActionProvider<Result>
+    public typealias Provider = AnyBattleActionProvider<Animator>
     
     // MARK: Property
     
@@ -49,9 +49,23 @@ open class TurnBasedBattle<Result: BattleResult>: BattleActionResponder {
                     let promise = Promise<Result>(in: .main) { fulfull, _, _ in
     
                         let newResult = provider.applyAction(on: currentResult)
-    
-                        fulfull(newResult)
-    
+                        
+                        guard
+                            let animator = provider.animator
+                        else {
+                            
+                            fulfull(newResult)
+                            
+                            return
+                            
+                        }
+                        
+                        animator.animate(
+                            from: currentResult,
+                            to: newResult,
+                            completion: { fulfull(newResult) }
+                        )
+                        
                     }
     
                     let nextResult = try! await(promise)

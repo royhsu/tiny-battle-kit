@@ -10,9 +10,13 @@
 
 public protocol BattleActionProvider: class {
     
-    associatedtype Result: BattleResult
+    associatedtype Animator: BattleActionAnimator
+    
+    typealias Result = Animator.Result
     
     var priority: Double { get }
+    
+    var animator: Animator? { get }
     
     func applyAction(on result: Result) -> Result
     

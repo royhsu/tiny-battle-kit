@@ -12,11 +12,15 @@ import TinyBattleKit
 
 internal final class AddOperatorProvider: BattleActionProvider {
     
-    internal typealias Result = CalculatorResult
+    internal typealias Animator = CalculatorAnimator
+    
+    internal typealias Result = Animator.Result
     
     // MARK: Property
     
     internal final let priority = 100.0
+    
+    internal final let animator: Animator? = nil
     
     internal final let value: Double
     
@@ -39,9 +43,9 @@ internal final class AddOperatorProvider: BattleActionProvider {
 // MARK: Factory
 
 internal extension BattleActionProvider
-where Self.Result == CalculatorResult {
+where Self.Animator == CalculatorAnimator {
     
-    internal static func add(by value: Double) -> AnyBattleActionProvider<Result> {
+    internal static func add(by value: Double) -> AnyBattleActionProvider<Animator> {
         
         let provider = AddOperatorProvider(value: value)
         

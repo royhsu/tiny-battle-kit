@@ -12,11 +12,15 @@ import TinyBattleKit
 
 internal final class MultiplyOperatorProvider: BattleActionProvider {
     
-    internal typealias Result = CalculatorResult
+    internal typealias Animator = CalculatorAnimator
+    
+    internal typealias Result = Animator.Result
     
     // MARK: Property
     
     internal final let priority = 110.0
+    
+    internal final let animator: Animator? = nil
     
     internal final let value: Double
     
@@ -39,14 +43,14 @@ internal final class MultiplyOperatorProvider: BattleActionProvider {
 // MARK: Factory
 
 internal extension BattleActionProvider
-where Self.Result == CalculatorResult {
-    
-    internal static func multiply(by value: Double) -> AnyBattleActionProvider<Result> {
-        
+where Self.Animator == CalculatorAnimator {
+
+    internal static func multiply(by value: Double) -> AnyBattleActionProvider<Animator> {
+
         let provider = MultiplyOperatorProvider(value: value)
-        
+
         return AnyBattleActionProvider(provider)
-        
+
     }
-    
+
 }

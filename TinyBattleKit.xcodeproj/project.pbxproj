@@ -63,6 +63,9 @@
 		B0EF52D61FD393C80043014F /* Promise+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BF1FD393C80043014F /* Promise+Zip.swift */; };
 		B0EF52D71FD393C80043014F /* Promise+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C01FD393C80043014F /* Promise+Validate.swift */; };
 		B0EF52D81FD393C80043014F /* Promise+Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C11FD393C80043014F /* Promise+Then.swift */; };
+		B0EF52DB1FD39F300043014F /* BattleActionAnimatorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52D91FD39EF00043014F /* BattleActionAnimatorContext.swift */; };
+		B0EF52DF1FD3A8B70043014F /* BattleActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52DE1FD3A8B70043014F /* BattleActionAnimator.swift */; };
+		B0EF52E11FD3ADB70043014F /* DefaultBattleActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52E01FD3ADB70043014F /* DefaultBattleActionAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +138,9 @@
 		B0EF52BF1FD393C80043014F /* Promise+Zip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Zip.swift"; sourceTree = "<group>"; };
 		B0EF52C01FD393C80043014F /* Promise+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Validate.swift"; sourceTree = "<group>"; };
 		B0EF52C11FD393C80043014F /* Promise+Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Then.swift"; sourceTree = "<group>"; };
+		B0EF52D91FD39EF00043014F /* BattleActionAnimatorContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionAnimatorContext.swift; sourceTree = "<group>"; };
+		B0EF52DE1FD3A8B70043014F /* BattleActionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleActionAnimator.swift; sourceTree = "<group>"; };
+		B0EF52E01FD3ADB70043014F /* DefaultBattleActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBattleActionAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +219,9 @@
 			children = (
 				B0A6766E1FD170E600278CBE /* Server */,
 				B0A0EC3A1FD0F01600F2CAD8 /* Turn Based */,
+				B0EF52D91FD39EF00043014F /* BattleActionAnimatorContext.swift */,
+				B0EF52DE1FD3A8B70043014F /* BattleActionAnimator.swift */,
+				B0EF52E01FD3ADB70043014F /* DefaultBattleActionAnimator.swift */,
 				B024ED4A1FD0499400E6DB72 /* BattleActionProvider.swift */,
 				B0A0EC361FD0E3B000F2CAD8 /* AnyBattleActionProvider.swift */,
 				B024ED4C1FD04A1300E6DB72 /* BattleActionResponder.swift */,
@@ -439,11 +448,13 @@
 			files = (
 				B0CC87C31FD2314C001D1532 /* ContinueBattleRequest.swift in Sources */,
 				B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */,
+				B0EF52DF1FD3A8B70043014F /* BattleActionAnimator.swift in Sources */,
 				B0EF52C91FD393C80043014F /* Promise+Async.swift in Sources */,
 				B0A676821FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0A676801FD1766800278CBE /* TurnBasedBattleServer.swift in Sources */,
 				B0A6768E1FD1A5B000278CBE /* TurnBasedBattleRecord.swift in Sources */,
 				B0A676881FD19F8200278CBE /* BattlePlayer.swift in Sources */,
+				B0EF52DB1FD39F300043014F /* BattleActionAnimatorContext.swift in Sources */,
 				B0EF52CB1FD393C80043014F /* Promise+Await.swift in Sources */,
 				B0EF52D51FD393C80043014F /* Promise+Map.swift in Sources */,
 				B0EF52D61FD393C80043014F /* Promise+Zip.swift in Sources */,
@@ -458,6 +469,7 @@
 				B0EF52CF1FD393C80043014F /* Context.swift in Sources */,
 				B0A676711FD170E600278CBE /* BattleRequest.swift in Sources */,
 				B0EF52D01FD393C80043014F /* Promise+Observer.swift in Sources */,
+				B0EF52E11FD3ADB70043014F /* DefaultBattleActionAnimator.swift in Sources */,
 				B04272A01FD241F400ED3D74 /* TurnBasedBattleServerError.swift in Sources */,
 				B0A0EC3C1FD0F02600F2CAD8 /* TurnBasedBattle.swift in Sources */,
 				B0CC87C51FD23447001D1532 /* TurnBasedBattleTurn.swift in Sources */,

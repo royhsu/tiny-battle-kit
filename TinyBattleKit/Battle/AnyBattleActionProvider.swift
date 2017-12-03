@@ -9,28 +9,40 @@
 // MARK: - AnyBattleActionProvider
 
 public final class AnyBattleActionProvider
-<Result: BattleResult>:
+<Animator: BattleActionAnimator>:
 BattleActionProvider {
+    
+    public typealias Result = Animator.Result
     
     // MARK: Property
     
-    public final var priority: Double
+    public final let _priority: Double
     
-    private final let _applyAction: (_ result: Result) -> Result
+    public final let _animator: Animator?
+    
+    public final let _applyAction: (Result) -> Result
     
     // MARK: Init
     
-    public init<Provider: BattleActionProvider>(_ provider: Provider)
-    where Provider.Result == Result {
+    public init
+    <Provider: BattleActionProvider>
+    ( _ provider: Provider)
+    where Provider.Animator == Animator {
         
-        self.priority = provider.priority
+        self._priority = provider.priority
+        
+        self._animator = provider.animator
         
         self._applyAction = provider.applyAction
-    
+            
     }
     
     // MARK: BattleActionProvider
     
-    public func applyAction(on result: Result) -> Result { return _applyAction(result) }
+    public final var priority: Double { return _priority }
+
+    public final var animator: Animator? { return _animator }
+
+    public final func applyAction(on result: Result) -> Result { return _applyAction(result) }
     
 }
