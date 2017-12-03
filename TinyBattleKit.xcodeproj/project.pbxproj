@@ -17,7 +17,6 @@
 		B024ED551FD0670600E6DB72 /* AddOperatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED541FD0670600E6DB72 /* AddOperatorProvider.swift */; };
 		B024ED571FD0673600E6DB72 /* CalculatorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED561FD0673600E6DB72 /* CalculatorResult.swift */; };
 		B024ED591FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024ED581FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift */; };
-		B03E69F41FD37966004001A6 /* Hydra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03E69F31FD37966004001A6 /* Hydra.framework */; };
 		B04272A01FD241F400ED3D74 /* TurnBasedBattleServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B042729F1FD241F400ED3D74 /* TurnBasedBattleServerError.swift */; };
 		B04272A21FD243E100ED3D74 /* MockBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */; };
 		B04272A41FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A31FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift */; };
@@ -41,6 +40,29 @@
 		B0A676941FD1B4F300278CBE /* JoinBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676931FD1B4F300278CBE /* JoinBattleRequest.swift */; };
 		B0CC87C31FD2314C001D1532 /* ContinueBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC87C21FD2314C001D1532 /* ContinueBattleRequest.swift */; };
 		B0CC87C51FD23447001D1532 /* TurnBasedBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC87C41FD23447001D1532 /* TurnBasedBattleTurn.swift */; };
+		B0EF52C21FD393C80043014F /* Promise+Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AB1FD393C80043014F /* Promise+Retry.swift */; };
+		B0EF52C31FD393C80043014F /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AC1FD393C80043014F /* Commons.swift */; };
+		B0EF52C41FD393C80043014F /* Promise+Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AD1FD393C80043014F /* Promise+Pass.swift */; };
+		B0EF52C51FD393C80043014F /* Promise+Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AE1FD393C80043014F /* Promise+Reduce.swift */; };
+		B0EF52C61FD393C80043014F /* Promise+Recover.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AF1FD393C80043014F /* Promise+Recover.swift */; };
+		B0EF52C71FD393C80043014F /* Promise+Cancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B01FD393C80043014F /* Promise+Cancel.swift */; };
+		B0EF52C81FD393C80043014F /* Promise+Catch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B11FD393C80043014F /* Promise+Catch.swift */; };
+		B0EF52C91FD393C80043014F /* Promise+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B21FD393C80043014F /* Promise+Async.swift */; };
+		B0EF52CA1FD393C80043014F /* Promise+Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B31FD393C80043014F /* Promise+Any.swift */; };
+		B0EF52CB1FD393C80043014F /* Promise+Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B41FD393C80043014F /* Promise+Await.swift */; };
+		B0EF52CC1FD393C80043014F /* DispatchTimerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B51FD393C80043014F /* DispatchTimerWrapper.swift */; };
+		B0EF52CD1FD393C80043014F /* Promise+Defer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B61FD393C80043014F /* Promise+Defer.swift */; };
+		B0EF52CE1FD393C80043014F /* Promise+Always.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B71FD393C80043014F /* Promise+Always.swift */; };
+		B0EF52CF1FD393C80043014F /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B81FD393C80043014F /* Context.swift */; };
+		B0EF52D01FD393C80043014F /* Promise+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52B91FD393C80043014F /* Promise+Observer.swift */; };
+		B0EF52D11FD393C80043014F /* Promise+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BA1FD393C80043014F /* Promise+State.swift */; };
+		B0EF52D21FD393C80043014F /* Promise+Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BB1FD393C80043014F /* Promise+Timeout.swift */; };
+		B0EF52D31FD393C80043014F /* Promise+All.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BC1FD393C80043014F /* Promise+All.swift */; };
+		B0EF52D41FD393C80043014F /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BD1FD393C80043014F /* Promise.swift */; };
+		B0EF52D51FD393C80043014F /* Promise+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BE1FD393C80043014F /* Promise+Map.swift */; };
+		B0EF52D61FD393C80043014F /* Promise+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BF1FD393C80043014F /* Promise+Zip.swift */; };
+		B0EF52D71FD393C80043014F /* Promise+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C01FD393C80043014F /* Promise+Validate.swift */; };
+		B0EF52D81FD393C80043014F /* Promise+Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C11FD393C80043014F /* Promise+Then.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +89,6 @@
 		B024ED541FD0670600E6DB72 /* AddOperatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOperatorProvider.swift; sourceTree = "<group>"; };
 		B024ED561FD0673600E6DB72 /* CalculatorResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorResult.swift; sourceTree = "<group>"; };
 		B024ED581FD0BB8500E6DB72 /* MultiplyOperatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplyOperatorProvider.swift; sourceTree = "<group>"; };
-		B03E69F31FD37966004001A6 /* Hydra.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hydra.framework; path = Carthage/Build/iOS/Hydra.framework; sourceTree = "<group>"; };
 		B042729F1FD241F400ED3D74 /* TurnBasedBattleServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerError.swift; sourceTree = "<group>"; };
 		B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleTurn.swift; sourceTree = "<group>"; };
 		B04272A31FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInvolvedRequest.swift; sourceTree = "<group>"; };
@@ -91,6 +112,29 @@
 		B0A676931FD1B4F300278CBE /* JoinBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinBattleRequest.swift; sourceTree = "<group>"; };
 		B0CC87C21FD2314C001D1532 /* ContinueBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueBattleRequest.swift; sourceTree = "<group>"; };
 		B0CC87C41FD23447001D1532 /* TurnBasedBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleTurn.swift; sourceTree = "<group>"; };
+		B0EF52AB1FD393C80043014F /* Promise+Retry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Retry.swift"; sourceTree = "<group>"; };
+		B0EF52AC1FD393C80043014F /* Commons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
+		B0EF52AD1FD393C80043014F /* Promise+Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Pass.swift"; sourceTree = "<group>"; };
+		B0EF52AE1FD393C80043014F /* Promise+Reduce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Reduce.swift"; sourceTree = "<group>"; };
+		B0EF52AF1FD393C80043014F /* Promise+Recover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Recover.swift"; sourceTree = "<group>"; };
+		B0EF52B01FD393C80043014F /* Promise+Cancel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Cancel.swift"; sourceTree = "<group>"; };
+		B0EF52B11FD393C80043014F /* Promise+Catch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Catch.swift"; sourceTree = "<group>"; };
+		B0EF52B21FD393C80043014F /* Promise+Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Async.swift"; sourceTree = "<group>"; };
+		B0EF52B31FD393C80043014F /* Promise+Any.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Any.swift"; sourceTree = "<group>"; };
+		B0EF52B41FD393C80043014F /* Promise+Await.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Await.swift"; sourceTree = "<group>"; };
+		B0EF52B51FD393C80043014F /* DispatchTimerWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimerWrapper.swift; sourceTree = "<group>"; };
+		B0EF52B61FD393C80043014F /* Promise+Defer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Defer.swift"; sourceTree = "<group>"; };
+		B0EF52B71FD393C80043014F /* Promise+Always.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Always.swift"; sourceTree = "<group>"; };
+		B0EF52B81FD393C80043014F /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		B0EF52B91FD393C80043014F /* Promise+Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Observer.swift"; sourceTree = "<group>"; };
+		B0EF52BA1FD393C80043014F /* Promise+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+State.swift"; sourceTree = "<group>"; };
+		B0EF52BB1FD393C80043014F /* Promise+Timeout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Timeout.swift"; sourceTree = "<group>"; };
+		B0EF52BC1FD393C80043014F /* Promise+All.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+All.swift"; sourceTree = "<group>"; };
+		B0EF52BD1FD393C80043014F /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		B0EF52BE1FD393C80043014F /* Promise+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Map.swift"; sourceTree = "<group>"; };
+		B0EF52BF1FD393C80043014F /* Promise+Zip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Zip.swift"; sourceTree = "<group>"; };
+		B0EF52C01FD393C80043014F /* Promise+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Validate.swift"; sourceTree = "<group>"; };
+		B0EF52C11FD393C80043014F /* Promise+Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Then.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +142,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B03E69F41FD37966004001A6 /* Hydra.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +162,6 @@
 				B024ED321FD0484200E6DB72 /* TinyBattleKit */,
 				B024ED3D1FD0484200E6DB72 /* TinyBattleKitTests */,
 				B024ED311FD0484200E6DB72 /* Products */,
-				B03E69F21FD37966004001A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,6 +177,7 @@
 		B024ED321FD0484200E6DB72 /* TinyBattleKit */ = {
 			isa = PBXGroup;
 			children = (
+				B0EF52A91FD393B80043014F /* Library */,
 				B0A0EC391FD0F00700F2CAD8 /* Battle */,
 				B024ED331FD0484200E6DB72 /* TinyBattleKit.h */,
 				B024ED341FD0484200E6DB72 /* Info.plist */,
@@ -151,14 +194,6 @@
 				B024ED401FD0484200E6DB72 /* Info.plist */,
 			);
 			path = TinyBattleKitTests;
-			sourceTree = "<group>";
-		};
-		B03E69F21FD37966004001A6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B03E69F31FD37966004001A6 /* Hydra.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B0A0EC381FD0EFDD00F2CAD8 /* Calculator */ = {
@@ -252,6 +287,44 @@
 			path = TinyTest;
 			sourceTree = "<group>";
 		};
+		B0EF52A91FD393B80043014F /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				B0EF52AA1FD393C80043014F /* Hydra */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		B0EF52AA1FD393C80043014F /* Hydra */ = {
+			isa = PBXGroup;
+			children = (
+				B0EF52AB1FD393C80043014F /* Promise+Retry.swift */,
+				B0EF52AC1FD393C80043014F /* Commons.swift */,
+				B0EF52AD1FD393C80043014F /* Promise+Pass.swift */,
+				B0EF52AE1FD393C80043014F /* Promise+Reduce.swift */,
+				B0EF52AF1FD393C80043014F /* Promise+Recover.swift */,
+				B0EF52B01FD393C80043014F /* Promise+Cancel.swift */,
+				B0EF52B11FD393C80043014F /* Promise+Catch.swift */,
+				B0EF52B21FD393C80043014F /* Promise+Async.swift */,
+				B0EF52B31FD393C80043014F /* Promise+Any.swift */,
+				B0EF52B41FD393C80043014F /* Promise+Await.swift */,
+				B0EF52B51FD393C80043014F /* DispatchTimerWrapper.swift */,
+				B0EF52B61FD393C80043014F /* Promise+Defer.swift */,
+				B0EF52B71FD393C80043014F /* Promise+Always.swift */,
+				B0EF52B81FD393C80043014F /* Context.swift */,
+				B0EF52B91FD393C80043014F /* Promise+Observer.swift */,
+				B0EF52BA1FD393C80043014F /* Promise+State.swift */,
+				B0EF52BB1FD393C80043014F /* Promise+Timeout.swift */,
+				B0EF52BC1FD393C80043014F /* Promise+All.swift */,
+				B0EF52BD1FD393C80043014F /* Promise.swift */,
+				B0EF52BE1FD393C80043014F /* Promise+Map.swift */,
+				B0EF52BF1FD393C80043014F /* Promise+Zip.swift */,
+				B0EF52C01FD393C80043014F /* Promise+Validate.swift */,
+				B0EF52C11FD393C80043014F /* Promise+Then.swift */,
+			);
+			path = Hydra;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -274,7 +347,6 @@
 				B024ED2C1FD0484200E6DB72 /* Frameworks */,
 				B024ED2D1FD0484200E6DB72 /* Headers */,
 				B024ED2E1FD0484200E6DB72 /* Resources */,
-				B03E69F51FD3796B004001A6 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -360,25 +432,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		B03E69F51FD3796B004001A6 /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Hydra.framework",
-			);
-			name = Carthage;
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Hydra.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		B024ED2B1FD0484200E6DB72 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -386,22 +439,45 @@
 			files = (
 				B0CC87C31FD2314C001D1532 /* ContinueBattleRequest.swift in Sources */,
 				B024ED4B1FD0499400E6DB72 /* BattleActionProvider.swift in Sources */,
+				B0EF52C91FD393C80043014F /* Promise+Async.swift in Sources */,
 				B0A676821FD17EBB00278CBE /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0A676801FD1766800278CBE /* TurnBasedBattleServer.swift in Sources */,
 				B0A6768E1FD1A5B000278CBE /* TurnBasedBattleRecord.swift in Sources */,
 				B0A676881FD19F8200278CBE /* BattlePlayer.swift in Sources */,
+				B0EF52CB1FD393C80043014F /* Promise+Await.swift in Sources */,
+				B0EF52D51FD393C80043014F /* Promise+Map.swift in Sources */,
+				B0EF52D61FD393C80043014F /* Promise+Zip.swift in Sources */,
+				B0EF52C41FD393C80043014F /* Promise+Pass.swift in Sources */,
+				B0EF52C21FD393C80043014F /* Promise+Retry.swift in Sources */,
+				B0EF52CE1FD393C80043014F /* Promise+Always.swift in Sources */,
+				B0EF52C61FD393C80043014F /* Promise+Recover.swift in Sources */,
+				B0EF52C51FD393C80043014F /* Promise+Reduce.swift in Sources */,
+				B0EF52D21FD393C80043014F /* Promise+Timeout.swift in Sources */,
+				B0EF52C31FD393C80043014F /* Commons.swift in Sources */,
 				B0A676941FD1B4F300278CBE /* JoinBattleRequest.swift in Sources */,
+				B0EF52CF1FD393C80043014F /* Context.swift in Sources */,
 				B0A676711FD170E600278CBE /* BattleRequest.swift in Sources */,
+				B0EF52D01FD393C80043014F /* Promise+Observer.swift in Sources */,
 				B04272A01FD241F400ED3D74 /* TurnBasedBattleServerError.swift in Sources */,
 				B0A0EC3C1FD0F02600F2CAD8 /* TurnBasedBattle.swift in Sources */,
 				B0CC87C51FD23447001D1532 /* TurnBasedBattleTurn.swift in Sources */,
 				B0A0EC371FD0E3B000F2CAD8 /* AnyBattleActionProvider.swift in Sources */,
+				B0EF52CA1FD393C80043014F /* Promise+Any.swift in Sources */,
+				B0EF52D31FD393C80043014F /* Promise+All.swift in Sources */,
 				B04272A41FD25D0A00ED3D74 /* PlayerInvolvedRequest.swift in Sources */,
 				B024ED4D1FD04A1300E6DB72 /* BattleActionResponder.swift in Sources */,
+				B0EF52D41FD393C80043014F /* Promise.swift in Sources */,
 				B0A676721FD170E600278CBE /* BattleServer.swift in Sources */,
+				B0EF52CC1FD393C80043014F /* DispatchTimerWrapper.swift in Sources */,
 				B0A6767B1FD172A400278CBE /* TurnBasedBattleServerStateMachine.swift in Sources */,
+				B0EF52C81FD393C80043014F /* Promise+Catch.swift in Sources */,
 				B0A676791FD1722000278CBE /* TurnBasedBattleServerState.swift in Sources */,
+				B0EF52D11FD393C80043014F /* Promise+State.swift in Sources */,
+				B0EF52C71FD393C80043014F /* Promise+Cancel.swift in Sources */,
 				B0A676861FD182C300278CBE /* BattleServerState.swift in Sources */,
+				B0EF52D81FD393C80043014F /* Promise+Then.swift in Sources */,
+				B0EF52CD1FD393C80043014F /* Promise+Defer.swift in Sources */,
+				B0EF52D71FD393C80043014F /* Promise+Validate.swift in Sources */,
 				B024ED511FD0600100E6DB72 /* BattleResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,10 +636,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TinyBattleKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -587,10 +660,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TinyBattleKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -609,6 +679,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CE6946X84;
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TinyBattleKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinyworld.TinyBattleKitTests;
@@ -626,6 +697,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CE6946X84;
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TinyBattleKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tinyworld.TinyBattleKitTests;

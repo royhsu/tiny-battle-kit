@@ -14,6 +14,6 @@ public protocol BattleActionResponder: class {
     
     func respond(to provider: Provider) -> Self
     
-    func run(with initialResult: Provider.Result) -> Provider.Result
+    func run(with initialResult: Provider.Result) -> Promise<Provider.Result>
     
 }

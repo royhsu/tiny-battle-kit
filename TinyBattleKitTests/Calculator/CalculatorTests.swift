@@ -14,13 +14,15 @@ import XCTest
 
 internal final class CalculatorTests: XCTestCase {
     
+    let caculator = Calculator()
+    
     // MARK: Chainable Operators
     
     internal final func testChainableOperators() {
         
-        let caculator = Calculator()
+        let promise = expectation(description: "Calculator runs chainable operators.")
 
-        let result = caculator
+        caculator
             .respond(
                 to: .add(by: 5.0)
             )
@@ -30,10 +32,29 @@ internal final class CalculatorTests: XCTestCase {
             .run(
                 with: .init(value: 3.0)
             )
+            .then { result in
 
-        XCTAssertEqual(
-            result.value,
-            (3.0 * 4.0) + 5.0
+                promise.fulfill()
+
+                XCTAssertEqual(
+                    result.value,
+                    (3.0 * 4.0) + 5.0
+                )
+                
+                XCTAssert(self.caculator.actionProviders.isEmpty)
+
+            }
+            .catch { error in
+
+                promise.fulfill()
+
+                XCTFail("\(error)")
+
+            }
+
+        wait(
+            for: [ promise ],
+            timeout: 10.0
         )
         
     }

@@ -8,48 +8,62 @@
 
 // MARK: - TurnBasedBattle
 
-public protocol TurnBasedBattle: BattleActionResponder {
+open class TurnBasedBattle<Result: BattleResult>: BattleActionResponder {
     
-    var actionProviders: [Provider] { get set }
+    public typealias Provider = AnyBattleActionProvider<Result>
     
-    func shouldRespond(to provider: Provider) -> Bool
+    // MARK: Property
     
-}
-
-// MARK: - BattleActionResponder (Default Implementation)
-
-public extension TurnBasedBattle {
+    internal final var actionProviders: [Provider] = []
     
-    public func shouldRespond(to provider: Provider) -> Bool { return true }
+    // MARK: Init
+    
+    public init() { }
+    
+    // MARK: BattleActionResponder
     
     public func respond(to provider: Provider) -> Self {
-        
+
         actionProviders.append(provider)
-        
+
         return self
-        
+
     }
     
     // Run this method won't modify the original actionProviders.
-    // It sorts providers depends on their priority before executes each of them.
-    public func run(with initalResult: Provider.Result) -> Provider.Result {
+    //  It sorts providers depends on their priority before executes each of them.
+    public func run(with initalResult: Result) -> Promise<Result> {
+    
+        let providers = actionProviders
         
-        return actionProviders
-            .sorted(
-                by: { $0.priority > $1.priority }
-            )
-            .reduce(initalResult) { currentResult, provider in
+        actionProviders.removeAll()
+        
+        return Promise { fulfull, _, _ in
             
-            if shouldRespond(to: provider) {
-                
-                return provider.applyAction(on: currentResult)
-                
-            }
+            let finalResult = providers
+                .sorted(
+                    by: { $0.priority > $1.priority }
+                )
+                .reduce(initalResult) { currentResult, provider in
+    
+                    let promise = Promise<Result>(in: .main) { fulfull, _, _ in
+    
+                        let newResult = provider.applyAction(on: currentResult)
+    
+                        fulfull(newResult)
+    
+                    }
+    
+                    let nextResult = try! await(promise)
+    
+                    return nextResult
+    
+                }
             
-            return currentResult
+            fulfull(finalResult)
             
         }
-        
+
     }
     
 }
