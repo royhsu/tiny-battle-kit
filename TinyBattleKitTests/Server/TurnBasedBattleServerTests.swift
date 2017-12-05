@@ -104,25 +104,39 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                     let now = Date()
 
-                    let onlineTimeInterval = now.timeIntervalSince(record.updatedAtDate)
+                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
 
-                    XCTAssert(onlineTimeInterval > 0.0)
+                    XCTAssert(serverOnlineTimeout > 0.0)
 
                     XCTAssertEqual(
                         server.state,
                         .start
                     )
 
-                    XCTAssert(
-                        server.joinedPlayers.contains { $0.id == self.ownerId }
+                    server.respond(to:
+                        PlayerJoinBattleRequest(playerId: self.ownerId)
+                    )
+                    
+                    server.respond(to:
+                        PlayerJoinBattleRequest(playerId: self.playerAId)
                     )
 
                     server.respond(to:
-                        JoinBattleRequest(playerId: self.playerAId)
+                        PlayerJoinBattleRequest(playerId: self.playerBId)
                     )
-
-                    server.respond(to:
-                        JoinBattleRequest(playerId: self.playerBId)
+                    
+                    XCTAssert(server.readyPlayers.isEmpty)
+                    
+                    server.respond(
+                        to: PlayerReadyBattleRequest(playerId: self.ownerId)
+                    )
+                    
+                    server.respond(
+                        to: PlayerReadyBattleRequest(playerId: self.playerAId)
+                    )
+                    
+                    server.respond(
+                        to: PlayerReadyBattleRequest(playerId: self.playerBId)
                     )
 
                 }
@@ -132,6 +146,21 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
 
+                    let record = try unwrap(server.record)
+                    
+                    XCTAssert(!record.isLocked)
+                    
+                    let now = Date()
+                    
+                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
+                    
+                    XCTAssert(serverOnlineTimeout > 0.0)
+                    
+                    XCTAssertEqual(
+                        server.state,
+                        .turnStart
+                    )
+                    
                     let currenTurn = try unwrap(server.record.turns.last)
 
                     XCTAssertEqual(
@@ -139,25 +168,40 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         turn.id
                     )
                     
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(playerId: self.ownerId)
+                    )
+                    
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(playerId: self.playerAId)
+                    )
+                    
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(playerId: self.playerBId)
+                    )
+                    
                 }
-
-                server.respond(
-                    to: PlayerInvolvedRequest(playerId: self.ownerId)
-                )
-
-                server.respond(
-                    to: PlayerInvolvedRequest(playerId: self.playerAId)
-                )
-
-                server.respond(
-                    to: PlayerInvolvedRequest(playerId: self.playerBId)
-                )
 
             },
             didEndTurn: { server, turn in
 
                 performTest {
 
+                    let record = try unwrap(server.record)
+                    
+                    XCTAssert(!record.isLocked)
+                    
+                    let now = Date()
+                    
+                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
+                    
+                    XCTAssert(serverOnlineTimeout > 0.0)
+                    
+                    XCTAssertEqual(
+                        server.state,
+                        .turnEnd
+                    )
+                    
                     let currenTurn = try unwrap(server.record.turns.last)
 
                     XCTAssertEqual(
@@ -166,7 +210,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     XCTAssertEqual(
-                        server.joinedPlayers.map { $0.id },
+                        server.readyPlayers.map { $0.id },
                         currenTurn.involvedPlayers.map { $0.id }
                     )
 
@@ -177,16 +221,44 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             didEnd: { server in
             
                 promise.fulfill()
-                
-                XCTAssertEqual(
-                    server.state,
-                    .end
-                )
+            
+                performTest {
+                    
+                    let record = try unwrap(server.record)
+                    
+                    XCTAssert(!record.isLocked)
+                    
+                    let now = Date()
+                    
+                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
+                    
+                    XCTAssert(serverOnlineTimeout > 0.0)
+                    
+                    XCTAssertEqual(
+                        server.state,
+                        .end
+                    )
+                    
+                }
                 
             },
             didRespondToRequest: { server, request in
 
-                if let request = request as? JoinBattleRequest {
+                performTest {
+                    
+                    let record = try unwrap(server.record)
+                    
+                    XCTAssert(!record.isLocked)
+                    
+                    let now = Date()
+                    
+                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
+                    
+                    XCTAssert(serverOnlineTimeout > 0.0)
+                    
+                }
+                
+                if let request = request as? PlayerJoinBattleRequest {
 
                     performTest {
 
@@ -198,28 +270,44 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                     }
 
-                    let joinedPlayerIds = server.joinedPlayers.map { $0.id }
-
-                    if
-                        joinedPlayerIds == [
-                            self.ownerId,
-                            self.playerAId,
-                            self.playerBId
-                        ] {
-
-                        server.respond(
-                            to: ContinueBattleRequest(ownerId: self.ownerId)
-                        )
-
-                    }
-
                     return
 
                 }
                 
+                if let request = request as? PlayerReadyBattleRequest {
+                    
+                    performTest {
+                        
+                        let playerId = request.playerId
+                        
+                        let isPlayerReady = server.readyPlayers.contains { $0.id == playerId }
+                        
+                        XCTAssert(isPlayerReady)
+                        
+                    }
+                    
+                    let readyPlayerIds = server.readyPlayers.map { $0.id }
+                    
+                    if
+                        readyPlayerIds == [
+                            self.ownerId,
+                            self.playerAId,
+                            self.playerBId
+                        ] {
+                        
+                        server.respond(
+                            to: ContinueBattleRequest(ownerId: self.ownerId)
+                        )
+                        
+                    }
+                    
+                    return
+                    
+                }
+                
                 if request is ContinueBattleRequest { return }
                 
-                if request is PlayerInvolvedRequest { return }
+                if request is PlayerInvolveBattleRequest { return }
 
                 XCTFail("Unknown request: \(request)")
 
@@ -244,9 +332,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 .end
             )
             
-            XCTAssert(
-                server.joinedPlayers.contains { $0.id == self.ownerId }
-            )
+            XCTAssert(server.readyPlayers.isEmpty)
 
             server.resume()
 

@@ -69,7 +69,9 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public private(set) final var record: TurnBasedBattleRecord
     
-    public private(set) final var joinedPlayers: [BattlePlayer]
+    public private(set) final var joinedPlayers: [BattlePlayer] = []
+    
+    public private(set) final var readyPlayers: [BattlePlayer] = []
     
     public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
     
@@ -94,8 +96,6 @@ public final class TurnBasedBattleServer: BattleServer {
             ? dataProvider.appendTurnForRecord(id: record.id)
             : record
         
-        self.joinedPlayers = [ player ]
-        
         stateMachine.machineDelegate = self
         
     }
@@ -109,15 +109,15 @@ public final class TurnBasedBattleServer: BattleServer {
         case .success(let currentTurn):
             
             guard
-                !joinedPlayers.isEmpty,
+                !readyPlayers.isEmpty,
                 !currentTurn.involvedPlayers.isEmpty
             else { return false }
         
-            let joinedPlayerIds = joinedPlayers.map { $0.id }
+            let readyPlayerIds = readyPlayers.map { $0.id }
             
             let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
             
-            return joinedPlayerIds == involvedPlayerIds
+            return readyPlayerIds == involvedPlayerIds
             
         case .failure(let error):
             
@@ -180,7 +180,7 @@ public final class TurnBasedBattleServer: BattleServer {
             
         case .success(let currentTurn):
         
-            if let request = request as? JoinBattleRequest {
+            if let request = request as? PlayerJoinBattleRequest {
                 
                 let requiredState: TurnBasedBattleServerState = .start
                 
@@ -240,6 +240,81 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             
+            if let request = request as? PlayerReadyBattleRequest {
+                
+                let requiredState: TurnBasedBattleServerState = .start
+                
+                if stateMachine.state != requiredState {
+                    
+                    let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+                    
+                    serverDelegate?.server(
+                        self,
+                        didFailWith: error
+                    )
+                    
+                    return
+                    
+                }
+                
+                let playerId = request.playerId
+                
+                let hasPlayerJoined = joinedPlayers.contains { $0.id == playerId }
+                
+                if !hasPlayerJoined {
+                    
+                    let error: TurnBasedBattleServerError = .battlePlayerNotJoined(playerId: playerId)
+                    
+                    serverDelegate?.server(
+                        self,
+                        didFailWith: error
+                    )
+                    
+                    return
+                    
+                }
+                
+                guard
+                    let player = serverDataProvider.fetchPlayer(id: playerId)
+                else {
+                        
+                    let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
+                    
+                    serverDelegate?.server(
+                        self,
+                        didFailWith: error
+                    )
+                    
+                    return
+                        
+                }
+                
+                let isPlayerReady = readyPlayers.contains { $0.id == playerId }
+                
+                if isPlayerReady {
+                    
+                    let error: TurnBasedBattleServerError = .battlePlayerIsReady(playerId: playerId)
+                    
+                    serverDelegate?.server(
+                        self,
+                        didFailWith: error
+                    )
+                    
+                    return
+                    
+                }
+                
+                readyPlayers.append(player)
+                
+                serverDelegate?.server(
+                    self,
+                    didRespondTo: request
+                )
+                
+                return
+                
+            }
+            
             if let request = request as? ContinueBattleRequest {
                 
                 let requiredState: TurnBasedBattleServerState = .start
@@ -283,7 +358,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             
-            if let request = request as? PlayerInvolvedRequest {
+            if let request = request as? PlayerInvolveBattleRequest {
                 
                 let requiredState: TurnBasedBattleServerState = .turnStart
                 

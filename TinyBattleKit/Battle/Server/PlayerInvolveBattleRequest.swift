@@ -1,14 +1,14 @@
 //
-//  PlayerInvolvedRequest.swift
+//  PlayerInvolveBattleRequest.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 02/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - PlayerInvolvedRequest
+// MARK: - PlayerInvolveBattleRequest
 
-public struct PlayerInvolvedRequest: BattleRequest {
+public struct PlayerInvolveBattleRequest: BattleRequest {
     
     // MARK: Property
     
