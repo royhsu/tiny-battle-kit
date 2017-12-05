@@ -91,7 +91,7 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.record =
             isNewBattle
-            ? dataProvider.addNewTurnForRecord(id: record.id)
+            ? dataProvider.appendTurnForRecord(id: record.id)
             : record
         
         self.joinedPlayers = [ player ]
@@ -206,6 +206,21 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
+                let hasPlayerJoined = joinedPlayers.contains { $0.id == playerId }
+                
+                if hasPlayerJoined {
+                    
+                    let error: TurnBasedBattleServerError = .battlePlayerHasJoined(playerId: playerId)
+
+                    serverDelegate?.server(
+                        self,
+                        didFailWith: error
+                    )
+                    
+                    return
+                    
+                }
+                
                 joinedPlayers.append(player)
                 
                 serverDelegate?.server(
@@ -238,7 +253,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     player.id == record.owner.id
                 else {
                     
-                    let error: TurnBasedBattleServerError = .permissionDenied
+                    let error: TurnBasedBattleServerError = .onwerRequiredBattleRequest
                     
                     serverDelegate?.server(
                         self,
@@ -309,7 +324,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
-                self.record = serverDataProvider.addInvolvedPlayer(
+                record = serverDataProvider.appendInvolvedPlayer(
                     player,
                     forCurrentTurnOfRecordId: record.id
                 )
@@ -387,7 +402,7 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                 
                 if !shouldEnd {
                     
-                    record = serverDataProvider.addNewTurnForRecord(id: record.id)
+                    record = serverDataProvider.appendTurnForRecord(id: record.id)
                     
                 }
                 

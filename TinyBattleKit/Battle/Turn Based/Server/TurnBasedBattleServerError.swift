@@ -20,10 +20,12 @@ public enum TurnBasedBattleServerError: Error {
     
     case battlePlayerNotFound(playerId: String)
     
+    case battlePlayerHasJoined(playerId: String)
+    
     case battlePlayerHasInvolvedCurrentTurn(playerId: String)
     
     case unsupportedBattleRequest
     
-    case permissionDenied
+    case onwerRequiredBattleRequest
     
 }

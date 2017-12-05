@@ -74,7 +74,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    func addNewTurnForRecord(id: String) -> TurnBasedBattleRecord {
+    internal final func appendTurnForRecord(id: String) -> TurnBasedBattleRecord {
         
         var updatedRecord = self.record as! MockBattleRecord
         
@@ -91,7 +91,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal func addInvolvedPlayer(
+    internal final func appendInvolvedPlayer(
         _ player: BattlePlayer,
         forCurrentTurnOfRecordId recordId: String
     )
