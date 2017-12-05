@@ -74,9 +74,21 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
+    internal final func setOnlineForRecord(id: String) -> TurnBasedBattleRecord {
+        
+        var updatedRecord = record as! MockBattleRecord
+        
+        updatedRecord.updatedAtDate = Date()
+        
+        record = updatedRecord
+        
+        return updatedRecord
+        
+    }
+    
     internal final func appendTurnForRecord(id: String) -> TurnBasedBattleRecord {
         
-        var updatedRecord = self.record as! MockBattleRecord
+        var updatedRecord = record as! MockBattleRecord
         
         updatedRecord.turns.append(
             MockBattleTurn(
@@ -85,7 +97,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
             )
         )
         
-        self.record = updatedRecord
+        record = updatedRecord
         
         return updatedRecord
         
@@ -97,7 +109,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     )
     -> TurnBasedBattleRecord {
      
-        var updatedRecord = self.record as! MockBattleRecord
+        var updatedRecord = record as! MockBattleRecord
         
         var turn = updatedRecord.turns.removeLast() as! MockBattleTurn
             
@@ -105,7 +117,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         updatedRecord.turns.append(turn)
         
-        self.record = updatedRecord
+        record = updatedRecord
         
         return updatedRecord
         

@@ -153,6 +153,14 @@ public final class TurnBasedBattleServer: BattleServer {
         
         case .success:
             
+            let isOnwer = (player.id == record.owner.id)
+            
+            if isOnwer {
+            
+                record = serverDataProvider.setOnlineForRecord(id: record.id)
+                
+            }
+            
             stateMachine.state = .start
             
         case .failure(let error):
