@@ -67,10 +67,13 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public final let player: BattlePlayer
     
+    // Todo: observe data provider for record changes
     public private(set) final var record: TurnBasedBattleRecord
     
+    // Todo: add into record
     public private(set) final var joinedPlayers: [BattlePlayer] = []
     
+    // Todo: add into record
     public private(set) final var readyPlayers: [BattlePlayer] = []
     
     public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
