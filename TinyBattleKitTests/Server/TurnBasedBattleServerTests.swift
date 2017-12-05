@@ -62,11 +62,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             self.record = record
             
             let server = TurnBasedBattleServer(
+                dataProvider: mockServerDataProvider,
                 player: owner,
                 record: record
             )
-            
-            server.serverDataProvider = mockServerDataProvider
             
             self.server = server
             
@@ -243,6 +242,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             XCTAssertEqual(
                 server.state,
                 .end
+            )
+            
+            XCTAssert(
+                server.joinedPlayers.contains { $0.id == self.ownerId }
             )
 
             server.resume()

@@ -44,7 +44,7 @@ public enum ValidateServerResult {
     
     // MARK: Case
     
-    case success(TurnBasedBattleServerDataProvider)
+    case success(currentTurn: TurnBasedBattleTurn)
     
     case failure(Error)
     
@@ -69,22 +69,32 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public private(set) final var record: TurnBasedBattleRecord
     
-    public private(set) final var joinedPlayers: [BattlePlayer] = []
+    public private(set) final var joinedPlayers: [BattlePlayer]
     
-    public final weak var serverDataProvider: TurnBasedBattleServerDataProvider?
+    public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
     
     public final weak var serverDelegate: TurnBasedBattleServerDelegate?
     
     // MARK: Init
     
     public init(
+        dataProvider: TurnBasedBattleServerDataProvider,
         player: BattlePlayer,
         record: TurnBasedBattleRecord
     ) {
         
+        self.serverDataProvider = dataProvider
+        
         self.player = player
         
-        self.record = record
+        let isNewBattle = record.turns.isEmpty
+        
+        self.record =
+            isNewBattle
+            ? dataProvider.addNewTurnForRecord(id: record.id)
+            : record
+        
+        self.joinedPlayers = [ player ]
         
         stateMachine.machineDelegate = self
         
@@ -94,24 +104,32 @@ public final class TurnBasedBattleServer: BattleServer {
     
     private final var shouldEndCurrentTurn: Bool {
         
-        let currentTurn = record.turns.last!
+        switch validate() {
         
-        guard
-            !joinedPlayers.isEmpty,
-            !currentTurn.involvedPlayers.isEmpty
-        else { return false }
-    
-        let joinedPlayerIds = joinedPlayers.map { $0.id }
+        case .success(let currentTurn):
+            
+            guard
+                !joinedPlayers.isEmpty,
+                !currentTurn.involvedPlayers.isEmpty
+            else { return false }
         
-        let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
-        
-        return joinedPlayerIds == involvedPlayerIds
+            let joinedPlayerIds = joinedPlayers.map { $0.id }
+            
+            let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
+            
+            return joinedPlayerIds == involvedPlayerIds
+            
+        case .failure(let error):
+            
+            fatalError("Server is now invalid. \(error)")
+            
+        }
         
     }
     
     // MARK: BattleServer
     
-    public final func validateServer() -> ValidateServerResult {
+    public final func validate() -> ValidateServerResult {
         
         if record.isLocked {
             
@@ -122,36 +140,18 @@ public final class TurnBasedBattleServer: BattleServer {
         }
         
         guard
-            let serverDataProvider = serverDataProvider
-        else {
-                
-            let error: TurnBasedBattleServerError = .serverDataProviderNotFound
+            let currentTurn = record.turns.last
+        else { fatalError("A record must contains at least one turn.") }
         
-            return .failure(error)
-                
-        }
-        
-        return .success(serverDataProvider)
+        return .success(currentTurn: currentTurn)
         
     }
     
     public final func resume() {
         
-        switch validateServer() {
+        switch validate() {
         
-        case .success(let dataProvider):
-        
-            joinedPlayers = [ player ]
-            
-            let isNewBattle = record.turns.isEmpty
-            
-            if isNewBattle {
-                
-                let updatedRecord = dataProvider.addNewTurnForRecord(id: record.id)
-                
-                record = updatedRecord
-                
-            }
+        case .success:
             
             stateMachine.state = .start
             
@@ -168,9 +168,9 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public final func respond(to request: BattleRequest) {
         
-        switch validateServer() {
+        switch validate() {
             
-        case .success(let dataProvider):
+        case .success(let currentTurn):
         
             if let request = request as? JoinBattleRequest {
                 
@@ -192,7 +192,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 let playerId = request.playerId
                 
                 guard
-                    let player = dataProvider.fetchPlayer(id: playerId)
+                    let player = serverDataProvider.fetchPlayer(id: playerId)
                 else {
                     
                     let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
@@ -280,7 +280,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 let playerId = request.playerId
                 
                 guard
-                    let player = dataProvider.fetchPlayer(id: playerId)
+                    let player = serverDataProvider.fetchPlayer(id: playerId)
                 else {
                     
                     let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
@@ -293,8 +293,6 @@ public final class TurnBasedBattleServer: BattleServer {
                     return
                     
                 }
-                
-                let currentTurn = record.turns.last!
                 
                 let hasPlayerInvovled = currentTurn.involvedPlayers.contains { $0.id == playerId }
                 
@@ -311,7 +309,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
-                self.record = dataProvider.addInvolvedPlayer(
+                self.record = serverDataProvider.addInvolvedPlayer(
                     player,
                     forCurrentTurnOfRecordId: record.id
                 )
@@ -357,48 +355,58 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
         to: TurnBasedBattleServerState
     ) {
         
-        switch (from, to) {
+        switch validate() {
             
-        case (.end, .start):
+        case .success(let currentTurn):
             
-            serverDelegate?.serverDidStart(self)
+            switch (from, to) {
+                
+            case (.end, .start):
+                
+                serverDelegate?.serverDidStart(self)
+                
+            case
+                (.start, .turnStart),
+                (.turnEnd, .turnStart):
+                
+                serverDelegate?.server(
+                    self,
+                    didStartTurn: currentTurn
+                )
+                
+            case (.turnStart, .turnEnd):
+                
+                serverDelegate?.server(
+                    self,
+                    didEndTurn: currentTurn
+                )
+                
+                let shouldEnd =
+                    serverDelegate?.serverShouldEnd(self)
+                    ?? false
+                
+                if !shouldEnd {
+                    
+                    record = serverDataProvider.addNewTurnForRecord(id: record.id)
+                    
+                }
+                
+                stateMachine.state =
+                    shouldEnd
+                    ? .end
+                    : .turnStart
             
-        case
-            (.start, .turnStart),
-            (.turnEnd, .turnStart):
-        
-            let currentTurn = record.turns.last!
+            case (.turnEnd, .end):
+                
+                serverDelegate?.serverDidEnd(self)
             
-            serverDelegate?.server(
-                self,
-                didStartTurn: currentTurn
-            )
+            default: fatalError("Invalid state transition.")
+                
+            }
             
-        case (.turnStart, .turnEnd):
+        case .failure(let error):
             
-            let currentTurn = record.turns.last!
-            
-            serverDelegate?.server(
-                self,
-                didEndTurn: currentTurn
-            )
-            
-            let shouldEnd =
-                serverDelegate?.serverShouldEnd(self)
-                ?? false
-            
-            if !shouldEnd { record = serverDataProvider!.addNewTurnForRecord(id: record.id) }
-            
-            stateMachine.state =
-                shouldEnd
-                ? .end
-                : .turnStart
-            
-        case (.turnEnd, .end):
-            
-            serverDelegate?.serverDidEnd(self)
-            
-        default: fatalError("Invalid state transition.")
+            fatalError("Server is now invalid. \(error)")
             
         }
         
