@@ -20,11 +20,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
     
     internal final let ownerId = UUID().uuidString
     
-    internal final let recordId = UUID().uuidString
-    
     internal final let playerAId = UUID().uuidString
     
     internal final let playerBId = UUID().uuidString
+    
+    internal final let recordId = UUID().uuidString
     
     internal final var owner: BattlePlayer?
     
@@ -49,13 +49,21 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             
             self.serverDataProvider = mockServerDataProvider
             
-            self.owner = mockServerDataProvider.fetchPlayer(id: ownerId)
+            let owner = try unwrap(
+                mockServerDataProvider.fetchPlayer(id: ownerId)
+            )
+
+            self.owner = owner
             
-            self.record = mockServerDataProvider.fetchRecord(id: recordId)
+            let record = try unwrap(
+                mockServerDataProvider.fetchRecord(id: recordId)
+            )
+            
+            self.record = record
             
             let server = TurnBasedBattleServer(
-                ownerId: ownerId,
-                recordId: recordId
+                player: owner,
+                record: record
             )
             
             server.serverDataProvider = mockServerDataProvider
@@ -90,10 +98,10 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             didStart: { server in
 
                 performTest {
-
-                    XCTAssertNotNil(server.owner)
-
+                    
                     let record = try unwrap(server.record)
+                    
+                    XCTAssert(!record.isLocked)
 
                     let now = Date()
 
@@ -125,13 +133,13 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
 
-                    let currenTurn = try unwrap(server.record?.turns.last)
+                    let currenTurn = try unwrap(server.record.turns.last)
 
                     XCTAssertEqual(
                         currenTurn.id,
                         turn.id
                     )
-
+                    
                 }
 
                 server.respond(
@@ -151,7 +159,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
 
-                    let currenTurn = try unwrap(server.record?.turns.last)
+                    let currenTurn = try unwrap(server.record.turns.last)
 
                     XCTAssertEqual(
                         currenTurn.id,

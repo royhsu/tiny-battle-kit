@@ -31,15 +31,19 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         playerBId: String
     ) {
         
-        self.owner = MockBattlePlayer(id: ownerId)
+        let owner = MockBattlePlayer(id: ownerId)
+        
+        self.owner = owner
         
         let now = Date()
         
         self.record = MockBattleRecord(
             id: recordId,
-            turns: [],
             createdAtDate: now,
-            updatedAtDate: now
+            updatedAtDate: now,
+            owner: owner,
+            isLocked: false,
+            turns: []
         )
         
         self.playerA = MockBattlePlayer(id: playerAId)

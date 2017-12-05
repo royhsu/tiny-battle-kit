@@ -16,13 +16,9 @@ public enum TurnBasedBattleServerError: Error {
     
     case serverNotInState(TurnBasedBattleServerState)
     
-    case battleOwnerNotFound(ownerId: String)
+    case battleRecordIsLocked(recordId: String)
     
     case battlePlayerNotFound(playerId: String)
-    
-    case battleRecordNotFound(recordId: String)
-    
-    case battleCurrentTurnNotFound(recordId: String)
     
     case battlePlayerHasInvolvedCurrentTurn(playerId: String)
     
@@ -31,4 +27,3 @@ public enum TurnBasedBattleServerError: Error {
     case permissionDenied
     
 }
-

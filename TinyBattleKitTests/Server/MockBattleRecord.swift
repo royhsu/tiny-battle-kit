@@ -11,15 +11,19 @@
 import TinyBattleKit
 
 internal struct MockBattleRecord: TurnBasedBattleRecord {
-    
+
     // MARK: Property
     
     internal let id: String
     
-    internal var turns: [TurnBasedBattleTurn]
-    
     internal let createdAtDate: Date
     
     internal var updatedAtDate: Date
+    
+    internal var owner: BattlePlayer
+    
+    internal var isLocked: Bool
+    
+    internal var turns: [TurnBasedBattleTurn]
     
 }
