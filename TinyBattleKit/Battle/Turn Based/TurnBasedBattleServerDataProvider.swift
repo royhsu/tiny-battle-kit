@@ -32,12 +32,17 @@ public protocol TurnBasedBattleServerDataProvider: class {
     
     func setState(
         _ state: TurnBasedBattleServerState,
-        forRecord id: String
+        forRecordId id: String
     )
     -> TurnBasedBattleRecord
-    
-    // Returns: the updated record with a new turn added.
+
     func appendTurnForRecord(id: String) -> TurnBasedBattleRecord
+    
+    func appendJoinedPlayer(
+        _ player: BattlePlayer,
+        forRecordId id: String
+    )
+    -> TurnBasedBattleRecord
     
     func appendInvolvedPlayer(
         _ player: BattlePlayer,

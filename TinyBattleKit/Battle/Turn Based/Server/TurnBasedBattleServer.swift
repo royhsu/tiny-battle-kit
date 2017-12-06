@@ -78,9 +78,6 @@ public final class TurnBasedBattleServer: BattleServer {
     private final var observationToken: ObservationToken?
     
     // Todo: add into record
-    public private(set) final var joinedPlayers: [BattlePlayer] = []
-    
-    // Todo: add into record
     public private(set) final var readyPlayers: [BattlePlayer] = []
     
     public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
@@ -104,7 +101,7 @@ public final class TurnBasedBattleServer: BattleServer {
             ? record
             : dataProvider.setState(
                 .end,
-                forRecord: record.id
+                forRecordId: record.id
             )
         
         self.stateMachine = TurnBasedBattleServerStateMachine(state: record.state)
@@ -227,7 +224,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
                 record = serverDataProvider.setState(
                     .start,
-                    forRecord: record.id
+                    forRecordId: record.id
                 )
                 
             }
@@ -284,7 +281,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
-                let hasPlayerJoined = joinedPlayers.contains { $0.id == playerId }
+                let hasPlayerJoined = record.joinedPlayers.contains { $0.id == playerId }
                 
                 if hasPlayerJoined {
                     
@@ -299,7 +296,10 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
-                joinedPlayers.append(player)
+                record = serverDataProvider.appendJoinedPlayer(
+                    player,
+                    forRecordId: record.id
+                )
                 
                 serverDelegate?.server(
                     self,
@@ -329,7 +329,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
                 let playerId = request.playerId
                 
-                let hasPlayerJoined = joinedPlayers.contains { $0.id == playerId }
+                let hasPlayerJoined = record.joinedPlayers.contains { $0.id == playerId }
                 
                 if !hasPlayerJoined {
                     
@@ -419,7 +419,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
                 record = serverDataProvider.setState(
                     .turnStart,
-                    forRecord: record.id
+                    forRecordId: record.id
                 )
                 
                 serverDelegate?.server(
@@ -489,7 +489,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                     record = serverDataProvider.setState(
                         .turnEnd,
-                        forRecord: record.id
+                        forRecordId: record.id
                     )
                     
                 }
@@ -525,13 +525,14 @@ public final class TurnBasedBattleServer: BattleServer {
 
 public extension TurnBasedBattleServer {
     
+    // Todo: timer to keep alive.
     public final var isOnline: Bool {
         
         let now = Date()
         
         let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
         
-        return serverOnlineTimeout > 0.0
+        return serverOnlineTimeout <= 10.0
         
     }
     
@@ -583,7 +584,7 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                     
                     record = serverDataProvider.setState(
                         .turnStart,
-                        forRecord: record.id
+                        forRecordId: record.id
                     )
                     
                 }
@@ -591,7 +592,7 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                     
                     record = serverDataProvider.setState(
                         .end,
-                        forRecord: record.id
+                        forRecordId: record.id
                     )
                     
                 }

@@ -22,6 +22,8 @@ public protocol TurnBasedBattleRecord {
     
     var owner: BattlePlayer { get }
     
+    var joinedPlayers: [BattlePlayer] { get }
+    
     /// Lock a record while it shouldn't be modified anymore.
     var isLocked: Bool { get }
     

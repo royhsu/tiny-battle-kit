@@ -24,6 +24,8 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
     
     internal var owner: BattlePlayer
     
+    internal var joinedPlayers: [BattlePlayer]
+    
     internal var isLocked: Bool
     
     internal var turns: [TurnBasedBattleTurn]
@@ -36,6 +38,7 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
         createdAtDate: Date,
         updatedAtDate: Date,
         owner: BattlePlayer,
+        joinedPlayers: [BattlePlayer],
         isLocked: Bool,
         turns: [TurnBasedBattleTurn]
     ) {
@@ -49,6 +52,8 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
         self.updatedAtDate = updatedAtDate
         
         self.owner = owner
+        
+        self.joinedPlayers = joinedPlayers
         
         self.isLocked = isLocked
         

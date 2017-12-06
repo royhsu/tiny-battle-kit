@@ -90,6 +90,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
             createdAtDate: now,
             updatedAtDate: now,
             owner: owner,
+            joinedPlayers: [],
             isLocked: false,
             turns: []
         )
@@ -137,9 +138,9 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    func setState(
+    internal final func setState(
         _ state: TurnBasedBattleServerState,
-        forRecord id: String
+        forRecordId id: String
     )
     -> TurnBasedBattleRecord {
         
@@ -165,6 +166,22 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
                 involvedPlayers: []
             )
         )
+        
+        record = updatedRecord
+        
+        return updatedRecord
+        
+    }
+    
+    internal final func appendJoinedPlayer(
+        _ player: BattlePlayer,
+        forRecordId id: String
+    )
+    -> TurnBasedBattleRecord {
+        
+        var updatedRecord = record as! MockBattleRecord
+        
+        updatedRecord.joinedPlayers.append(player)
         
         record = updatedRecord
         

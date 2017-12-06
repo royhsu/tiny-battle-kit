@@ -257,6 +257,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                     XCTAssert(server.isOnline)
                     
+                    XCTAssertEqual(
+                        server.record.state,
+                        .end
+                    )
+                    
                 }
                 
             },
@@ -276,7 +281,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                         let playerId = request.playerId
 
-                        let hasPlayerJoined = server.joinedPlayers.contains { $0.id == playerId }
+                        let hasPlayerJoined = server.record.joinedPlayers.contains { $0.id == playerId }
 
                         XCTAssert(hasPlayerJoined)
 
