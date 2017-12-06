@@ -174,22 +174,7 @@ public final class TurnBasedBattleServer: BattleServer {
     }
     
     public final func resume() {
-//
-//        let requiredState: TurnBasedBattleServerState = .end
-//
-//        if stateMachine.state != requiredState {
-//
-//            let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
-//
-//            serverDelegate?.server(
-//                self,
-//                didFailWith: error
-//            )
-//
-//            return
-//
-//        }
-//
+
         let isNewBattle = record.turns.isEmpty
         
         if isOwner && isNewBattle {
@@ -238,6 +223,7 @@ public final class TurnBasedBattleServer: BattleServer {
             }
             else {
                 
+                // Sync client and server state.
                 switch record.state {
                     
                 case .start:
