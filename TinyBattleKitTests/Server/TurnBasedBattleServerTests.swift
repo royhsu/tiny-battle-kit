@@ -156,7 +156,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(serverOnlineTimeout > 0.0)
 
                     XCTAssertEqual(
-                        server.state,
+                        server.record.state,
                         .start
                     )
 
@@ -204,7 +204,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(serverOnlineTimeout > 0.0)
                     
                     XCTAssertEqual(
-                        server.state,
+                        server.record.state,
                         .turnStart
                     )
                     
@@ -218,11 +218,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     server.respond(
                         to: PlayerInvolveBattleRequest(playerId: self.ownerId)
                     )
-                    
+
                     server.respond(
                         to: PlayerInvolveBattleRequest(playerId: self.playerAId)
                     )
-                    
+
                     server.respond(
                         to: PlayerInvolveBattleRequest(playerId: self.playerBId)
                     )
@@ -245,7 +245,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(serverOnlineTimeout > 0.0)
                     
                     XCTAssertEqual(
-                        server.state,
+                        server.record.state,
                         .turnEnd
                     )
                     
@@ -282,7 +282,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(serverOnlineTimeout > 0.0)
                     
                     XCTAssertEqual(
-                        server.state,
+                        server.record.state,
                         .end
                     )
                     
@@ -375,7 +375,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             server.serverDelegate = stubServerDelegate
 
             XCTAssertEqual(
-                server.state,
+                server.record.state,
                 .end
             )
             

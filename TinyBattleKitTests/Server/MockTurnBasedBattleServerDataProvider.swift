@@ -86,6 +86,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         self.record = MockBattleRecord(
             id: recordId,
+            state: .end,
             createdAtDate: now,
             updatedAtDate: now,
             owner: owner,
@@ -136,9 +137,15 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal final func setOnlineForRecord(id: String) -> TurnBasedBattleRecord {
+    func setState(
+        _ state: TurnBasedBattleServerState,
+        forRecord id: String
+    )
+    -> TurnBasedBattleRecord {
         
         var updatedRecord = record as! MockBattleRecord
+        
+        updatedRecord.state = state
         
         updatedRecord.updatedAtDate = Date()
         

@@ -16,6 +16,8 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
     
     internal let id: String
     
+    internal var state: TurnBasedBattleServerState
+    
     internal let createdAtDate: Date
     
     internal var updatedAtDate: Date
@@ -25,5 +27,33 @@ internal struct MockBattleRecord: TurnBasedBattleRecord {
     internal var isLocked: Bool
     
     internal var turns: [TurnBasedBattleTurn]
+    
+    // MARK: Init
+    
+    internal init(
+        id: String,
+        state: TurnBasedBattleServerState,
+        createdAtDate: Date,
+        updatedAtDate: Date,
+        owner: BattlePlayer,
+        isLocked: Bool,
+        turns: [TurnBasedBattleTurn]
+    ) {
+        
+        self.id = id
+        
+        self.state = state
+        
+        self.createdAtDate = createdAtDate
+        
+        self.updatedAtDate = updatedAtDate
+        
+        self.owner = owner
+        
+        self.isLocked = isLocked
+        
+        self.turns = turns
+        
+    }
     
 }

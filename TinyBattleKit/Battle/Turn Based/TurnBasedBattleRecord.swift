@@ -12,6 +12,8 @@ public protocol TurnBasedBattleRecord {
     
     var id: String { get }
     
+    var state: TurnBasedBattleServerState { get }
+    
     var createdAtDate: Date { get }
     
     /// Use this timestamp to determine whether the server is running. (Online)

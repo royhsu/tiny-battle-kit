@@ -66,14 +66,14 @@ public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
     
-    public final var state: TurnBasedBattleServerState { return stateMachine.state }
-    
-    private final var stateMachine = TurnBasedBattleServerStateMachine(state: .end)
+    private final let stateMachine: TurnBasedBattleServerStateMachine
     
     public final let player: BattlePlayer
     
     // Todo: observe data provider for record changes
     public private(set) final var record: TurnBasedBattleRecord
+    
+    public final var isOwner: Bool { return player.id == record.owner.id }
     
     private final var observationToken: ObservationToken?
     
@@ -99,32 +99,17 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.player = player
         
-        let isNewBattle = record.turns.isEmpty
-        
         self.record =
-            isNewBattle
-            ? dataProvider.appendTurnForRecord(id: record.id)
-            : record
+            record.state == .end
+            ? record
+            : dataProvider.setState(
+                .end,
+                forRecord: record.id
+            )
         
-        self.observationToken = serverDataProvider.observeRecord(
-            id: record.id,
-            handler: { [weak self] in
-                
-                guard
-                    let stronSelf = self
-                else { return }
-
-                stronSelf.record = $0
-
-                stronSelf.serverDelegate?.server(
-                    stronSelf,
-                    didUpdate: stronSelf.record
-                )
-                
-            }
-        )
+        self.stateMachine = TurnBasedBattleServerStateMachine(state: record.state)
         
-        stateMachine.machineDelegate = self
+        self.stateMachine.machineDelegate = self
         
     }
     
@@ -185,19 +170,68 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public final func resume() {
         
+        let requiredState: TurnBasedBattleServerState = .end
+        
+        if stateMachine.state != requiredState {
+            
+            let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+            
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return
+            
+        }
+        
+        let isNewBattle = record.turns.isEmpty
+        
+        if isNewBattle {
+        
+            record = serverDataProvider.appendTurnForRecord(id: record.id)
+        
+        }
+        
         switch validate() {
         
         case .success:
             
-            let isOnwer = (player.id == record.owner.id)
+            observationToken = serverDataProvider.observeRecord(
+                id: record.id,
+                handler: { [weak self] in
+                    
+                    guard
+                        let strongSelf = self
+                    else { return }
+                    
+                    strongSelf.record = $0
+                    
+                    let currentState = strongSelf.stateMachine.state
+                    
+                    if currentState != strongSelf.record.state {
+                        
+                        strongSelf.stateMachine.state = strongSelf.record.state
+                        
+                    }
+                    
+                    strongSelf.serverDelegate?.server(
+                        strongSelf,
+                        didUpdate: strongSelf.record
+                    )
+                    
+                }
+            )
             
-            if isOnwer {
-            
-                record = serverDataProvider.setOnlineForRecord(id: record.id)
+            if isOwner {
+                
+                record = serverDataProvider.setState(
+                    .start,
+                    forRecord: record.id
+                )
                 
             }
-            
-            stateMachine.state = .start
+            else { stateMachine.state = .start }
             
         case .failure(let error):
         
@@ -383,12 +417,15 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
+                record = serverDataProvider.setState(
+                    .turnStart,
+                    forRecord: record.id
+                )
+                
                 serverDelegate?.server(
                     self,
                     didRespondTo: request
                 )
-                
-                stateMachine.state = .turnStart
                 
                 return
                 
@@ -448,12 +485,19 @@ public final class TurnBasedBattleServer: BattleServer {
                     forCurrentTurnOfRecordId: record.id
                 )
                 
+                if shouldEndCurrentTurn {
+                    
+                    record = serverDataProvider.setState(
+                        .turnEnd,
+                        forRecord: record.id
+                    )
+                    
+                }
+                
                 serverDelegate?.server(
                     self,
                     didRespondTo: request
                 )
-                
-                if shouldEndCurrentTurn { stateMachine.state = .turnEnd }
                 
                 return
                 
@@ -523,12 +567,20 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                     
                     record = serverDataProvider.appendTurnForRecord(id: record.id)
                     
+                    record = serverDataProvider.setState(
+                        .turnStart,
+                        forRecord: record.id
+                    )
+                    
                 }
-                
-                stateMachine.state =
-                    shouldEnd
-                    ? .end
-                    : .turnStart
+                else {
+                    
+                    record = serverDataProvider.setState(
+                        .end,
+                        forRecord: record.id
+                    )
+                    
+                }
             
             case (.turnEnd, .end):
                 
