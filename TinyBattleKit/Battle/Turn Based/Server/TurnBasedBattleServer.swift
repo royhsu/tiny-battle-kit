@@ -523,6 +523,20 @@ public final class TurnBasedBattleServer: BattleServer {
     
 }
 
+public extension TurnBasedBattleServer {
+    
+    public final var isOnline: Bool {
+        
+        let now = Date()
+        
+        let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
+        
+        return serverOnlineTimeout > 0.0
+        
+    }
+    
+}
+
 // MARK: - BattleServerStateMachineDelegate
 
 extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {

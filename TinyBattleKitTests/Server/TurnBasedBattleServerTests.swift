@@ -145,15 +145,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
                     
-                    let record = try unwrap(server.record)
+                    XCTAssertFalse(server.record.isLocked)
                     
-                    XCTAssert(!record.isLocked)
-
-                    let now = Date()
-
-                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-
-                    XCTAssert(serverOnlineTimeout > 0.0)
+                    XCTAssert(server.isOnline)
 
                     XCTAssertEqual(
                         server.record.state,
@@ -193,15 +187,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
 
-                    let record = try unwrap(server.record)
+                    XCTAssertFalse(server.record.isLocked)
                     
-                    XCTAssert(!record.isLocked)
-                    
-                    let now = Date()
-                    
-                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-                    
-                    XCTAssert(serverOnlineTimeout > 0.0)
+                    XCTAssert(server.isOnline)
                     
                     XCTAssertEqual(
                         server.record.state,
@@ -234,15 +222,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
 
-                    let record = try unwrap(server.record)
+                    XCTAssertFalse(server.record.isLocked)
                     
-                    XCTAssert(!record.isLocked)
-                    
-                    let now = Date()
-                    
-                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-                    
-                    XCTAssert(serverOnlineTimeout > 0.0)
+                    XCTAssert(server.isOnline)
                     
                     XCTAssertEqual(
                         server.record.state,
@@ -271,20 +253,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             
                 performTest {
                     
-                    let record = try unwrap(server.record)
+                    XCTAssertFalse(server.record.isLocked)
                     
-                    XCTAssert(!record.isLocked)
-                    
-                    let now = Date()
-                    
-                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-                    
-                    XCTAssert(serverOnlineTimeout > 0.0)
-                    
-                    XCTAssertEqual(
-                        server.record.state,
-                        .end
-                    )
+                    XCTAssert(server.isOnline)
                     
                 }
                 
@@ -293,15 +264,9 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 performTest {
                     
-                    let record = try unwrap(server.record)
+                    XCTAssertFalse(server.record.isLocked)
                     
-                    XCTAssert(!record.isLocked)
-                    
-                    let now = Date()
-                    
-                    let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-                    
-                    XCTAssert(serverOnlineTimeout > 0.0)
+                    XCTAssert(server.isOnline)
                     
                 }
                 
