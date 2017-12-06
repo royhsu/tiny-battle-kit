@@ -26,8 +26,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
     
     internal final let recordId = UUID().uuidString
     
-    internal final var owner: BattlePlayer?
-    
     internal final var record: TurnBasedBattleRecord?
     
     internal final var server: TurnBasedBattleServer?
@@ -40,27 +38,31 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         
         performTest {
             
+            let owner = MockBattlePlayer(id: ownerId)
+            
+            let playerA = MockBattlePlayer(id: playerAId)
+            
+            let playerB = MockBattlePlayer(id: playerBId)
+            
+            let record = MockBattleRecord(
+                id: recordId,
+                state: .end,
+                createdAtDate: Date(),
+                updatedAtDate: Date(),
+                owner: owner,
+                joinedPlayers: [],
+                readyPlayers: [],
+                isLocked: false,
+                turns: []
+            )
+            
             let mockServerDataProvider = MockTurnBasedBattleServerDataProvider(
-                ownerId: ownerId,
-                recordId: recordId,
-                playerAId: playerAId,
-                playerBId: playerBId
+                record: record,
+                players: [ owner, playerA, playerB ]
             )
             
             self.serverDataProvider = mockServerDataProvider
-            
-            let owner = try unwrap(
-                mockServerDataProvider.fetchPlayer(id: ownerId)
-            )
-
-            self.owner = owner
-            
-            let record = try unwrap(
-                mockServerDataProvider.fetchRecord(id: recordId)
-            )
-            
-            self.record = record
-            
+    
             let server = TurnBasedBattleServer(
                 dataProvider: mockServerDataProvider,
                 player: owner,
@@ -78,8 +80,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         server = nil
         
         record = nil
-        
-        owner = nil
         
         serverDataProvider = nil
         
@@ -154,6 +154,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         .start
                     )
 
+                    XCTAssert(server.record.joinedPlayers.isEmpty)
+                    
                     server.respond(to:
                         PlayerJoinBattleRequest(playerId: self.ownerId)
                     )
@@ -166,7 +168,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         PlayerJoinBattleRequest(playerId: self.playerBId)
                     )
                     
-                    XCTAssert(server.readyPlayers.isEmpty)
+                    XCTAssert(server.record.readyPlayers.isEmpty)
                     
                     server.respond(
                         to: PlayerReadyBattleRequest(playerId: self.ownerId)
@@ -239,7 +241,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     XCTAssertEqual(
-                        server.readyPlayers.map { $0.id },
+                        server.record.readyPlayers.map { $0.id },
                         currenTurn.involvedPlayers.map { $0.id }
                     )
 
@@ -297,13 +299,13 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         
                         let playerId = request.playerId
                         
-                        let isPlayerReady = server.readyPlayers.contains { $0.id == playerId }
+                        let isPlayerReady = server.record.readyPlayers.contains { $0.id == playerId }
                         
                         XCTAssert(isPlayerReady)
                         
                     }
                     
-                    let readyPlayerIds = server.readyPlayers.map { $0.id }
+                    let readyPlayerIds = server.record.readyPlayers.map { $0.id }
                     
                     if
                         readyPlayerIds == [
@@ -348,8 +350,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 server.record.state,
                 .end
             )
-            
-            XCTAssert(server.readyPlayers.isEmpty)
 
             server.resume()
 

@@ -24,6 +24,8 @@ public protocol TurnBasedBattleRecord {
     
     var joinedPlayers: [BattlePlayer] { get }
     
+    var readyPlayers: [BattlePlayer] { get }
+    
     /// Lock a record while it shouldn't be modified anymore.
     var isLocked: Bool { get }
     

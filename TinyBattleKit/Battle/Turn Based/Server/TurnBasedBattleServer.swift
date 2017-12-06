@@ -66,19 +66,13 @@ public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
     
-    private final let stateMachine: TurnBasedBattleServerStateMachine
+    private final let stateMachine = TurnBasedBattleServerStateMachine(state: .end)
     
     public final let player: BattlePlayer
     
-    // Todo: observe data provider for record changes
     public private(set) final var record: TurnBasedBattleRecord
     
-    public final var isOwner: Bool { return player.id == record.owner.id }
-    
     private final var observationToken: ObservationToken?
-    
-    // Todo: add into record
-    public private(set) final var readyPlayers: [BattlePlayer] = []
     
     public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
     
@@ -104,7 +98,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 forRecordId: record.id
             )
         
-        self.stateMachine = TurnBasedBattleServerStateMachine(state: record.state)
+        self.record = dataProvider.resetJoinedAndReadyPlayers()
         
         self.stateMachine.machineDelegate = self
         
@@ -127,11 +121,10 @@ public final class TurnBasedBattleServer: BattleServer {
         case .success(let currentTurn):
             
             guard
-                !readyPlayers.isEmpty,
                 !currentTurn.involvedPlayers.isEmpty
             else { return false }
         
-            let readyPlayerIds = readyPlayers.map { $0.id }
+            let readyPlayerIds = record.readyPlayers.map { $0.id }
             
             let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
             
@@ -196,13 +189,13 @@ public final class TurnBasedBattleServer: BattleServer {
             
             observationToken = serverDataProvider.observeRecord(
                 id: record.id,
-                handler: { [weak self] in
+                handler: { [weak self] updatedRecord in
                     
                     guard
                         let strongSelf = self
                     else { return }
                     
-                    strongSelf.record = $0
+                    strongSelf.record = updatedRecord
                     
                     let currentState = strongSelf.stateMachine.state
                     
@@ -359,7 +352,7 @@ public final class TurnBasedBattleServer: BattleServer {
                         
                 }
                 
-                let isPlayerReady = readyPlayers.contains { $0.id == playerId }
+                let isPlayerReady = record.readyPlayers.contains { $0.id == playerId }
                 
                 if isPlayerReady {
                     
@@ -374,7 +367,10 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 }
                 
-                readyPlayers.append(player)
+                record = serverDataProvider.appendReadyPlayer(
+                    player,
+                    forRecordId: record.id
+                )
                 
                 serverDelegate?.server(
                     self,
@@ -524,6 +520,8 @@ public final class TurnBasedBattleServer: BattleServer {
 }
 
 public extension TurnBasedBattleServer {
+    
+    public final var isOwner: Bool { return player.id == record.owner.id }
     
     // Todo: timer to keep alive.
     public final var isOnline: Bool {

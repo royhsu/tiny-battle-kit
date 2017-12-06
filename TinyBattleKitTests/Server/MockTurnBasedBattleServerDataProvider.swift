@@ -45,8 +45,6 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     
     // MARK: Property
     
-    private final var owner: BattlePlayer?
-    
     private final var record: TurnBasedBattleRecord? {
         
         didSet {
@@ -63,41 +61,20 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    private final var playerA: BattlePlayer?
-    
-    private final var playerB: BattlePlayer?
+    private final var players: [BattlePlayer]
     
     private final var observationToken: MockObservationToken?
     
     // MARK: Init
     
     internal init(
-        ownerId: String,
-        recordId: String,
-        playerAId: String,
-        playerBId: String
+        record: TurnBasedBattleRecord,
+        players: [BattlePlayer]
     ) {
+
+        self.record = record
         
-        let owner = MockBattlePlayer(id: ownerId)
-        
-        self.owner = owner
-        
-        let now = Date()
-        
-        self.record = MockBattleRecord(
-            id: recordId,
-            state: .end,
-            createdAtDate: now,
-            updatedAtDate: now,
-            owner: owner,
-            joinedPlayers: [],
-            isLocked: false,
-            turns: []
-        )
-        
-        self.playerA = MockBattlePlayer(id: playerAId)
-        
-        self.playerB = MockBattlePlayer(id: playerBId)
+        self.players = players
         
     }
     
@@ -120,13 +97,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     
     internal final func fetchPlayer(id: String) -> BattlePlayer? {
         
-        if owner?.id == id { return owner }
-        
-        if playerA?.id == id { return playerA }
-        
-        if playerB?.id == id { return playerB }
-        
-        return nil
+        return players.filter { $0.id == id }.first
         
     }
     
@@ -149,6 +120,20 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         updatedRecord.state = state
         
         updatedRecord.updatedAtDate = Date()
+        
+        record = updatedRecord
+        
+        return updatedRecord
+        
+    }
+    
+    internal final func resetJoinedAndReadyPlayers() -> TurnBasedBattleRecord {
+        
+        var updatedRecord = record as! MockBattleRecord
+        
+        updatedRecord.joinedPlayers = []
+        
+        updatedRecord.readyPlayers = []
         
         record = updatedRecord
         
@@ -182,6 +167,22 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         var updatedRecord = record as! MockBattleRecord
         
         updatedRecord.joinedPlayers.append(player)
+        
+        record = updatedRecord
+        
+        return updatedRecord
+        
+    }
+    
+    internal final func appendReadyPlayer(
+        _ player: BattlePlayer,
+        forRecordId id: String
+    )
+    -> TurnBasedBattleRecord {
+        
+        var updatedRecord = record as! MockBattleRecord
+        
+        updatedRecord.readyPlayers.append(player)
         
         record = updatedRecord
         
