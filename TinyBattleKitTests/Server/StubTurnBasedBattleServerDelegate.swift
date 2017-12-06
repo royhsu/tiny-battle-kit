@@ -12,6 +12,12 @@ import TinyBattleKit
 
 internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDelegate {
     
+    internal typealias DidUpdateRecord = (
+        _ server: TurnBasedBattleServer,
+        _ record: TurnBasedBattleRecord
+    )
+    -> Void
+    
     internal typealias DidStart = (_ server: TurnBasedBattleServer) -> Void
 
     internal typealias DidStartTurn = (
@@ -44,6 +50,8 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
 
     // MARK: Property
     
+    internal final let didUpdateRecord: DidUpdateRecord?
+    
     internal final let didStart: DidStart?
 
     internal final let didStartTurn: DidStartTurn?
@@ -61,6 +69,7 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
     // MARK: Init
     
     internal init(
+        didUpdateRecord: DidUpdateRecord?,
         didStart: DidStart?,
         didStartTurn: DidStartTurn?,
         didEndTurn: DidEndTurn?,
@@ -70,6 +79,8 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
         didFail: DidFail?
     ) {
 
+        self.didUpdateRecord = didUpdateRecord
+        
         self.didStart = didStart
         
         self.didStartTurn = didStartTurn
@@ -87,6 +98,18 @@ internal final class StubTurnBasedBattleServerDelegate: TurnBasedBattleServerDel
     }
 
     // MARK: BattleServerDelegate
+    
+    internal final func server(
+        _ server: TurnBasedBattleServer,
+        didUpdate record: TurnBasedBattleRecord
+    ) {
+        
+        didUpdateRecord?(
+            server,
+            record
+        )
+        
+    }
     
     internal final func serverDidStart(_ server: TurnBasedBattleServer) { didStart?(server) }
 

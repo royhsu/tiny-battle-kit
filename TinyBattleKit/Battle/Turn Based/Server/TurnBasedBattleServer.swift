@@ -10,6 +10,11 @@
 
 public protocol TurnBasedBattleServerDelegate: class {
     
+    func server(
+        _ server: TurnBasedBattleServer,
+        didUpdate record: TurnBasedBattleRecord
+    )
+    
     func serverDidStart(_ server: TurnBasedBattleServer)
     
     func server(
@@ -70,6 +75,8 @@ public final class TurnBasedBattleServer: BattleServer {
     // Todo: observe data provider for record changes
     public private(set) final var record: TurnBasedBattleRecord
     
+    private final var observationToken: ObservationToken?
+    
     // Todo: add into record
     public private(set) final var joinedPlayers: [BattlePlayer] = []
     
@@ -99,7 +106,33 @@ public final class TurnBasedBattleServer: BattleServer {
             ? dataProvider.appendTurnForRecord(id: record.id)
             : record
         
+        self.observationToken = serverDataProvider.observeRecord(
+            id: record.id,
+            handler: { [weak self] in
+                
+                guard
+                    let stronSelf = self
+                else { return }
+
+                stronSelf.record = $0
+
+                stronSelf.serverDelegate?.server(
+                    stronSelf,
+                    didUpdate: stronSelf.record
+                )
+                
+            }
+        )
+        
         stateMachine.machineDelegate = self
+        
+    }
+    
+    deinit {
+        
+        print(#function)
+        
+        observationToken?.invalidate()
         
     }
     

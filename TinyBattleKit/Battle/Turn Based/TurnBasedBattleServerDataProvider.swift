@@ -6,9 +6,25 @@
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
+// MARK: - ObservationToken
+
+public protocol ObservationToken {
+    
+    func invalidate()
+    
+}
+
 // MARK: - TurnBasedBattleServerDataProvider
 
 public protocol TurnBasedBattleServerDataProvider: class {
+    
+    typealias ObserveRecordHandler = (_ updatedRecord: TurnBasedBattleRecord) -> Void
+    
+    func observeRecord(
+        id: String,
+        handler: @escaping ObserveRecordHandler
+    )
+    -> ObservationToken?
     
     func fetchPlayer(id: String) -> BattlePlayer?
     

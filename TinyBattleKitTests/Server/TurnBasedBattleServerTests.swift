@@ -94,6 +94,53 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         let promise = expectation(description: "Start a turn-based battle server.")
 
         let stubServerDelegate = StubTurnBasedBattleServerDelegate(
+            didUpdateRecord: { server, record in
+                
+                XCTAssertEqual(
+                    server.record.id,
+                    record.id
+                )
+                
+                XCTAssertEqual(
+                    server.record.createdAtDate,
+                    record.createdAtDate
+                )
+                
+                XCTAssertEqual(
+                    server.record.updatedAtDate,
+                    record.updatedAtDate
+                )
+                
+                XCTAssertEqual(
+                    server.record.owner.id,
+                    record.owner.id
+                )
+                
+                XCTAssertEqual(
+                    server.record.isLocked,
+                    record.isLocked
+                )
+                
+                XCTAssertEqual(
+                    server.record.turns.count,
+                    record.turns.count
+                )
+                
+                for index in 0..<server.record.turns.count {
+                    
+                    XCTAssertEqual(
+                        server.record.turns[index].id,
+                        record.turns[index].id
+                    )
+                    
+                    XCTAssertEqual(
+                        server.record.turns[index].involvedPlayers.map { $0.id },
+                        record.turns[index].involvedPlayers.map { $0.id }
+                    )
+                    
+                }
+                
+            },
             didStart: { server in
 
                 performTest {

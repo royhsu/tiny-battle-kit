@@ -6,6 +6,37 @@
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
+// MARK: - MockObservationToken
+
+internal final class MockObservationToken: ObservationToken {
+    
+    internal typealias Handler = TurnBasedBattleServerDataProvider.ObserveRecordHandler
+    
+    // MARK: Property
+    
+    internal final let recordId: String
+    
+    internal final var handler: Handler?
+    
+    // MARK: Init
+    
+    internal init(
+        recordId: String,
+        handler: Handler?
+    ) {
+        
+        self.recordId = recordId
+        
+        self.handler = handler
+        
+    }
+    
+    // MARK: ObservationToken
+    
+    internal final func invalidate() { handler = nil }
+    
+}
+
 // MARK: - MockTurnBasedBattleServerDataProvider
 
 import TinyBattleKit
@@ -16,11 +47,27 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     
     private final var owner: BattlePlayer?
     
-    private final var record: TurnBasedBattleRecord?
+    private final var record: TurnBasedBattleRecord? {
+        
+        didSet {
+            
+            guard
+                let record = record,
+                let token = observationToken,
+                token.recordId == record.id
+            else { return }
+            
+            token.handler?(record)
+            
+        }
+        
+    }
     
     private final var playerA: BattlePlayer?
     
     private final var playerB: BattlePlayer?
+    
+    private final var observationToken: MockObservationToken?
     
     // MARK: Init
     
@@ -53,6 +100,21 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     }
     
     // MARK: TurnBasedBattleServerDataProvider
+    
+    internal final func observeRecord(
+        id: String,
+        handler: @escaping ObserveRecordHandler
+    )
+    -> ObservationToken? {
+        
+        observationToken = MockObservationToken(
+            recordId: id,
+            handler: handler
+        )
+        
+        return observationToken
+        
+    }
     
     internal final func fetchPlayer(id: String) -> BattlePlayer? {
         
