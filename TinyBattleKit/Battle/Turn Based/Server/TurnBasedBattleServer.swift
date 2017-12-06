@@ -66,7 +66,7 @@ public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
     
-    private final let stateMachine = TurnBasedBattleServerStateMachine(state: .end)
+    private final let stateMachine: TurnBasedBattleServerStateMachine
     
     public final let player: BattlePlayer
     
@@ -90,15 +90,30 @@ public final class TurnBasedBattleServer: BattleServer {
         
         self.player = player
         
-        self.record =
-            record.state == .end
-            ? record
-            : dataProvider.setState(
-                .end,
-                forRecordId: record.id
-            )
+        let isOwner = (player.id == record.owner.id)
         
-        self.record = dataProvider.resetJoinedAndReadyPlayersForRecord(id: record.id)
+        if isOwner {
+        
+            self.record =
+                record.state == .end
+                ? record
+                : dataProvider.setState(
+                    .end,
+                    forRecordId: record.id
+                )
+            
+            self.stateMachine = .init(state: .end)
+            
+            self.record = dataProvider.resetJoinedAndReadyPlayersForRecord(id: record.id)
+            
+        }
+        else {
+            
+            self.record = record
+            
+            self.stateMachine = .init(state: record.state)
+            
+        }
         
         self.stateMachine.machineDelegate = self
         
@@ -159,25 +174,25 @@ public final class TurnBasedBattleServer: BattleServer {
     }
     
     public final func resume() {
-        
-        let requiredState: TurnBasedBattleServerState = .end
-        
-        if stateMachine.state != requiredState {
-            
-            let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
-            
-            serverDelegate?.server(
-                self,
-                didFailWith: error
-            )
-            
-            return
-            
-        }
-        
+//
+//        let requiredState: TurnBasedBattleServerState = .end
+//
+//        if stateMachine.state != requiredState {
+//
+//            let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
+//
+//            serverDelegate?.server(
+//                self,
+//                didFailWith: error
+//            )
+//
+//            return
+//
+//        }
+//
         let isNewBattle = record.turns.isEmpty
         
-        if isNewBattle {
+        if isOwner && isNewBattle {
         
             record = serverDataProvider.appendTurnForRecord(id: record.id)
         
@@ -221,7 +236,39 @@ public final class TurnBasedBattleServer: BattleServer {
                 )
                 
             }
-            else { stateMachine.state = .start }
+            else {
+                
+                switch record.state {
+                    
+                case .start:
+                    
+                    serverDelegate?.serverDidStart(self)
+                    
+                case .turnStart:
+                    
+                    let currentTurn = record.turns.last!
+                    
+                    serverDelegate?.server(
+                        self,
+                        didStartTurn: currentTurn
+                    )
+                    
+                case .turnEnd:
+                    
+                    let currentTurn = record.turns.last!
+                    
+                    serverDelegate?.server(
+                        self,
+                        didEndTurn: currentTurn
+                    )
+                    
+                case .end:
+                    
+                    serverDelegate?.serverDidEnd(self)
+                    
+                }
+                
+            }
             
         case .failure(let error):
         
