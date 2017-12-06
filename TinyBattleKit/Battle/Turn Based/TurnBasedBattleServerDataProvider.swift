@@ -38,7 +38,7 @@ public protocol TurnBasedBattleServerDataProvider: class {
 
     func appendTurnForRecord(id: String) -> TurnBasedBattleRecord
     
-    func resetJoinedAndReadyPlayers() -> TurnBasedBattleRecord
+    func resetJoinedAndReadyPlayersForRecord(id: String) -> TurnBasedBattleRecord
     
     func appendJoinedPlayer(
         _ player: BattlePlayer,

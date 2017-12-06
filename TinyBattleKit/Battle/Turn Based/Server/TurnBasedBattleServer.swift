@@ -98,7 +98,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 forRecordId: record.id
             )
         
-        self.record = dataProvider.resetJoinedAndReadyPlayers()
+        self.record = dataProvider.resetJoinedAndReadyPlayersForRecord(id: record.id)
         
         self.stateMachine.machineDelegate = self
         

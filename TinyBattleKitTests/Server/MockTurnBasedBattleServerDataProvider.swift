@@ -86,6 +86,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     )
     -> ObservationToken? {
         
+        if id != record?.id { fatalError() }
+        
         observationToken = MockObservationToken(
             recordId: id,
             handler: handler
@@ -115,6 +117,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     )
     -> TurnBasedBattleRecord {
         
+        if id != record?.id { fatalError() }
+        
         var updatedRecord = record as! MockBattleRecord
         
         updatedRecord.state = state
@@ -127,7 +131,9 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal final func resetJoinedAndReadyPlayers() -> TurnBasedBattleRecord {
+    internal final func resetJoinedAndReadyPlayersForRecord(id: String) -> TurnBasedBattleRecord {
+        
+        if id != record?.id { fatalError() }
         
         var updatedRecord = record as! MockBattleRecord
         
@@ -142,6 +148,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     }
     
     internal final func appendTurnForRecord(id: String) -> TurnBasedBattleRecord {
+        
+        if id != record?.id { fatalError() }
         
         var updatedRecord = record as! MockBattleRecord
         
@@ -164,6 +172,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     )
     -> TurnBasedBattleRecord {
         
+        if id != record?.id { fatalError() }
+        
         var updatedRecord = record as! MockBattleRecord
         
         updatedRecord.joinedPlayers.append(player)
@@ -179,6 +189,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         forRecordId id: String
     )
     -> TurnBasedBattleRecord {
+        
+        if id != record?.id { fatalError() }
         
         var updatedRecord = record as! MockBattleRecord
         
@@ -196,6 +208,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     )
     -> TurnBasedBattleRecord {
      
+        if recordId != record?.id { fatalError() }
+        
         var updatedRecord = record as! MockBattleRecord
         
         var turn = updatedRecord.turns.removeLast() as! MockBattleTurn
