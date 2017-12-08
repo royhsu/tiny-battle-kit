@@ -69,8 +69,12 @@ public final class TurnBasedBattleServer: BattleServer {
     // Todo: timer to keep alive.
     public final var state: BattleServerState {
         
+        let isNewRecord = (record.createdAtDate == record.updatedAtDate)
+        
+        if isNewRecord { return .offline }
+        
         let now = Date()
-            
+        
         let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
             
         return

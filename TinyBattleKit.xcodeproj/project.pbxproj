@@ -232,7 +232,6 @@
 				B0885DE01FDA3A3C00629629 /* TurnBasedBattleServerStateMachine.swift */,
 				B0885DE21FDA3A3C00629629 /* TurnBasedBattleRecord.swift */,
 				B0885DE31FDA3A3C00629629 /* TurnBasedBattleTurn.swift */,
-				B0885DDF1FDA3A3C00629629 /* DefaultBattleActionAnimator.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -265,6 +264,7 @@
 				B0885DEA1FDA3A3C00629629 /* BattleServer.swift */,
 				B0885DEB1FDA3A3C00629629 /* BattleRequest.swift */,
 				B0885DE71FDA3A3C00629629 /* AnyBattleActionProvider.swift */,
+				B0885DDF1FDA3A3C00629629 /* DefaultBattleActionAnimator.swift */,
 			);
 			path = Battle;
 			sourceTree = "<group>";
