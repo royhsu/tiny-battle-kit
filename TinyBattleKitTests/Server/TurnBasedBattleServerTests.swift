@@ -166,15 +166,17 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(server.record.joinedPlayers.isEmpty)
                     
                     server.respond(to:
-                        PlayerJoinBattleRequest(playerId: self.ownerId)
+                        PlayerJoinBattleRequest(
+                            player: self.ownerId
+                        )
                     )
                     
                     server.respond(to:
-                        PlayerJoinBattleRequest(playerId: self.playerAId)
+                        BattlePlayerJoinRequest(playerId: self.playerAId)
                     )
 
                     server.respond(to:
-                        PlayerJoinBattleRequest(playerId: self.playerBId)
+                        BattlePlayerJoinRequest(playerId: self.playerBId)
                     )
                     
                     XCTAssert(server.record.readyPlayers.isEmpty)
@@ -224,15 +226,15 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
                     
                     server.respond(
-                        to: PlayerInvolveBattleRequest(playerId: self.ownerId)
+                        to: BattlePlayerInvolveRequest(playerId: self.ownerId)
                     )
 
                     server.respond(
-                        to: PlayerInvolveBattleRequest(playerId: self.playerAId)
+                        to: BattlePlayerInvolveRequest(playerId: self.playerAId)
                     )
 
                     server.respond(
-                        to: PlayerInvolveBattleRequest(playerId: self.playerBId)
+                        to: BattlePlayerInvolveRequest(playerId: self.playerBId)
                     )
                     
                 }
@@ -295,7 +297,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                 }
                 
-                if let request = request as? PlayerJoinBattleRequest {
+                if let request = request as? BattlePlayerJoinRequest {
 
                     performTest {
 
@@ -362,7 +364,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 
                 if request is ContinueBattleRequest { return }
                 
-                if request is PlayerInvolveBattleRequest { return }
+                if request is BattlePlayerInvolveRequest { return }
 
                 XCTFail("Unknown request: \(request)")
 

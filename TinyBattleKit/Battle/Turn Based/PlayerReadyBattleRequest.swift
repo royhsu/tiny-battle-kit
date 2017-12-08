@@ -12,21 +12,10 @@ public struct PlayerReadyBattleRequest: BattleRequest {
     
     // MARK: Property
     
-    public let playerId: String
-    
-    public let entityIds: [String]
+    public let player: ReadyBattlePlayer
     
     // MARK: Init
     
-    public init(
-        playerId: String,
-        entityIds: [String]
-    ) {
-        
-        self.playerId = playerId
-        
-        self.entityIds = entityIds
-        
-    }
+    public init(player: ReadyBattlePlayer) { self.player = player }
     
 }

@@ -17,8 +17,8 @@ public protocol BattleActionAnimator {
     var context: Context { get }
     
     func animate(
-        from oldResult: Result,
-        to newResult: Result,
+        from old: Result,
+        to new: Result,
         completion: @escaping () -> Void
     )
     

@@ -12,10 +12,10 @@ public struct PlayerJoinBattleRequest: BattleRequest {
     
     // MARK: Property
     
-    public let playerId: String
+    public let player: JoinedBattlePlayer
     
     // MARK: Init
     
-    public init(playerId: String) { self.playerId = playerId }
+    public init(player: JoinedBattlePlayer) { self.player = player }
     
 }

@@ -1,14 +1,14 @@
 //
-//  BattlePlayer.swift
+//  BattleAction.swift
 //  TinyBattleKit
 //
-//  Created by Roy Hsu on 01/12/2017.
+//  Created by Roy Hsu on 08/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - BattlePlayer
+// MARK: - BattleAction
 
-public protocol BattlePlayer {
+public protocol BattleAction {
     
     var id: String { get }
     
