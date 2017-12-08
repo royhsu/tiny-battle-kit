@@ -150,11 +150,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssertFalse(server.record.isLocked)
                     
                     XCTAssertEqual(
-                        server.state,
-                        .online
-                    )
-
-                    XCTAssertEqual(
                         server.record.state,
                         .start
                     )
@@ -233,11 +228,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssertFalse(server.record.isLocked)
                     
                     XCTAssertEqual(
-                        server.state,
-                        .online
-                    )
-                    
-                    XCTAssertEqual(
                         server.record.state,
                         .turnStart
                     )
@@ -289,11 +279,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssertFalse(server.record.isLocked)
                     
                     XCTAssertEqual(
-                        server.state,
-                        .online
-                    )
-                    
-                    XCTAssertEqual(
                         server.record.state,
                         .turnEnd
                     )
@@ -323,11 +308,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssertFalse(server.record.isLocked)
                     
                     XCTAssertEqual(
-                        server.state,
-                        .online
-                    )
-                    
-                    XCTAssertEqual(
                         server.record.state,
                         .end
                     )
@@ -337,16 +317,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             },
             didRespondToRequest: { server, request in
 
-                performTest {
-                    
-                    XCTAssertFalse(server.record.isLocked)
-                    
-                    XCTAssertEqual(
-                        server.state,
-                        .online
-                    )
-                    
-                }
+                XCTAssertFalse(server.record.isLocked)
                 
                 if let request = request as? PlayerJoinBattleRequest {
 
@@ -420,11 +391,6 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             let server = try unwrap(self.server)
 
             server.serverDelegate = stubServerDelegate
-
-            XCTAssertEqual(
-                server.state,
-                .offline
-            )
             
             XCTAssertEqual(
                 server.record.state,

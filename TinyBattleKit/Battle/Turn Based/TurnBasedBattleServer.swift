@@ -66,26 +66,6 @@ public final class TurnBasedBattleServer: BattleServer {
     
     // MARK: Property
     
-    // Todo: timer to keep alive.
-    public final var state: BattleServerState {
-        
-        let isNewRecord = (record.createdAtDate == record.updatedAtDate)
-        
-        if isNewRecord { return .offline }
-        
-        // todo: switch machine state.
-        
-        let now = Date()
-        
-        let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
-            
-        return
-            serverOnlineTimeout <= 10.0
-            ? .online
-            : .offline
-        
-    }
-    
     internal final let stateMachine: TurnBasedBattleServerStateMachine
     
     public final let player: BattlePlayer
@@ -93,6 +73,10 @@ public final class TurnBasedBattleServer: BattleServer {
     public private(set) final var record: TurnBasedBattleRecord
     
     private final var observationToken: ObservationToken?
+    
+    private final let timeoutTimeInterval: TimeInterval = 10.0
+    
+    private final var timeoutTimer: Timer?
     
     public final unowned let serverDataProvider: TurnBasedBattleServerDataProvider
     
@@ -113,10 +97,7 @@ public final class TurnBasedBattleServer: BattleServer {
         let isOwner = (player.id == record.owner.id)
         
         if isOwner {
-        
-            // Todo:
-            // 1. leverage the usage of online / offline state.
-            // 2. maybe replace machine state with generic sever state online / offline? but two states might be too limited.
+
             self.record =
                 record.state == .end
                 ? record
@@ -144,7 +125,7 @@ public final class TurnBasedBattleServer: BattleServer {
     
     deinit {
         
-        print(#function)
+        timeoutTimer?.invalidate()
         
         observationToken?.invalidate()
         
@@ -192,6 +173,20 @@ public final class TurnBasedBattleServer: BattleServer {
             let currentTurn = record.turns.last
         else { fatalError("A record must contains at least one turn.") }
         
+        let now = Date()
+        
+        let leeway = now.timeIntervalSince(self.record.updatedAtDate)
+        
+        let isTimeout = (leeway > timeoutTimeInterval)
+        
+        if isTimeout {
+            
+            let error: TurnBasedBattleServerError = .serverTimeout
+            
+            return .failure(error)
+            
+        }
+        
         return .success(currentTurn: currentTurn)
         
     }
@@ -208,7 +203,25 @@ public final class TurnBasedBattleServer: BattleServer {
         
         switch validate() {
         
-        case .success:
+        case .success(let currentTurn):
+            
+            timeoutTimer = Timer.scheduledTimer(
+                withTimeInterval: timeoutTimeInterval,
+                repeats: true,
+                block: { [unowned self] timer in
+                    
+                    if self.isOwner {
+                       
+                        // Onwer keeps the server remaining online by updating updatedAtDate field.
+                        self.record = self.serverDataProvider.setState(
+                            self.stateMachine.state,
+                            forRecordId: self.record.id
+                        )
+                        
+                    }
+                    
+                }
+            )
             
             observationToken = serverDataProvider.observeRecord(
                 id: record.id,
@@ -255,16 +268,12 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                 case .turnStart:
                     
-                    let currentTurn = record.turns.last!
-                    
                     serverDelegate?.server(
                         self,
                         didStartTurn: currentTurn
                     )
                     
                 case .turnEnd:
-                    
-                    let currentTurn = record.turns.last!
                     
                     serverDelegate?.server(
                         self,

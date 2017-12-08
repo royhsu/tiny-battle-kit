@@ -10,8 +10,6 @@
 
 public protocol BattleServer {
     
-    var state: BattleServerState { get }
-    
     func resume()
     
     func respond(to request: BattleRequest)

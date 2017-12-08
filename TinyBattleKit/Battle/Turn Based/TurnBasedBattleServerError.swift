@@ -14,6 +14,8 @@ public enum TurnBasedBattleServerError: Error {
     
     case serverNotInState(TurnBasedBattleServerState)
     
+    case serverTimeout
+    
     case battleRecordIsLocked(recordId: String)
     
     case battlePlayerHasJoined(playerId: String)

@@ -141,6 +141,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         updatedRecord.readyPlayers = []
         
+        updatedRecord.updatedAtDate = Date()
+        
         record = updatedRecord
         
         return updatedRecord
@@ -160,6 +162,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
             )
         )
         
+        updatedRecord.updatedAtDate = Date()
+        
         record = updatedRecord
         
         return updatedRecord
@@ -178,6 +182,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         updatedRecord.joinedPlayers.append(player)
         
+        updatedRecord.updatedAtDate = Date()
+        
         record = updatedRecord
         
         return updatedRecord
@@ -195,6 +201,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         var updatedRecord = record as! MockBattleRecord
         
         updatedRecord.readyPlayers.append(player)
+        
+        updatedRecord.updatedAtDate = Date()
         
         record = updatedRecord
         
@@ -217,6 +225,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         turn.involvedPlayers.append(player)
         
         updatedRecord.turns.append(turn)
+        
+        updatedRecord.updatedAtDate = Date()
         
         record = updatedRecord
         

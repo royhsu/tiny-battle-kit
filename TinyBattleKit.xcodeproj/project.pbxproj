@@ -37,7 +37,6 @@
 		B0885DFF1FDA3A3C00629629 /* TurnBasedBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE31FDA3A3C00629629 /* TurnBasedBattleTurn.swift */; };
 		B0885E001FDA3A3C00629629 /* ReadyBattlePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE41FDA3A3C00629629 /* ReadyBattlePlayer.swift */; };
 		B0885E011FDA3A3C00629629 /* BattleActionAnimatorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE51FDA3A3C00629629 /* BattleActionAnimatorContext.swift */; };
-		B0885E021FDA3A3C00629629 /* BattleServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE61FDA3A3C00629629 /* BattleServerState.swift */; };
 		B0885E031FDA3A3C00629629 /* AnyBattleActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE71FDA3A3C00629629 /* AnyBattleActionProvider.swift */; };
 		B0885E041FDA3A3C00629629 /* BattleActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE81FDA3A3C00629629 /* BattleActionAnimator.swift */; };
 		B0885E051FDA3A3C00629629 /* BattleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885DE91FDA3A3C00629629 /* BattleResult.swift */; };
@@ -127,7 +126,6 @@
 		B0885DE31FDA3A3C00629629 /* TurnBasedBattleTurn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleTurn.swift; sourceTree = "<group>"; };
 		B0885DE41FDA3A3C00629629 /* ReadyBattlePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadyBattlePlayer.swift; sourceTree = "<group>"; };
 		B0885DE51FDA3A3C00629629 /* BattleActionAnimatorContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleActionAnimatorContext.swift; sourceTree = "<group>"; };
-		B0885DE61FDA3A3C00629629 /* BattleServerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleServerState.swift; sourceTree = "<group>"; };
 		B0885DE71FDA3A3C00629629 /* AnyBattleActionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyBattleActionProvider.swift; sourceTree = "<group>"; };
 		B0885DE81FDA3A3C00629629 /* BattleActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleActionAnimator.swift; sourceTree = "<group>"; };
 		B0885DE91FDA3A3C00629629 /* BattleResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleResult.swift; sourceTree = "<group>"; };
@@ -283,7 +281,6 @@
 				B0885DD11FDA3A3C00629629 /* BattleActionProvider.swift */,
 				B0885DD21FDA3A3C00629629 /* BattleActionResponder.swift */,
 				B0885DE91FDA3A3C00629629 /* BattleResult.swift */,
-				B0885DE61FDA3A3C00629629 /* BattleServerState.swift */,
 				B0885DEA1FDA3A3C00629629 /* BattleServer.swift */,
 				B0885DEB1FDA3A3C00629629 /* BattleRequest.swift */,
 				B0885E0A1FDA47B700629629 /* BattleResponse.swift */,
@@ -487,7 +484,6 @@
 				B0885DEE1FDA3A3C00629629 /* BattleActionProvider.swift in Sources */,
 				B0885DF21FDA3A3C00629629 /* PlayerJoinBattleRequest.swift in Sources */,
 				B0EF52C41FD393C80043014F /* Promise+Pass.swift in Sources */,
-				B0885E021FDA3A3C00629629 /* BattleServerState.swift in Sources */,
 				B0885E051FDA3A3C00629629 /* BattleResult.swift in Sources */,
 				B0EF52C21FD393C80043014F /* Promise+Retry.swift in Sources */,
 				B0885E031FDA3A3C00629629 /* AnyBattleActionProvider.swift in Sources */,
