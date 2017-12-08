@@ -203,7 +203,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
     }
     
     internal final func appendInvolvedPlayer(
-        _ player: BattlePlayer,
+        _ player: InvolvedBattlePlayer,
         forCurrentTurnOfRecordId recordId: String
     )
     -> TurnBasedBattleRecord {

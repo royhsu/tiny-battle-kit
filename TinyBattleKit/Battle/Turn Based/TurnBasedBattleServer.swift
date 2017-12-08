@@ -302,11 +302,25 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             case is PlayerJoinBattleRequest:
                 
-                supportedPromise = PlayerJoinBattleRequestResponder(server: self).respond(to: request)
+                supportedPromise = PlayerJoinBattleRequestResponder(
+                        server: self
+                    )
+                    .respond(to: request)
                 
             case is PlayerReadyBattleRequest:
                 
-                supportedPromise = PlayerReadyBattleRequestResponder(server: self).respond(to: request)
+                supportedPromise = PlayerReadyBattleRequestResponder(
+                        server: self
+                    )
+                    .respond(to: request)
+                
+            case is PlayerInvolveBattleRequest:
+                
+                supportedPromise = PlayerInvolveBattleRequestResponder(
+                        server: self,
+                        currentTurn: currentTurn
+                    )
+                    .respond(to: request)
                 
             case is ContinueBattleRequest:
                 
@@ -331,8 +345,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             
-            promise
-            .then(in: .main) {
+            promise.then(in: .main) {
                 
                 self.record = $0.updatedRecord
                 
@@ -340,6 +353,15 @@ public final class TurnBasedBattleServer: BattleServer {
                     self,
                     didRespondTo: request
                 )
+                
+                if self.shouldEndCurrentTurn {
+
+                    self.record = self.serverDataProvider.setState(
+                        .turnEnd,
+                        forRecordId: self.record.id
+                    )
+
+                }
                 
             }
             .catch(in: .main) { error in
@@ -350,78 +372,6 @@ public final class TurnBasedBattleServer: BattleServer {
                 )
                 
             }
-
-//            if let request = request as? PlayerInvolveBattleRequest {
-//
-//                let requiredState: TurnBasedBattleServerState = .turnStart
-//
-//                if stateMachine.state != requiredState {
-//
-//                    let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                let playerId = request.playerId
-//
-//                guard
-//                    let player = serverDataProvider.fetchPlayer(id: playerId)
-//                else {
-//
-//                    let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                let hasPlayerInvovled = currentTurn.involvedPlayers.contains { $0.id == playerId }
-//
-//                if hasPlayerInvovled {
-//
-//                    let error: TurnBasedBattleServerError = .battlePlayerHasInvolvedCurrentTurn(playerId: playerId)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                record = serverDataProvider.appendInvolvedPlayer(
-//                    player,
-//                    forCurrentTurnOfRecordId: record.id
-//                )
-//
-//                if shouldEndCurrentTurn {
-//
-//                    record = serverDataProvider.setState(
-//                        .turnEnd,
-//                        forRecordId: record.id
-//                    )
-//
-//                }
-//
-//                serverDelegate?.server(
-//                    self,
-//                    didRespondTo: request
-//                )
-//
-//                return
-//
-//            }
             
         case .failure(let error):
             

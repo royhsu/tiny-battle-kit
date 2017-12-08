@@ -16,13 +16,11 @@ public enum TurnBasedBattleServerError: Error {
     
     case battleRecordIsLocked(recordId: String)
     
-    case battlePlayerNotFound(playerId: String)
-    
     case battlePlayerHasJoined(playerId: String)
     
     case battlePlayerIsReady(playerId: String)
     
-    case battlePlayerHasInvolvedCurrentTurn(playerId: String)
+    case battlePlayerHasInvolved(playerId: String)
     
     case invalidBattleRequest
     

@@ -249,17 +249,35 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         turn.id
                     )
                     
-//                    server.respond(
-//                        to: BattlePlayerInvolveRequest(playerId: self.ownerId)
-//                    )
-//
-//                    server.respond(
-//                        to: BattlePlayerInvolveRequest(playerId: self.playerAId)
-//                    )
-//
-//                    server.respond(
-//                        to: BattlePlayerInvolveRequest(playerId: self.playerBId)
-//                    )
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(
+                            player: MockInvolvedBattlePlayer(
+                                id: self.ownerId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(
+                            player: MockInvolvedBattlePlayer(
+                                id: self.playerAId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+
+                    server.respond(
+                        to: PlayerInvolveBattleRequest(
+                            player: MockInvolvedBattlePlayer(
+                                id: self.playerBId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
                     
                 }
 
@@ -380,11 +398,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     return
 
                 }
+                
+                if request is PlayerInvolveBattleRequest { return }
 
                 if request is ContinueBattleRequest { return }
-
-//                if request is PlayerInvolveBattleRequest { return }
-
+                
                 XCTFail("Unknown request: \(request)")
 
             },

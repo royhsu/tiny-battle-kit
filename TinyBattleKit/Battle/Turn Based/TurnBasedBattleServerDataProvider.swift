@@ -53,7 +53,7 @@ public protocol TurnBasedBattleServerDataProvider: class {
     -> TurnBasedBattleRecord
     
     func appendInvolvedPlayer(
-        _ player: BattlePlayer,
+        _ player: InvolvedBattlePlayer,
         forCurrentTurnOfRecordId recordId: String
     )
     -> TurnBasedBattleRecord
