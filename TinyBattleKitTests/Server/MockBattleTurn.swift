@@ -16,6 +16,6 @@ internal struct MockBattleTurn: TurnBasedBattleTurn {
     
     internal let id: String
     
-    internal var involvedPlayers: [BattlePlayer]
+    internal var involvedPlayers: [InvolvedBattlePlayer]
     
 }

@@ -12,6 +12,6 @@ public protocol InvolvedBattlePlayer: BattlePlayer {
     
     var entities: [BattleEntity] { get }
     
-    var action: [BattleAction] { get }
+    var actions: [BattleAction] { get }
     
 }
