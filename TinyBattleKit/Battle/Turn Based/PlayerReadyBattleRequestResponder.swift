@@ -1,14 +1,14 @@
 //
-//  PlayerJoinBattleRequestResponder.swift
+//  PlayerReadyBattleRequestResponder.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 08/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - PlayerJoinBattleRequestResponder
+// MARK: - PlayerReadyBattleRequestResponder
 
-public struct PlayerJoinBattleRequestResponder {
+public struct PlayerReadyBattleRequestResponder {
     
     // MARK: Property
     
@@ -25,7 +25,7 @@ public struct PlayerJoinBattleRequestResponder {
         return Promise(in: .main) { fulfull, reject, _ in
             
             guard
-                let request = request as? PlayerJoinBattleRequest
+                let request = request as? PlayerReadyBattleRequest
             else {
                 
                 let error: TurnBasedBattleServerError = .invalidBattleRequest
@@ -33,7 +33,7 @@ public struct PlayerJoinBattleRequestResponder {
                 reject(error)
                 
                 return
-
+                    
             }
             
             let requiredState: TurnBasedBattleServerState = .start
@@ -50,22 +50,22 @@ public struct PlayerJoinBattleRequestResponder {
             
             let playerId = request.player.id
             
-            let hasPlayerJoined = server
+            let isPlayerReady = server
                 .record
-                .joinedPlayers
+                .readyPlayers
                 .contains { $0.id == playerId }
-
-            if hasPlayerJoined {
-
-                let error: TurnBasedBattleServerError = .battlePlayerHasJoined(playerId: playerId)
-
+            
+            if isPlayerReady {
+                
+                let error: TurnBasedBattleServerError = .battlePlayerIsReady(playerId: playerId)
+                
                 reject(error)
-
+                
                 return
-
+                
             }
             
-            let updatedRecord = dataProvider.appendJoinedPlayer(
+            let updatedRecord = dataProvider.appendReadyPlayer(
                 request.player,
                 forRecordId: server.record.id
             )

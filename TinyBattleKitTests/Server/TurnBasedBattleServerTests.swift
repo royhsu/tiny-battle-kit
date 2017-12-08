@@ -170,38 +170,59 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                             )
                         )
                     )
-//
-//                    server.respond(to:
-//                        BattlePlayerJoinRequest(playerId: self.playerAId)
-//                    )
-//
-//                    server.respond(to:
-//                        BattlePlayerJoinRequest(playerId: self.playerBId)
-//                    )
-//
-//                    XCTAssert(server.record.readyPlayers.isEmpty)
-//
-//                    server.respond(
-//                        to: PlayerReadyBattleRequest(
-//                            playerId: self.ownerId,
-//                            entityIds: []
-//                        )
-//                    )
-//
-//                    server.respond(
-//                        to: PlayerReadyBattleRequest(
-//                            playerId: self.playerAId,
-//                            entityIds: []
-//                        )
-//                    )
-//
-//                    server.respond(
-//                        to: PlayerReadyBattleRequest(
-//                            playerId: self.playerBId,
-//                            entityIds: []
-//                        )
-//                    )
+                    
+                    server.respond(
+                        to: PlayerJoinBattleRequest(
+                            player: MockJoinedBattlePlayer(
+                                id: self.playerAId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+                    
+                    server.respond(
+                        to: PlayerJoinBattleRequest(
+                            player: MockJoinedBattlePlayer(
+                                id: self.playerBId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
 
+                    XCTAssert(server.record.readyPlayers.isEmpty)
+
+                    server.respond(
+                        to: PlayerReadyBattleRequest(
+                            player: MockReadyBattlePlayer(
+                                id: self.ownerId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+
+                    server.respond(
+                        to: PlayerReadyBattleRequest(
+                            player: MockReadyBattlePlayer(
+                                id: self.playerAId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+
+                    server.respond(
+                        to: PlayerReadyBattleRequest(
+                            player: MockReadyBattlePlayer(
+                                id: self.playerBId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
+                    
                 }
 
             },
@@ -325,59 +346,42 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     return
 
                 }
-//
-//                if let request = request as? PlayerReadyBattleRequest {
-//
-//                    performTest {
-//
-//                        let readyPlayers = server.record
-//                            .readyPlayers
-//
-//                        let playerId = request.playerId
-//
-//                        guard
-//                            let playerIndex = readyPlayers.index(
-//                                where: { $0.id == playerId }
-//                            )
-//                        else {
-//
-//                            XCTFail("Ready player not found.")
-//
-//                            return
-//
-//                        }
-//
-//                        let readyPlayer = readyPlayers[playerIndex]
-//
-//                        XCTAssertEqual(
-//                            request.entityIds,
-//                            readyPlayer.entities.map { $0.id }
-//                        )
-//
-//                    }
-//
-//                    let readyPlayerIds = server.record.readyPlayers.map { $0.id }
-//
-//                    if
-//                        readyPlayerIds == [
-//                            self.ownerId,
-//                            self.playerAId,
-//                            self.playerBId
-//                        ] {
-//
+
+                if let request = request as? PlayerReadyBattleRequest {
+
+                    performTest {
+
+                        let isPlayerReady = server
+                            .record
+                            .readyPlayers
+                            .contains { $0.id == request.player.id }
+                        
+                        XCTAssert(isPlayerReady)
+
+                    }
+
+                    let readyPlayerIds = server.record.readyPlayers.map { $0.id }
+
+                    if
+                        readyPlayerIds == [
+                            self.ownerId,
+                            self.playerAId,
+                            self.playerBId
+                        ] {
+
 //                        server.respond(
-//                            to: ContinueBattleRequest(ownerId: self.ownerId)
+//                            to: ContinueBattleRequest(owner: self.ownerId)
 //                        )
-//
-//                    }
-//
-//                    return
-//
-//                }
-//
-//                if request is ContinueBattleRequest { return }
-//
-//                if request is BattlePlayerInvolveRequest { return }
+
+                    }
+
+                    return
+
+                }
+
+                if request is ContinueBattleRequest { return }
+
+//                if request is PlayerInvolveBattleRequest { return }
 
                 XCTFail("Unknown request: \(request)")
 

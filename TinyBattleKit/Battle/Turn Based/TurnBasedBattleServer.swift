@@ -296,9 +296,38 @@ public final class TurnBasedBattleServer: BattleServer {
             
         case .success(let currentTurn):
         
-            any(
-                PlayerJoinBattleRequestResponder(server: self).respond(to: request)
-            )
+            var supportedPromise: Promise<TurnBasedBattleResponse>?
+            
+            switch request {
+                
+            case is PlayerJoinBattleRequest:
+                
+                supportedPromise = PlayerJoinBattleRequestResponder(server: self).respond(to: request)
+                
+            case is PlayerReadyBattleRequest:
+                
+                supportedPromise = PlayerReadyBattleRequestResponder(server: self).respond(to: request)
+                
+            default: break
+                
+            }
+            
+            guard
+                let promise = supportedPromise
+            else {
+                
+                let error: TurnBasedBattleServerError = .unsupportedBattleRequest
+                
+                self.serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+                return
+                
+            }
+            
+            promise
             .then(in: .main) {
                 
                 self.record = $0.updatedRecord
@@ -310,8 +339,6 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             .catch(in: .main) { error in
-                
-                let error: TurnBasedBattleServerError = .unsupportedBattleRequest
                 
                 self.serverDelegate?.server(
                     self,

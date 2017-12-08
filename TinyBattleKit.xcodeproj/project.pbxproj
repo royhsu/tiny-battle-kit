@@ -46,6 +46,9 @@
 		B0885E091FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E081FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift */; };
 		B0885E0B1FDA47B700629629 /* BattleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E0A1FDA47B700629629 /* BattleResponse.swift */; };
 		B0885E0D1FDA54F500629629 /* MockJoinedBattlePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E0C1FDA54F500629629 /* MockJoinedBattlePlayer.swift */; };
+		B0885E0F1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */; };
+		B0885E111FDA56DF00629629 /* TurnBasedBattleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */; };
+		B0885E131FDA582600629629 /* MockReadyBattlePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E121FDA582600629629 /* MockReadyBattlePlayer.swift */; };
 		B0A676751FD1710C00278CBE /* TurnBasedBattleServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676741FD1710C00278CBE /* TurnBasedBattleServerTests.swift */; };
 		B0A6767D1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */; };
 		B0A676841FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */; };
@@ -130,6 +133,9 @@
 		B0885E081FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerJoinBattleRequestResponder.swift; sourceTree = "<group>"; };
 		B0885E0A1FDA47B700629629 /* BattleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleResponse.swift; sourceTree = "<group>"; };
 		B0885E0C1FDA54F500629629 /* MockJoinedBattlePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJoinedBattlePlayer.swift; sourceTree = "<group>"; };
+		B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerReadyBattleRequestResponder.swift; sourceTree = "<group>"; };
+		B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleResponse.swift; sourceTree = "<group>"; };
+		B0885E121FDA582600629629 /* MockReadyBattlePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReadyBattlePlayer.swift; sourceTree = "<group>"; };
 		B0A676741FD1710C00278CBE /* TurnBasedBattleServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerTests.swift; sourceTree = "<group>"; };
 		B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTurnBasedBattleServerDelegate.swift; sourceTree = "<group>"; };
 		B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTurnBasedBattleServerDataProvider.swift; sourceTree = "<group>"; };
@@ -227,9 +233,11 @@
 				B0885DE41FDA3A3C00629629 /* ReadyBattlePlayer.swift */,
 				B0885DD91FDA3A3C00629629 /* InvolvedBattlePlayer.swift */,
 				B0885DD61FDA3A3C00629629 /* PlayerJoinBattleRequest.swift */,
-				B0885E081FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift */,
 				B0885DE11FDA3A3C00629629 /* PlayerReadyBattleRequest.swift */,
 				B0885DDC1FDA3A3C00629629 /* PlayerInvolveBattleRequest.swift */,
+				B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */,
+				B0885E081FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift */,
+				B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */,
 				B0885DDD1FDA3A3C00629629 /* ContinueBattleRequest.swift */,
 				B0885DD81FDA3A3C00629629 /* TurnBasedBattle.swift */,
 				B0885DD71FDA3A3C00629629 /* TurnBasedBattleServer.swift */,
@@ -283,6 +291,7 @@
 				B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */,
 				B0A6768F1FD1A6D200278CBE /* MockBattlePlayer.swift */,
 				B0885E0C1FDA54F500629629 /* MockJoinedBattlePlayer.swift */,
+				B0885E121FDA582600629629 /* MockReadyBattlePlayer.swift */,
 				B0A676911FD1A75300278CBE /* MockBattleRecord.swift */,
 				B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */,
 				B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */,
@@ -460,6 +469,7 @@
 				B0885DFF1FDA3A3C00629629 /* TurnBasedBattleTurn.swift in Sources */,
 				B0EF52C91FD393C80043014F /* Promise+Async.swift in Sources */,
 				B0EF52CB1FD393C80043014F /* Promise+Await.swift in Sources */,
+				B0885E111FDA56DF00629629 /* TurnBasedBattleResponse.swift in Sources */,
 				B0885DF61FDA3A3C00629629 /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0EF52D51FD393C80043014F /* Promise+Map.swift in Sources */,
 				B0885DEF1FDA3A3C00629629 /* BattleActionResponder.swift in Sources */,
@@ -504,6 +514,7 @@
 				B0885E011FDA3A3C00629629 /* BattleActionAnimatorContext.swift in Sources */,
 				B0885E091FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift in Sources */,
 				B0885E0B1FDA47B700629629 /* BattleResponse.swift in Sources */,
+				B0885E0F1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift in Sources */,
 				B0EF52CD1FD393C80043014F /* Promise+Defer.swift in Sources */,
 				B0885E071FDA3A3D00629629 /* BattleRequest.swift in Sources */,
 				B0885DFA1FDA3A3C00629629 /* TurnBasedBattleServerState.swift in Sources */,
@@ -519,6 +530,7 @@
 			files = (
 				B0885E0D1FDA54F500629629 /* MockJoinedBattlePlayer.swift in Sources */,
 				B0A676901FD1A6D200278CBE /* MockBattlePlayer.swift in Sources */,
+				B0885E131FDA582600629629 /* MockReadyBattlePlayer.swift in Sources */,
 				B0A676841FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift in Sources */,
 				B024ED4F1FD04D6700E6DB72 /* CalculatorTests.swift in Sources */,
 				B0A6768C1FD1A1C700278CBE /* TinyTest.swift in Sources */,
