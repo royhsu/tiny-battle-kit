@@ -16,6 +16,4 @@ internal struct MockBattlePlayer: BattlePlayer {
     
     internal let id: String
     
-    internal let entities: [BattleEntity]
-    
 }

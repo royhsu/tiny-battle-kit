@@ -22,7 +22,7 @@ public protocol TurnBasedBattleRecord {
     
     var owner: BattlePlayer { get }
     
-    var joinedPlayers: [BattlePlayer] { get }
+    var joinedPlayers: [JoinedBattlePlayer] { get }
     
     var readyPlayers: [BattlePlayer] { get }
     

@@ -38,20 +38,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         
         performTest {
             
-            let owner = MockBattlePlayer(
-                id: ownerId,
-                entities: []
-            )
+            let owner = MockBattlePlayer(id: ownerId)
             
-            let playerA = MockBattlePlayer(
-                id: playerAId,
-                entities: []
-            )
+            let playerA = MockBattlePlayer(id: playerAId)
             
-            let playerB = MockBattlePlayer(
-                id: playerBId,
-                entities: []
-            )
+            let playerB = MockBattlePlayer(id: playerBId)
             
             let today = Date()
             
@@ -170,11 +161,15 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                     XCTAssert(server.record.joinedPlayers.isEmpty)
                     
-//                    server.respond(to:
-//                        PlayerJoinBattleRequest(
-//                            player: self.ownerId
-//                        )
-//                    )
+                    server.respond(
+                        to: PlayerJoinBattleRequest(
+                            player: MockJoinedBattlePlayer(
+                                id: self.ownerId,
+                                entities: [],
+                                action: []
+                            )
+                        )
+                    )
 //
 //                    server.respond(to:
 //                        BattlePlayerJoinRequest(playerId: self.playerAId)
@@ -314,21 +309,22 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                 }
                 
-//                if let request = request as? BattlePlayerJoinRequest {
-//
-//                    performTest {
-//
-//                        let playerId = request.playerId
-//
-//                        let hasPlayerJoined = server.record.joinedPlayers.contains { $0.id == playerId }
-//
-//                        XCTAssert(hasPlayerJoined)
-//
-//                    }
-//
-//                    return
-//
-//                }
+                if let request = request as? PlayerJoinBattleRequest {
+
+                    performTest {
+
+                        let hasPlayerJoined = server
+                            .record
+                            .joinedPlayers
+                            .contains { $0.id == request.player.id }
+
+                        XCTAssert(hasPlayerJoined)
+
+                    }
+
+                    return
+
+                }
 //
 //                if let request = request as? PlayerReadyBattleRequest {
 //

@@ -28,6 +28,8 @@ public enum TurnBasedBattleServerError: Error {
     
     case battlePlayerHasInvolvedCurrentTurn(playerId: String)
     
+    case invalidBattleRequest
+    
     case unsupportedBattleRequest
     
     case onwerRequiredBattleRequest

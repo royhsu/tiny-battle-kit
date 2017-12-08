@@ -73,6 +73,8 @@ public final class TurnBasedBattleServer: BattleServer {
         
         if isNewRecord { return .offline }
         
+        // todo: switch machine state.
+        
         let now = Date()
         
         let serverOnlineTimeout = now.timeIntervalSince(record.updatedAtDate)
@@ -84,7 +86,7 @@ public final class TurnBasedBattleServer: BattleServer {
         
     }
     
-    private final let stateMachine: TurnBasedBattleServerStateMachine
+    internal final let stateMachine: TurnBasedBattleServerStateMachine
     
     public final let player: BattlePlayer
     
@@ -112,6 +114,9 @@ public final class TurnBasedBattleServer: BattleServer {
         
         if isOwner {
         
+            // Todo:
+            // 1. leverage the usage of online / offline state.
+            // 2. maybe replace machine state with generic sever state online / offline? but two states might be too limited.
             self.record =
                 record.state == .end
                 ? record
@@ -291,68 +296,30 @@ public final class TurnBasedBattleServer: BattleServer {
             
         case .success(let currentTurn):
         
-//            if let request = request as? PlayerJoinBattleRequest {
-//
-//                let requiredState: TurnBasedBattleServerState = .start
-//
-//                if stateMachine.state != requiredState {
-//
-//                    let error: TurnBasedBattleServerError = .serverNotInState(requiredState)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                let playerId = request.playerId
-//
-//                guard
-//                    let player = serverDataProvider.fetchPlayer(id: playerId)
-//                else {
-//
-//                    let error: TurnBasedBattleServerError = .battlePlayerNotFound(playerId: playerId)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                let hasPlayerJoined = record.joinedPlayers.contains { $0.id == playerId }
-//
-//                if hasPlayerJoined {
-//
-//                    let error: TurnBasedBattleServerError = .battlePlayerHasJoined(playerId: playerId)
-//
-//                    serverDelegate?.server(
-//                        self,
-//                        didFailWith: error
-//                    )
-//
-//                    return
-//
-//                }
-//
-//                record = serverDataProvider.appendJoinedPlayer(
-//                    player,
-//                    forRecordId: record.id
-//                )
-//
-//                serverDelegate?.server(
-//                    self,
-//                    didRespondTo: request
-//                )
-//
-//                return
-//
-//            }
+            any(
+                PlayerJoinBattleRequestResponder(server: self).respond(to: request)
+            )
+            .then(in: .main) {
+                
+                self.record = $0.updatedRecord
+                
+                self.serverDelegate?.server(
+                    self,
+                    didRespondTo: request
+                )
+                
+            }
+            .catch(in: .main) { error in
+                
+                let error: TurnBasedBattleServerError = .unsupportedBattleRequest
+                
+                self.serverDelegate?.server(
+                    self,
+                    didFailWith: error
+                )
+                
+            }
+            
 //
 //            if let request = request as? PlayerReadyBattleRequest {
 //
@@ -549,13 +516,6 @@ public final class TurnBasedBattleServer: BattleServer {
 //                return
 //
 //            }
-            
-            let error: TurnBasedBattleServerError = .unsupportedBattleRequest
-            
-            serverDelegate?.server(
-                self,
-                didFailWith: error
-            )
             
         case .failure(let error):
             
