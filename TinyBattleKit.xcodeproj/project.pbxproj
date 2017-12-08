@@ -49,6 +49,7 @@
 		B0885E0F1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */; };
 		B0885E111FDA56DF00629629 /* TurnBasedBattleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */; };
 		B0885E131FDA582600629629 /* MockReadyBattlePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E121FDA582600629629 /* MockReadyBattlePlayer.swift */; };
+		B0885E151FDA5E7300629629 /* ContinueBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0885E141FDA5E7300629629 /* ContinueBattleRequestResponder.swift */; };
 		B0A676751FD1710C00278CBE /* TurnBasedBattleServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676741FD1710C00278CBE /* TurnBasedBattleServerTests.swift */; };
 		B0A6767D1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */; };
 		B0A676841FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */; };
@@ -136,6 +137,7 @@
 		B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerReadyBattleRequestResponder.swift; sourceTree = "<group>"; };
 		B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleResponse.swift; sourceTree = "<group>"; };
 		B0885E121FDA582600629629 /* MockReadyBattlePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReadyBattlePlayer.swift; sourceTree = "<group>"; };
+		B0885E141FDA5E7300629629 /* ContinueBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueBattleRequestResponder.swift; sourceTree = "<group>"; };
 		B0A676741FD1710C00278CBE /* TurnBasedBattleServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedBattleServerTests.swift; sourceTree = "<group>"; };
 		B0A6767C1FD1745D00278CBE /* StubTurnBasedBattleServerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTurnBasedBattleServerDelegate.swift; sourceTree = "<group>"; };
 		B0A676831FD17FEF00278CBE /* MockTurnBasedBattleServerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTurnBasedBattleServerDataProvider.swift; sourceTree = "<group>"; };
@@ -235,10 +237,11 @@
 				B0885DD61FDA3A3C00629629 /* PlayerJoinBattleRequest.swift */,
 				B0885DE11FDA3A3C00629629 /* PlayerReadyBattleRequest.swift */,
 				B0885DDC1FDA3A3C00629629 /* PlayerInvolveBattleRequest.swift */,
+				B0885DDD1FDA3A3C00629629 /* ContinueBattleRequest.swift */,
 				B0885E101FDA56DF00629629 /* TurnBasedBattleResponse.swift */,
 				B0885E081FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift */,
 				B0885E0E1FDA569100629629 /* PlayerReadyBattleRequestResponder.swift */,
-				B0885DDD1FDA3A3C00629629 /* ContinueBattleRequest.swift */,
+				B0885E141FDA5E7300629629 /* ContinueBattleRequestResponder.swift */,
 				B0885DD81FDA3A3C00629629 /* TurnBasedBattle.swift */,
 				B0885DD71FDA3A3C00629629 /* TurnBasedBattleServer.swift */,
 				B0885DDA1FDA3A3C00629629 /* TurnBasedBattleServerDataProvider.swift */,
@@ -501,6 +504,7 @@
 				B0EF52D41FD393C80043014F /* Promise.swift in Sources */,
 				B0885DF81FDA3A3C00629629 /* PlayerInvolveBattleRequest.swift in Sources */,
 				B0EF52CC1FD393C80043014F /* DispatchTimerWrapper.swift in Sources */,
+				B0885E151FDA5E7300629629 /* ContinueBattleRequestResponder.swift in Sources */,
 				B0885E061FDA3A3C00629629 /* BattleServer.swift in Sources */,
 				B0EF52C81FD393C80043014F /* Promise+Catch.swift in Sources */,
 				B0885DF31FDA3A3C00629629 /* TurnBasedBattleServer.swift in Sources */,

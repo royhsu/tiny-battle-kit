@@ -369,9 +369,11 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                             self.playerBId
                         ] {
 
-//                        server.respond(
-//                            to: ContinueBattleRequest(owner: self.ownerId)
-//                        )
+                        server.respond(
+                            to: ContinueBattleRequest(
+                                owner: MockBattlePlayer(id: self.ownerId)
+                            )
+                        )
 
                     }
 

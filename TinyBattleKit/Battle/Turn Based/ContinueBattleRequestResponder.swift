@@ -1,14 +1,14 @@
 //
-//  PlayerReadyBattleRequestResponder.swift
+//  ContinueBattleRequestResponder.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 08/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - PlayerReadyBattleRequestResponder
+// MARK: - ContinueBattleRequestResponder
 
-public struct PlayerReadyBattleRequestResponder {
+public struct ContinueBattleRequestResponder {
     
     // MARK: Property
     
@@ -25,7 +25,7 @@ public struct PlayerReadyBattleRequestResponder {
         return Promise(in: .main) { fulfull, reject, _ in
             
             guard
-                let request = request as? PlayerReadyBattleRequest
+                let request = request as? ContinueBattleRequest
             else {
                 
                 let error: TurnBasedBattleServerError = .invalidBattleRequest
@@ -48,16 +48,11 @@ public struct PlayerReadyBattleRequestResponder {
                 
             }
             
-            let playerId = request.player.id
-            
-            let isPlayerReady = server
-                .record
-                .readyPlayers
-                .contains { $0.id == playerId }
-            
-            if isPlayerReady {
+            guard
+                server.record.owner.id == request.owner.id
+            else {
                 
-                let error: TurnBasedBattleServerError = .battlePlayerIsReady(playerId: playerId)
+                let error: TurnBasedBattleServerError = .onwerRequiredBattleRequest
                 
                 reject(error)
                 
@@ -65,8 +60,8 @@ public struct PlayerReadyBattleRequestResponder {
                 
             }
             
-            let updatedRecord = dataProvider.appendReadyPlayer(
-                request.player,
+            let updatedRecord = dataProvider.setState(
+                .turnStart,
                 forRecordId: server.record.id
             )
             

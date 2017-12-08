@@ -12,8 +12,6 @@ public enum TurnBasedBattleServerError: Error {
     
     // MARK: Case
     
-    case serverDataProviderNotFound
-    
     case serverNotInState(TurnBasedBattleServerState)
     
     case battleRecordIsLocked(recordId: String)
@@ -21,8 +19,6 @@ public enum TurnBasedBattleServerError: Error {
     case battlePlayerNotFound(playerId: String)
     
     case battlePlayerHasJoined(playerId: String)
-    
-    case battlePlayerNotJoined(playerId: String)
     
     case battlePlayerIsReady(playerId: String)
     
