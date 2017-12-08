@@ -38,11 +38,20 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
         
         performTest {
             
-            let owner = MockBattlePlayer(id: ownerId)
+            let owner = MockBattlePlayer(
+                id: ownerId,
+                entities: []
+            )
             
-            let playerA = MockBattlePlayer(id: playerAId)
+            let playerA = MockBattlePlayer(
+                id: playerAId,
+                entities: []
+            )
             
-            let playerB = MockBattlePlayer(id: playerBId)
+            let playerB = MockBattlePlayer(
+                id: playerBId,
+                entities: []
+            )
             
             let record = MockBattleRecord(
                 id: recordId,
@@ -171,15 +180,24 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(server.record.readyPlayers.isEmpty)
                     
                     server.respond(
-                        to: PlayerReadyBattleRequest(playerId: self.ownerId)
+                        to: PlayerReadyBattleRequest(
+                            playerId: self.ownerId,
+                            entityIds: []
+                        )
                     )
                     
                     server.respond(
-                        to: PlayerReadyBattleRequest(playerId: self.playerAId)
+                        to: PlayerReadyBattleRequest(
+                            playerId: self.playerAId,
+                            entityIds: []
+                        )
                     )
                     
                     server.respond(
-                        to: PlayerReadyBattleRequest(playerId: self.playerBId)
+                        to: PlayerReadyBattleRequest(
+                            playerId: self.playerBId,
+                            entityIds: []
+                        )
                     )
 
                 }
@@ -297,11 +315,29 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                     performTest {
                         
+                        let readyPlayers = server.record
+                            .readyPlayers
+                        
                         let playerId = request.playerId
                         
-                        let isPlayerReady = server.record.readyPlayers.contains { $0.id == playerId }
+                        guard
+                            let playerIndex = readyPlayers.index(
+                                where: { $0.id == playerId }
+                            )
+                        else {
+                            
+                            XCTFail("Ready player not found.")
+                            
+                            return
+                            
+                        }
                         
-                        XCTAssert(isPlayerReady)
+                        let readyPlayer = readyPlayers[playerIndex]
+                        
+                        XCTAssertEqual(
+                            request.entityIds,
+                            readyPlayer.entities.map { $0.id }
+                        )
                         
                     }
                     

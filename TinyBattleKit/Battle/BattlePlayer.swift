@@ -12,6 +12,8 @@ public protocol BattlePlayer {
     
     var id: String { get }
     
+    var entities: [BattleEntity] { get }
+    
 }
 
 // MARK: - Equatable (Default Implementation)

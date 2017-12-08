@@ -14,8 +14,19 @@ public struct PlayerReadyBattleRequest: BattleRequest {
     
     public let playerId: String
     
+    public let entityIds: [String]
+    
     // MARK: Init
     
-    public init(playerId: String) { self.playerId = playerId }
+    public init(
+        playerId: String,
+        entityIds: [String]
+    ) {
+        
+        self.playerId = playerId
+        
+        self.entityIds = entityIds
+        
+    }
     
 }
