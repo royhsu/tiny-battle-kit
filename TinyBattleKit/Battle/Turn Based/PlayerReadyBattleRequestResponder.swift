@@ -16,25 +16,13 @@ public struct PlayerReadyBattleRequestResponder {
     
     // MARK: BattleRequestResponder
     
-    public func respond(to request: BattleRequest) -> Promise<TurnBasedBattleResponse> {
+    public func respond(to request: PlayerReadyBattleRequest) -> Promise<TurnBasedBattleResponse> {
         
         let server = self.server
         
         let dataProvider = server.serverDataProvider
         
         return Promise(in: .main) { fulfull, reject, _ in
-            
-            guard
-                let request = request as? PlayerReadyBattleRequest
-            else {
-                
-                let error: TurnBasedBattleServerError = .invalidBattleRequest
-                
-                reject(error)
-                
-                return
-                    
-            }
             
             let requiredState: TurnBasedBattleServerState = .start
             

@@ -306,24 +306,18 @@ public final class TurnBasedBattleServer: BattleServer {
         case .success(let currentTurn):
         
             var supportedPromise: Promise<TurnBasedBattleResponse>?
+                
+            if let request = request as? PlayerJoinBattleRequest {
+                
+                supportedPromise = PlayerJoinBattleRequestResponder(server: self).respond(to: request)
             
-            switch request {
+            }
+            else if let request = request as? PlayerReadyBattleRequest {
                 
-            case is PlayerJoinBattleRequest:
-                
-                supportedPromise = PlayerJoinBattleRequestResponder(
-                        server: self
-                    )
-                    .respond(to: request)
-                
-            case is PlayerReadyBattleRequest:
-                
-                supportedPromise = PlayerReadyBattleRequestResponder(
-                        server: self
-                    )
-                    .respond(to: request)
-                
-            case is PlayerInvolveBattleRequest:
+                supportedPromise = PlayerReadyBattleRequestResponder(server: self).respond(to: request)
+            
+            }
+            else if let request = request as? PlayerInvolveBattleRequest {
                 
                 supportedPromise = PlayerInvolveBattleRequestResponder(
                         server: self,
@@ -331,11 +325,10 @@ public final class TurnBasedBattleServer: BattleServer {
                     )
                     .respond(to: request)
                 
-            case is ContinueBattleRequest:
+            }
+            else if let request = request as? ContinueBattleRequest {
                 
                 supportedPromise = ContinueBattleRequestResponder(server: self).respond(to: request)
-                
-            default: break
                 
             }
             
