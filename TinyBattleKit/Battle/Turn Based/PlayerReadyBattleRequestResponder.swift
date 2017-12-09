@@ -36,12 +36,12 @@ public struct PlayerReadyBattleRequestResponder {
                 
             }
             
-            let playerId = request.player.id
+            let playerId = request.ready.player.id
             
             let isPlayerReady = server
                 .record
-                .readyPlayers
-                .contains { $0.id == playerId }
+                .readys
+                .contains { $0.player.id == playerId }
             
             if isPlayerReady {
                 
@@ -53,8 +53,8 @@ public struct PlayerReadyBattleRequestResponder {
                 
             }
             
-            let updatedRecord = dataProvider.appendReadyPlayer(
-                request.player,
+            let updatedRecord = dataProvider.appendReady(
+                request.ready,
                 forRecordId: server.record.id
             )
             

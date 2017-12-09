@@ -1,14 +1,18 @@
 //
-//  JoinedBattlePlayer.swift
+//  BattleInvolved.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 08/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - JoinedBattlePlayer
+// MARK: - BattleInvolved
 
-public protocol JoinedBattlePlayer: BattlePlayer {
+public protocol BattleInvolved {
+    
+    var id: String { get }
+    
+    var player: BattlePlayer { get }
     
     var entities: [BattleEntity] { get }
     

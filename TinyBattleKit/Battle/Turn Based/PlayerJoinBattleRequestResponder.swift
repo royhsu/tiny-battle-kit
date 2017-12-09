@@ -36,12 +36,12 @@ public struct PlayerJoinBattleRequestResponder {
                 
             }
             
-            let playerId = request.player.id
+            let playerId = request.joined.player.id
             
             let hasPlayerJoined = server
                 .record
-                .joinedPlayers
-                .contains { $0.id == playerId }
+                .joineds
+                .contains { $0.player.id == playerId }
 
             if hasPlayerJoined {
 
@@ -53,8 +53,8 @@ public struct PlayerJoinBattleRequestResponder {
 
             }
             
-            let updatedRecord = dataProvider.appendJoinedPlayer(
-                request.player,
+            let updatedRecord = dataProvider.appendJoined(
+                request.joined,
                 forRecordId: server.record.id
             )
             

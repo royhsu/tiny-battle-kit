@@ -52,8 +52,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 createdAtDate: today,
                 updatedAtDate: today,
                 owner: owner,
-                joinedPlayers: [],
-                readyPlayers: [],
+                joineds: [],
+                readys: [],
                 isLocked: false,
                 turns: []
             )
@@ -136,8 +136,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
                     
                     XCTAssertEqual(
-                        server.record.turns[index].involvedPlayers.map { $0.id },
-                        record.turns[index].involvedPlayers.map { $0.id }
+                        server.record.turns[index].involveds.map { $0.player.id },
+                        record.turns[index].involveds.map { $0.player.id }
                     )
                     
                 }
@@ -154,66 +154,63 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                         .start
                     )
 
-                    XCTAssert(server.record.joinedPlayers.isEmpty)
+                    XCTAssert(server.record.joineds.isEmpty)
                     
                     server.respond(
                         to: PlayerJoinBattleRequest(
-                            player: MockJoinedBattlePlayer(
-                                id: self.ownerId,
-                                entities: [],
-                                action: []
-                            )
-                        )
-                    )
-                    
-                    server.respond(
-                        to: PlayerJoinBattleRequest(
-                            player: MockJoinedBattlePlayer(
-                                id: self.playerAId,
-                                entities: [],
-                                action: []
+                            joined: MockBattleJoined(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.ownerId)
                             )
                         )
                     )
                     
                     server.respond(
                         to: PlayerJoinBattleRequest(
-                            player: MockJoinedBattlePlayer(
-                                id: self.playerBId,
-                                entities: [],
-                                action: []
+                            joined: MockBattleJoined(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerAId)
+                            )
+                        )
+                    )
+                    
+                    server.respond(
+                        to: PlayerJoinBattleRequest(
+                            joined: MockBattleJoined(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerBId)
                             )
                         )
                     )
 
-                    XCTAssert(server.record.readyPlayers.isEmpty)
+                    XCTAssert(server.record.readys.isEmpty)
 
                     server.respond(
                         to: PlayerReadyBattleRequest(
-                            player: MockReadyBattlePlayer(
-                                id: self.ownerId,
-                                entities: [],
-                                action: []
+                            ready: MockBattleReady(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.ownerId),
+                                entities: []
                             )
                         )
                     )
 
                     server.respond(
                         to: PlayerReadyBattleRequest(
-                            player: MockReadyBattlePlayer(
-                                id: self.playerAId,
-                                entities: [],
-                                action: []
+                            ready: MockBattleReady(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerAId),
+                                entities: []
                             )
                         )
                     )
 
                     server.respond(
                         to: PlayerReadyBattleRequest(
-                            player: MockReadyBattlePlayer(
-                                id: self.playerBId,
-                                entities: [],
-                                action: []
+                            ready: MockBattleReady(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerBId),
+                                entities: []
                             )
                         )
                     )
@@ -241,30 +238,33 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     
                     server.respond(
                         to: PlayerInvolveBattleRequest(
-                            player: MockInvolvedBattlePlayer(
-                                id: self.ownerId,
+                            involved: MockBattleInvolved(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.ownerId),
                                 entities: [],
-                                action: []
+                                actions: []
                             )
                         )
                     )
 
                     server.respond(
                         to: PlayerInvolveBattleRequest(
-                            player: MockInvolvedBattlePlayer(
-                                id: self.playerAId,
+                            involved: MockBattleInvolved(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerAId),
                                 entities: [],
-                                action: []
+                                actions: []
                             )
                         )
                     )
 
                     server.respond(
                         to: PlayerInvolveBattleRequest(
-                            player: MockInvolvedBattlePlayer(
-                                id: self.playerBId,
+                            involved: MockBattleInvolved(
+                                id: UUID().uuidString,
+                                player: MockBattlePlayer(id: self.playerBId),
                                 entities: [],
-                                action: []
+                                actions: []
                             )
                         )
                     )
@@ -291,8 +291,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     XCTAssertEqual(
-                        server.record.readyPlayers.map { $0.id },
-                        currenTurn.involvedPlayers.map { $0.id }
+                        server.record.readys.map { $0.player.id },
+                        currenTurn.involveds.map { $0.player.id }
                     )
 
                 }
@@ -325,8 +325,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                         let hasPlayerJoined = server
                             .record
-                            .joinedPlayers
-                            .contains { $0.id == request.player.id }
+                            .joineds
+                            .contains { $0.player.id == request.joined.player.id }
 
                         XCTAssert(hasPlayerJoined)
 
@@ -342,14 +342,14 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                         let isPlayerReady = server
                             .record
-                            .readyPlayers
-                            .contains { $0.id == request.player.id }
+                            .readys
+                            .contains { $0.player.id == request.ready.player.id }
                         
                         XCTAssert(isPlayerReady)
 
                     }
 
-                    let readyPlayerIds = server.record.readyPlayers.map { $0.id }
+                    let readyPlayerIds = server.record.readys.map { $0.player.id }
 
                     if
                         readyPlayerIds == [

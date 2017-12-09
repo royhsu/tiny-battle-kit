@@ -137,9 +137,9 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         var updatedRecord = record as! MockBattleRecord
         
-        updatedRecord.joinedPlayers = []
+        updatedRecord.joineds = []
         
-        updatedRecord.readyPlayers = []
+        updatedRecord.readys = []
         
         updatedRecord.updatedAtDate = Date()
         
@@ -158,7 +158,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         updatedRecord.turns.append(
             MockBattleTurn(
                 id: UUID().uuidString,
-                involvedPlayers: []
+                involveds: []
             )
         )
         
@@ -170,8 +170,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal final func appendJoinedPlayer(
-        _ player: JoinedBattlePlayer,
+    internal final func appendJoined(
+        _ joined: BattleJoined,
         forRecordId id: String
     )
     -> TurnBasedBattleRecord {
@@ -180,7 +180,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         var updatedRecord = record as! MockBattleRecord
         
-        updatedRecord.joinedPlayers.append(player)
+        updatedRecord.joineds.append(joined)
         
         updatedRecord.updatedAtDate = Date()
         
@@ -190,8 +190,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal final func appendReadyPlayer(
-        _ player: ReadyBattlePlayer,
+    internal final func appendReady(
+        _ ready: BattleReady,
         forRecordId id: String
     )
     -> TurnBasedBattleRecord {
@@ -200,7 +200,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         var updatedRecord = record as! MockBattleRecord
         
-        updatedRecord.readyPlayers.append(player)
+        updatedRecord.readys.append(ready)
         
         updatedRecord.updatedAtDate = Date()
         
@@ -210,8 +210,8 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
     }
     
-    internal final func appendInvolvedPlayer(
-        _ player: InvolvedBattlePlayer,
+    internal final func appendInvolved(
+        _ involved: BattleInvolved,
         forCurrentTurnOfRecordId recordId: String
     )
     -> TurnBasedBattleRecord {
@@ -222,7 +222,7 @@ internal final class MockTurnBasedBattleServerDataProvider: TurnBasedBattleServe
         
         var turn = updatedRecord.turns.removeLast() as! MockBattleTurn
             
-        turn.involvedPlayers.append(player)
+        turn.involveds.append(involved)
         
         updatedRecord.turns.append(turn)
         

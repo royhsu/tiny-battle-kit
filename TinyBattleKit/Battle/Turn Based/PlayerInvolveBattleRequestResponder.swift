@@ -38,11 +38,11 @@ public struct PlayerInvolveBattleRequestResponder {
                 
             }
             
-            let playerId = request.player.id
+            let playerId = request.involved.player.id
             
             let hasPlayerInvovled = self.currentTurn
-                .involvedPlayers
-                .contains { $0.id == playerId }
+                .involveds
+                .contains { $0.player.id == playerId }
             
             if hasPlayerInvovled {
                 
@@ -54,8 +54,8 @@ public struct PlayerInvolveBattleRequestResponder {
                 
             }
             
-            let updatedRecord = dataProvider.appendInvolvedPlayer(
-                request.player,
+            let updatedRecord = dataProvider.appendInvolved(
+                request.involved,
                 forCurrentTurnOfRecordId: server.record.id
             )
             

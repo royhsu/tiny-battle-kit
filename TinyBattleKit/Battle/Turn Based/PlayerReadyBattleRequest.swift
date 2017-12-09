@@ -12,10 +12,10 @@ public struct PlayerReadyBattleRequest: BattleRequest {
     
     // MARK: Property
     
-    public let player: ReadyBattlePlayer
+    public let ready: BattleReady
     
     // MARK: Init
     
-    public init(player: ReadyBattlePlayer) { self.player = player }
+    public init(ready: BattleReady) { self.ready = ready }
     
 }

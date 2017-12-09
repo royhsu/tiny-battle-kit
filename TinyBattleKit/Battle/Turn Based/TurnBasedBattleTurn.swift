@@ -12,6 +12,6 @@ public protocol TurnBasedBattleTurn {
     
     var id: String { get }
     
-    var involvedPlayers: [InvolvedBattlePlayer] { get }
+    var involveds: [BattleInvolved] { get }
     
 }

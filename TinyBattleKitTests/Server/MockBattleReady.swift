@@ -1,23 +1,23 @@
 //
-//  MockJoinedBattlePlayer.swift
+//  MockBattleReady.swift
 //  TinyBattleKitTests
 //
 //  Created by Roy Hsu on 08/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - MockJoinedBattlePlayer
+// MARK: - MockBattleReady
 
 import TinyBattleKit
 
-internal struct MockJoinedBattlePlayer: JoinedBattlePlayer {
-    
+internal struct MockBattleReady: BattleReady {
+
     // MARK: Property
     
     internal let id: String
     
-    internal let entities: [BattleEntity]
+    internal let player: BattlePlayer
     
-    internal let action: [BattleAction]
+    internal let entities: [BattleEntity]
     
 }

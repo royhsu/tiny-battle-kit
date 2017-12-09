@@ -40,20 +40,20 @@ public protocol TurnBasedBattleServerDataProvider: class {
     
     func resetJoinedAndReadyPlayersForRecord(id: String) -> TurnBasedBattleRecord
     
-    func appendJoinedPlayer(
-        _ player: JoinedBattlePlayer,
+    func appendJoined(
+        _ joined: BattleJoined,
         forRecordId id: String
     )
     -> TurnBasedBattleRecord
     
-    func appendReadyPlayer(
-        _ player: ReadyBattlePlayer,
+    func appendReady(
+        _ ready: BattleReady,
         forRecordId id: String
     )
     -> TurnBasedBattleRecord
     
-    func appendInvolvedPlayer(
-        _ player: InvolvedBattlePlayer,
+    func appendInvolved(
+        _ involved: BattleInvolved,
         forCurrentTurnOfRecordId recordId: String
     )
     -> TurnBasedBattleRecord

@@ -140,12 +140,12 @@ public final class TurnBasedBattleServer: BattleServer {
         case .success(let currentTurn):
             
             guard
-                !currentTurn.involvedPlayers.isEmpty
+                !currentTurn.involveds.isEmpty
             else { return false }
         
-            let readyPlayerIds = record.readyPlayers.map { $0.id }
+            let readyPlayerIds = record.readys.map { $0.player.id }
             
-            let involvedPlayerIds = currentTurn.involvedPlayers.map { $0.id }
+            let involvedPlayerIds = currentTurn.involveds.map { $0.player.id }
             
             return readyPlayerIds == involvedPlayerIds
             
