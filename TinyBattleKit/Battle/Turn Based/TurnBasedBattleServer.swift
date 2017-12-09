@@ -356,6 +356,7 @@ public final class TurnBasedBattleServer: BattleServer {
                     didRespondTo: request
                 )
                 
+                // Todo: manually triggered by request.
                 if self.shouldEndCurrentTurn {
 
                     self.record = self.serverDataProvider.setState(
