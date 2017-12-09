@@ -157,7 +157,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(server.record.joineds.isEmpty)
                     
                     server.respond(
-                        to: PlayerJoinBattleRequest(
+                        to: JoinedBattleRequest(
                             joined: MockBattleJoined(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.ownerId)
@@ -166,7 +166,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
                     
                     server.respond(
-                        to: PlayerJoinBattleRequest(
+                        to: JoinedBattleRequest(
                             joined: MockBattleJoined(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerAId)
@@ -175,7 +175,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
                     
                     server.respond(
-                        to: PlayerJoinBattleRequest(
+                        to: JoinedBattleRequest(
                             joined: MockBattleJoined(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerBId)
@@ -186,7 +186,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     XCTAssert(server.record.readys.isEmpty)
 
                     server.respond(
-                        to: PlayerReadyBattleRequest(
+                        to: ReadyBattleRequest(
                             ready: MockBattleReady(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.ownerId),
@@ -196,7 +196,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     server.respond(
-                        to: PlayerReadyBattleRequest(
+                        to: ReadyBattleRequest(
                             ready: MockBattleReady(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerAId),
@@ -206,7 +206,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     server.respond(
-                        to: PlayerReadyBattleRequest(
+                        to: ReadyBattleRequest(
                             ready: MockBattleReady(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerBId),
@@ -237,7 +237,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
                     
                     server.respond(
-                        to: PlayerInvolveBattleRequest(
+                        to: InvolvedBattleRequest(
                             involved: MockBattleInvolved(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.ownerId),
@@ -248,7 +248,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     server.respond(
-                        to: PlayerInvolveBattleRequest(
+                        to: InvolvedBattleRequest(
                             involved: MockBattleInvolved(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerAId),
@@ -259,7 +259,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                     )
 
                     server.respond(
-                        to: PlayerInvolveBattleRequest(
+                        to: InvolvedBattleRequest(
                             involved: MockBattleInvolved(
                                 id: UUID().uuidString,
                                 player: MockBattlePlayer(id: self.playerBId),
@@ -319,7 +319,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 XCTAssertFalse(server.record.isLocked)
                 
-                if let request = request as? PlayerJoinBattleRequest {
+                if let request = request as? JoinedBattleRequest {
 
                     performTest {
 
@@ -336,7 +336,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 }
 
-                if let request = request as? PlayerReadyBattleRequest {
+                if let request = request as? ReadyBattleRequest {
 
                     performTest {
 
@@ -370,7 +370,7 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
 
                 }
                 
-                if request is PlayerInvolveBattleRequest { return }
+                if request is InvolvedBattleRequest { return }
 
                 if request is ContinueBattleRequest { return }
                 

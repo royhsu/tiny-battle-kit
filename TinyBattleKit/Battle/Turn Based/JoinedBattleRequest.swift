@@ -1,14 +1,14 @@
 //
-//  PlayerJoinBattleRequest.swift
+//  JoinedBattleRequest.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 02/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - PlayerJoinBattleRequest
+// MARK: - JoinedBattleRequest
 
-public struct PlayerJoinBattleRequest: BattleRequest {
+public struct JoinedBattleRequest: BattleRequest {
     
     // MARK: Property
     

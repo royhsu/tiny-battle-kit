@@ -16,7 +16,7 @@ public struct PlayerJoinBattleRequestResponder {
     
     // MARK: BattleRequestResponder
     
-    public func respond(to request: PlayerJoinBattleRequest) -> Promise<TurnBasedBattleResponse> {
+    public func respond(to request: JoinedBattleRequest) -> Promise<TurnBasedBattleResponse> {
         
         let server = self.server
         

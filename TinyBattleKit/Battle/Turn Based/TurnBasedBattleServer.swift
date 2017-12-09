@@ -307,17 +307,17 @@ public final class TurnBasedBattleServer: BattleServer {
         
             var supportedPromise: Promise<TurnBasedBattleResponse>?
                 
-            if let request = request as? PlayerJoinBattleRequest {
+            if let request = request as? JoinedBattleRequest {
                 
                 supportedPromise = PlayerJoinBattleRequestResponder(server: self).respond(to: request)
             
             }
-            else if let request = request as? PlayerReadyBattleRequest {
+            else if let request = request as? ReadyBattleRequest {
                 
                 supportedPromise = PlayerReadyBattleRequestResponder(server: self).respond(to: request)
             
             }
-            else if let request = request as? PlayerInvolveBattleRequest {
+            else if let request = request as? InvolvedBattleRequest {
                 
                 supportedPromise = PlayerInvolveBattleRequestResponder(
                         server: self,
