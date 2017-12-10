@@ -85,22 +85,13 @@ public final class TurnBasedBattleServer: BattleServer {
                 didUpdate: record
             )
             
-            if stateMachine.state == .turnStart {
-
-                // Todo: manually triggered by request. bad implementation.
-                if shouldEndCurrentTurn {
-
-                    if isOwner {
-                    
-                        record = serverDataProvider.setState(
-                            .turnEnd,
-                            forRecordId: self.record.id
-                        )
-                        
-                    }
-                    else { stateMachine.state = .turnEnd }
-                    
-                }
+            
+            if shouldEndCurrentTurn {
+                
+                record = serverDataProvider.setState(
+                    .turnEnd,
+                    forRecordId: record.id
+                )
                 
             }
             
@@ -171,11 +162,17 @@ public final class TurnBasedBattleServer: BattleServer {
     
     private final var shouldEndCurrentTurn: Bool {
         
+        guard
+            isOwner,
+            stateMachine.state == .turnStart
+        else { return false }
+        
         switch validate() {
         
         case .success(let currentTurn):
             
             guard
+                !record.readys.isEmpty,
                 !currentTurn.involveds.isEmpty
             else { return false }
             
@@ -191,7 +188,12 @@ public final class TurnBasedBattleServer: BattleServer {
             
         case .failure(let error):
             
-            fatalError("Server is now invalid. \(error)")
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
+            
+            return false
             
         }
         
@@ -450,28 +452,29 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                     didEndTurn: currentTurn
                 )
                 
-                let shouldEnd =
-                    serverDelegate?.serverShouldEnd(self)
-                    ?? false
-                
-                if !shouldEnd && isOwner {
-                    
-                    record = serverDataProvider.appendTurnForRecord(id: record.id)
-                    
-                    record = serverDataProvider.setState(
-                        .turnStart,
-                        forRecordId: record.id
-                    )
-                    
-                }
-                else {
-                    
-                    record = serverDataProvider.setState(
-                        .end,
-                        forRecordId: record.id
-                    )
-                    
-                }
+                // Todo: respond by request manually
+//                let shouldEnd =
+//                    serverDelegate?.serverShouldEnd(self)
+//                    ?? false
+//
+//                if !shouldEnd && isOwner {
+//
+//                    record = serverDataProvider.appendTurnForRecord(id: record.id)
+//
+//                    record = serverDataProvider.setState(
+//                        .turnStart,
+//                        forRecordId: record.id
+//                    )
+//
+//                }
+//                else {
+//
+//                    record = serverDataProvider.setState(
+//                        .end,
+//                        forRecordId: record.id
+//                    )
+//
+//                }
             
             case (.turnEnd, .end):
                 

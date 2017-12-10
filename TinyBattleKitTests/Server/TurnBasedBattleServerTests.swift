@@ -274,6 +274,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
             },
             didEndTurn: { server, turn in
 
+                promise.fulfill()
+                
                 performTest {
 
                     XCTAssertFalse(server.record.isLocked)
@@ -298,10 +300,8 @@ internal final class TurnBasedBattleServerTests: XCTestCase {
                 }
 
             },
-            shouldEnd: { server in return true },
+            shouldEnd: { server in return false },
             didEnd: { server in
-            
-                promise.fulfill()
             
                 performTest {
                     
