@@ -376,9 +376,7 @@ public final class TurnBasedBattleServer: BattleServer {
                 
             }
             
-            promise.then(in: .main) {
-                
-                self.record = $0.updatedRecord
+            promise.then(in: .main) { response in
                 
                 self.serverDelegate?.server(
                     self,
