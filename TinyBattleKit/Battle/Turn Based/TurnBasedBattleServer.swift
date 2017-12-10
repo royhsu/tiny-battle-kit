@@ -49,6 +49,7 @@ public protocol TurnBasedBattleServerDelegate: class {
 // 1. Constantly verify state of owner and joined players.
 // 2. Disconnect the server while its owner drops connection.
 // 3. Set a timeout for each turn.
+// 4. [Bug] the client will .turnEnd twice when the client involves after the owner involved.
 
 public final class TurnBasedBattleServer: BattleServer {
     
@@ -84,7 +85,6 @@ public final class TurnBasedBattleServer: BattleServer {
                 self,
                 didUpdate: record
             )
-            
             
             if shouldEndCurrentTurn {
                 
@@ -348,8 +348,6 @@ public final class TurnBasedBattleServer: BattleServer {
             }
             else if let request = request as? InvolvedBattleRequest {
                 
-                print("InvolvedBattleRequest", request.involved.player.id)
-                
                 supportedPromise = PlayerInvolveBattleRequestResponder(
                         server: self,
                         currentTurn: currentTurn
@@ -486,7 +484,10 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
             
         case .failure(let error):
             
-            fatalError("Server is now invalid. \(error)")
+            serverDelegate?.server(
+                self,
+                didFailWith: error
+            )
             
         }
         
