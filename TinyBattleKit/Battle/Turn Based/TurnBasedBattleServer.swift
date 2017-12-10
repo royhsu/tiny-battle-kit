@@ -70,7 +70,43 @@ public final class TurnBasedBattleServer: BattleServer {
     
     public final let player: BattlePlayer
     
-    public private(set) final var record: TurnBasedBattleRecord
+    public private(set) final var record: TurnBasedBattleRecord {
+        
+        didSet {
+            
+            if stateMachine.state != record.state {
+                
+                stateMachine.state = record.state
+                
+            }
+            
+            serverDelegate?.server(
+                self,
+                didUpdate: record
+            )
+            
+            if stateMachine.state == .turnStart {
+
+                // Todo: manually triggered by request. bad implementation.
+                if shouldEndCurrentTurn {
+
+                    if isOwner {
+                    
+                        record = serverDataProvider.setState(
+                            .turnEnd,
+                            forRecordId: self.record.id
+                        )
+                        
+                    }
+                    else { stateMachine.state = .turnEnd }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     
     private final var observationToken: ObservationToken?
     
@@ -142,10 +178,14 @@ public final class TurnBasedBattleServer: BattleServer {
             guard
                 !currentTurn.involveds.isEmpty
             else { return false }
-        
-            let readyPlayerIds = record.readys.map { $0.player.id }
             
-            let involvedPlayerIds = currentTurn.involveds.map { $0.player.id }
+            let readyPlayerIds = Set(
+                record.readys.map { $0.player.id }
+            )
+            
+            let involvedPlayerIds = Set(
+                currentTurn.involveds.map { $0.player.id }
+            )
             
             return readyPlayerIds == involvedPlayerIds
             
@@ -233,19 +273,6 @@ public final class TurnBasedBattleServer: BattleServer {
                     
                     strongSelf.record = updatedRecord
                     
-                    let currentState = strongSelf.stateMachine.state
-                    
-                    if currentState != strongSelf.record.state {
-                        
-                        strongSelf.stateMachine.state = strongSelf.record.state
-                        
-                    }
-                    
-                    strongSelf.serverDelegate?.server(
-                        strongSelf,
-                        didUpdate: strongSelf.record
-                    )
-                    
                 }
             )
             
@@ -319,6 +346,8 @@ public final class TurnBasedBattleServer: BattleServer {
             }
             else if let request = request as? InvolvedBattleRequest {
                 
+                print("InvolvedBattleRequest", request.involved.player.id)
+                
                 supportedPromise = PlayerInvolveBattleRequestResponder(
                         server: self,
                         currentTurn: currentTurn
@@ -355,16 +384,6 @@ public final class TurnBasedBattleServer: BattleServer {
                     self,
                     didRespondTo: request
                 )
-                
-                // Todo: manually triggered by request.
-                if self.shouldEndCurrentTurn {
-
-                    self.record = self.serverDataProvider.setState(
-                        .turnEnd,
-                        forRecordId: self.record.id
-                    )
-
-                }
                 
             }
             .catch(in: .main) { error in
@@ -435,7 +454,7 @@ extension TurnBasedBattleServer: TurnBasedBattleServerStateMachineDelegate {
                     serverDelegate?.serverShouldEnd(self)
                     ?? false
                 
-                if !shouldEnd {
+                if !shouldEnd && isOwner {
                     
                     record = serverDataProvider.appendTurnForRecord(id: record.id)
                     
