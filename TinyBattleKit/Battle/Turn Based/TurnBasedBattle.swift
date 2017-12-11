@@ -22,8 +22,8 @@ open class TurnBasedBattle<Animator: BattleActionAnimator>: BattleActionResponde
     
     // MARK: BattleActionResponder
     
-    // Todo: discardable
-    public func respond(to provider: Provider) -> Self {
+    @discardableResult
+    public final func respond(to provider: Provider) -> Self {
 
         actionProviders.append(provider)
 
