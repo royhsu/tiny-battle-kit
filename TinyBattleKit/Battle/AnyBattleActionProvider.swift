@@ -24,6 +24,8 @@ BattleActionProvider {
     
     public final let _applyAction: (Result) -> Result
     
+    public final let _shouldRemoveAfterApplyAction: () -> Bool
+    
     // MARK: Init
     
     public init
@@ -38,6 +40,8 @@ BattleActionProvider {
         self._animator = provider.animator
         
         self._applyAction = provider.applyAction
+        
+        self._shouldRemoveAfterApplyAction = provider.shouldRemoveAfterApplyAction
             
     }
     
@@ -50,5 +54,7 @@ BattleActionProvider {
     public final var animator: Animator? { return _animator }
 
     public final func applyAction(on result: Result) -> Result { return _applyAction(result) }
+    
+    public final func shouldRemoveAfterApplyAction() -> Bool { return _shouldRemoveAfterApplyAction() }
     
 }

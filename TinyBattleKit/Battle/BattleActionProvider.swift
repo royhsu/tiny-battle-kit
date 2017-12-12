@@ -22,4 +22,6 @@ public protocol BattleActionProvider: class {
     
     func applyAction(on result: Result) -> Result
     
+    func shouldRemoveAfterApplyAction() -> Bool
+    
 }

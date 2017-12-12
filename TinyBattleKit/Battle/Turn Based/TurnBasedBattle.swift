@@ -35,13 +35,15 @@ open class TurnBasedBattle<Animator: BattleActionAnimator>: BattleActionResponde
     //  It sorts providers depends on their priority before executes each of them.
     public func run(with initalResult: Result) -> Promise<Result> {
     
-        let providers = actionProviders
+        let applyingProviders = actionProviders
         
-        actionProviders.removeAll()
+        let preservedProviders = applyingProviders.filter { !$0.shouldRemoveAfterApplyAction() }
+        
+        actionProviders = preservedProviders
         
         return Promise { fulfull, _, _ in
             
-            let finalResult = providers
+            let finalResult = applyingProviders
                 .sorted(
                     by: { $0.priority > $1.priority }
                 )
