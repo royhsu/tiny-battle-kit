@@ -52,8 +52,8 @@ open class TurnBasedBattle<Animator: BattleActionAnimator>: BattleActionResponde
         
     }
     
-    // Run this method won't modify the original actionProviders.
-    //  It sorts providers depends on their priority before executes each of them.
+    // This method sorts providers depends on their priority before executes each of them.
+    // And it only preserves providers those shouldRemoveAfterApplyAction() returns false. Each provider is going to be removed after applies an action on result.
     public func run(with initalResult: Result) -> Promise<Result> {
     
         let applyingProviders = actionProviders
