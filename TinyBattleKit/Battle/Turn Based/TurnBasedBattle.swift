@@ -22,13 +22,34 @@ open class TurnBasedBattle<Animator: BattleActionAnimator>: BattleActionResponde
     
     // MARK: BattleActionResponder
     
+    // This function won't allow duplicate provider id.
     @discardableResult
     public final func respond(to provider: Provider) -> Self {
 
-        actionProviders.append(provider)
+        let isProviderAdded = actionProviders.contains(
+            where: { $0.id == provider.id }
+        )
+        
+        if !isProviderAdded { actionProviders.append(provider) }
 
         return self
 
+    }
+    
+    @discardableResult
+    public final func removeProvider(id: String) -> Self {
+        
+        if
+            let index = actionProviders.index(
+                where: { $0.id == id }
+            ) {
+            
+            actionProviders.remove(at: index)
+            
+        }
+        
+        return self
+        
     }
     
     // Run this method won't modify the original actionProviders.
