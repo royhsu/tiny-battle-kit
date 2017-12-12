@@ -360,6 +360,11 @@ public final class TurnBasedBattleServer: BattleServer {
                 supportedPromise = ContinueBattleRequestResponder(server: self).respond(to: request)
                 
             }
+            else if let request = request as? NextTurnBattleRequest {
+                
+                supportedPromise = NextTurnBattleRequestResponder(server: self).respond(to: request)
+                
+            }
             
             guard
                 let promise = supportedPromise
