@@ -8,10 +8,17 @@
 
 // MARK: - TBResponse
 
-public protocol TBResponse {
-    
-    associatedtype Request: TBRequest
-    
-    var request: Request { get }
-    
+public struct TBResponse<Player: TBPlayer> {
+
+    public typealias Request = TBRequest<Player>
+
+    // MARK: Property
+
+    public let request: Request
+
+    // MARK: Init
+
+    public init(request: Request) { self.request = request }
+
 }
+

@@ -10,4 +10,4 @@
 
 import TinyBattleKit
 
-internal final class MockServer: TBServer<MockSession, MockResponse> { }
+internal final class MockServer: TBServer<MockSession> { }

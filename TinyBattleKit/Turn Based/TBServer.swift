@@ -8,13 +8,9 @@
 
 // MARK: - TBServer
 
-open class TBServer
-<Session: TBSession, Response: TBResponse>
-where Session.Player == Response.Request.Player {
+open class TBServer<Session: TBSession> {
     
     public typealias Player = Session.Player
-    
-    public typealias Request = Response.Request
     
     // MARK: Property
     
@@ -55,14 +51,20 @@ public extension TBServer {
 
 public extension TBServer {
     
-    public final func respond(to request: Request) -> Promise<Response> {
+    public typealias Response = TBResponse<Player>
+    
+    public typealias Reqeust = Response.Request
+    
+    public final func respond(to request: Reqeust) -> Promise<Response> {
         
-        return Promise(in: .main) { fulfill, reject, _ in
+        return Promise { fulfill, reject, _ in
             
-            
+            fulfill(
+                TBResponse(request: request)
+            )
             
         }
         
     }
-    
+
 }
