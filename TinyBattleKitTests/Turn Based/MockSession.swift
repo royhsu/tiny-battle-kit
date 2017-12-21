@@ -47,4 +47,16 @@ internal final class MockSession: TBSession {
         
     }
     
+    // MARK: Save
+    
+    internal final func save() -> Promise<MockSession> {
+        
+        return Promise { fulfill, reject, _ in
+            
+            fulfill(self)
+            
+        }
+        
+    }
+    
 }

@@ -8,7 +8,7 @@
 
 // MARK: - TBSession
 
-public protocol TBSession {
+public protocol TBSession: class {
     
     associatedtype Joined: TBJoined
 
@@ -20,8 +20,10 @@ public protocol TBSession {
     
     var owner: Player { get }
     
-    var joineds: [Joined] { get }
+    var joineds: [Joined] { get set }
 
-    var readys: [Ready] { get }
+    var readys: [Ready] { get set }
+    
+    func save() -> Promise<Self>
     
 }

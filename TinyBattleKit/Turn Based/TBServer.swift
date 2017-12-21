@@ -61,9 +61,18 @@ public extension TBServer {
             
             if let joined = request.data as? Session.Joined {
                 
-                fulfill(
-                    TBResponse(request: request)
-                )
+                self.session.joineds.append(joined)
+                
+                self.session
+                    .save()
+                    .then { session in
+                        
+                        fulfill(
+                            TBResponse(request: request)
+                        )
+                        
+                    }
+                    .catch(reject)
                 
             }
             else {
