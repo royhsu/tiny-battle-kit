@@ -18,12 +18,16 @@ internal final class TBServerTests: XCTestCase {
     
     internal final func testServer() {
         
+        let owner = MockPlayer()
+        
         let session = MockSession(
             state: .start,
-            joineds: []
+            owner: owner,
+            joineds: [],
+            readys: []
         )
         
-        let server = TBServer(session: session)
+        let server = MockServer(session: session)
         
         XCTAssertEqual(
             server.session.state,

@@ -8,7 +8,13 @@
 
 // MARK: - TBServer
 
-open class TBServer<Session: TBSession> {
+open class TBServer
+<Session: TBSession, Response: TBResponse>
+where Session.Player == Response.Request.Player {
+    
+    public typealias Player = Session.Player
+    
+    public typealias Request = Response.Request
     
     // MARK: Property
     
@@ -28,8 +34,6 @@ open class TBServer<Session: TBSession> {
     
 }
 
-// MARK: - Run
-
 public extension TBServer {
     
     public final func resume() {
@@ -42,6 +46,22 @@ public extension TBServer {
             
         }
         catch { fatalError("\(error)") }
+        
+    }
+    
+}
+
+// MARK: - Request
+
+public extension TBServer {
+    
+    public final func respond(to request: Request) -> Promise<Response> {
+        
+        return Promise(in: .main) { fulfill, reject, _ in
+            
+            
+            
+        }
         
     }
     
