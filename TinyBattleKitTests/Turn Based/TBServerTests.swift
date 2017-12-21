@@ -45,15 +45,19 @@ internal final class TBServerTests: XCTestCase {
                 .start
             )
             
+            let joined = MockJoined(player: owner)
+            
             let request = TBRequest(
                 player: owner,
-                data: 10
+                data: joined
             )
             
             server.respond(to: request)
                 .then(in: .main) { response in
                     
+                    let a = response.request.data as? MockJoined
                     
+                    XCTAssertNotNil(a)
                     
                 }
                 .catch(in: .main) { error in XCTFail("\(error)") }

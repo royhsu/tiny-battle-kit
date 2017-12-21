@@ -6,6 +6,16 @@
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
+// MARL: - TBServerError
+
+public enum TBServerError<Player: TBPlayer>: Error {
+    
+    // MARK: Case
+    
+    case unsupportedRequest(TBRequest<Player>)
+    
+}
+
 // MARK: - TBServer
 
 open class TBServer<Session: TBSession> {
@@ -59,9 +69,20 @@ public extension TBServer {
         
         return Promise { fulfill, reject, _ in
             
-            fulfill(
-                TBResponse(request: request)
-            )
+            if let joined = request.data as? Session.Joined {
+                
+                fulfill(
+                    TBResponse(request: request)
+                )
+                
+            }
+            else {
+                
+                let error: TBServerError = .unsupportedRequest(request)
+                
+                reject(error)
+                
+            }
             
         }
         

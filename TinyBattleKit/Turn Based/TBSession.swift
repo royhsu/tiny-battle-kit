@@ -10,18 +10,18 @@
 
 public protocol TBSession {
     
-    associatedtype Player: TBPlayer
+    associatedtype Joined: TBJoined
+
+    associatedtype Ready: TBReady where Ready.Player == Joined.Player
     
-//    associatedtype Joined: TBJoined where Joined.Player == Player
-//
-//    associatedtype Ready: TBReady where Ready.Player == Player
+    typealias Player = Joined.Player
     
     var state: TBSessionState { get set }
     
     var owner: Player { get }
     
-//    var joineds: [Joined] { get }
-//
-//    var readys: [Ready] { get }
+    var joineds: [Joined] { get }
+
+    var readys: [Ready] { get }
     
 }
