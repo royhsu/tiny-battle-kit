@@ -67,6 +67,8 @@
 		B0B9D9711FEBE2E60037C1FF /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9701FEBE2E60037C1FF /* MockSession.swift */; };
 		B0B9D9731FEBE3190037C1FF /* MockPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9721FEBE3190037C1FF /* MockPlayer.swift */; };
 		B0B9D9751FEBE3410037C1FF /* MockJoined.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9741FEBE3410037C1FF /* MockJoined.swift */; };
+		B0B9D9771FEBE5550037C1FF /* TBSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9761FEBE5550037C1FF /* TBSessionState.swift */; };
+		B0B9D9791FEBE5C70037C1FF /* TBSessionStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9781FEBE5C70037C1FF /* TBSessionStateMachine.swift */; };
 		B0EF52C21FD393C80043014F /* Promise+Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AB1FD393C80043014F /* Promise+Retry.swift */; };
 		B0EF52C31FD393C80043014F /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AC1FD393C80043014F /* Commons.swift */; };
 		B0EF52C41FD393C80043014F /* Promise+Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52AD1FD393C80043014F /* Promise+Pass.swift */; };
@@ -166,6 +168,8 @@
 		B0B9D9701FEBE2E60037C1FF /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		B0B9D9721FEBE3190037C1FF /* MockPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayer.swift; sourceTree = "<group>"; };
 		B0B9D9741FEBE3410037C1FF /* MockJoined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJoined.swift; sourceTree = "<group>"; };
+		B0B9D9761FEBE5550037C1FF /* TBSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBSessionState.swift; sourceTree = "<group>"; };
+		B0B9D9781FEBE5C70037C1FF /* TBSessionStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBSessionStateMachine.swift; sourceTree = "<group>"; };
 		B0EF52AB1FD393C80043014F /* Promise+Retry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Retry.swift"; sourceTree = "<group>"; };
 		B0EF52AC1FD393C80043014F /* Commons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		B0EF52AD1FD393C80043014F /* Promise+Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Pass.swift"; sourceTree = "<group>"; };
@@ -353,6 +357,8 @@
 				B0B9D9671FEBBC2C0037C1FF /* TBJoined.swift */,
 				B0B9D9691FEBBCDD0037C1FF /* TBServer.swift */,
 				B0B9D96B1FEBBD410037C1FF /* TBSession.swift */,
+				B0B9D9761FEBE5550037C1FF /* TBSessionState.swift */,
+				B0B9D9781FEBE5C70037C1FF /* TBSessionStateMachine.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 				B0885DF41FDA3A3C00629629 /* TurnBasedBattle.swift in Sources */,
 				B0EF52D41FD393C80043014F /* Promise.swift in Sources */,
 				B0885DF81FDA3A3C00629629 /* InvolvedBattleRequest.swift in Sources */,
+				B0B9D9791FEBE5C70037C1FF /* TBSessionStateMachine.swift in Sources */,
 				B0EF52CC1FD393C80043014F /* DispatchTimerWrapper.swift in Sources */,
 				B0885E151FDA5E7300629629 /* ContinueBattleRequestResponder.swift in Sources */,
 				B0885E061FDA3A3C00629629 /* BattleServer.swift in Sources */,
@@ -580,6 +587,7 @@
 				B0EF52D71FD393C80043014F /* Promise+Validate.swift in Sources */,
 				B0885DF11FDA3A3C00629629 /* BattleReady.swift in Sources */,
 				B0885DF51FDA3A3C00629629 /* BattleInvolved.swift in Sources */,
+				B0B9D9771FEBE5550037C1FF /* TBSessionState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

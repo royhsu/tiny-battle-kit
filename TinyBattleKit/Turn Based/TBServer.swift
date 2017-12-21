@@ -12,7 +12,7 @@ open class TBServer<Session: TBSession> {
     
     // MARK: Property
     
-    open private(set) var session: Session
+    public private(set) final var session: Session
     
     // MARK: Init
     

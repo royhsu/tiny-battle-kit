@@ -12,6 +12,8 @@ public protocol TBSession {
     
     associatedtype Joined: TBJoined
     
+    var state: TBSessionState { get set }
+    
     var joineds: [Joined] { get }
     
 }

@@ -100,7 +100,7 @@ public final class TurnBasedBattleServerStateMachine {
     public init(state: TurnBasedBattleServerState) { self._state = state }
     
     // MARK: Transition
-    
+    g
     public final func shouldTransition(
         from: TurnBasedBattleServerState,
         to: TurnBasedBattleServerState
