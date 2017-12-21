@@ -16,13 +16,18 @@ internal final class MockSession: TBSession {
     
     // MARK: Property
     
+    internal final var state: TBSessionState
+    
     internal final var joineds: [Joined]
     
     // MARK: Init
     
     internal init(
+        state: TBSessionState,
         joineds: [Joined]
     ) {
+        
+        self.state = state
         
         self.joineds = joineds
         
