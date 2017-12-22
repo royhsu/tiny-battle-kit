@@ -8,4 +8,4 @@
 
 // MARK: - TBPlayer
 
-public protocol TBPlayer { }
+public protocol TBPlayer: class { }

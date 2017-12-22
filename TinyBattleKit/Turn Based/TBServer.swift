@@ -51,23 +51,44 @@ public extension TBServer {
 
 public extension TBServer {
     
+    public typealias Error = TBServerError<Player>
+    
     public typealias Response = TBResponse<Player>
     
     public typealias Reqeust = Response.Request
     
     public typealias JoineRequestResponder = TBJoinedRequestResponder<Session>
     
+    public typealias ReadyRequestResponder = TBReadyRequestResponder<Session>
+    
     public final func respond(to request: Reqeust) -> Promise<Response> {
         
         let responders = [
             TBAnyRequestResponder(
                 JoineRequestResponder(session: session)
+            ),
+            TBAnyRequestResponder(
+                ReadyRequestResponder(session: session)
             )
         ]
         
-        let promises = responders.map { $0.respond(to: request) }
-        
-        return any(promises)
+        return async { _ in
+            
+            for responder in responders {
+                
+                guard
+                    let response = try? ..responder.respond(to: request)
+                else { continue }
+                    
+                return response
+                
+            }
+            
+            let error: Error = .unsupportedRequest(request)
+            
+            throw error
+            
+        }
         
     }
 

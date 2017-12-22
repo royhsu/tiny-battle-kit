@@ -8,7 +8,7 @@
 
 // MARK: - TBReady
 
-public protocol TBReady {
+public protocol TBReady: class {
     
     associatedtype Player: TBPlayer, Hashable
     

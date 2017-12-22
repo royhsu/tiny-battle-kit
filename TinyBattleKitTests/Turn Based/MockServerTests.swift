@@ -68,20 +68,40 @@ internal final class MockServerTests: XCTestCase {
                 
                 guard
                     let joined = joinedResponse.request.data as? MockJoined
-                else { XCTFail("Unexpected request data."); return }
+                else { XCTFail("Expect an joined."); return }
                 
                 XCTAssert(
                     server.session.joineds.contains(joined)
                 )
                 
-                let leeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
+                let joinedLeeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
                 
-                XCTAssert(leeway > 0.0)
+                XCTAssert(joinedLeeway > 0.0)
                 
-                promise.fulfill()
+                let readyRequest = TBRequest(
+                    player: owner,
+                    data: MockReady(player: owner)
+                )
+                
+                let updatedBeforeReady = session.updated
+                
+                let readyResponse = try ..server.respond(to: readyRequest)
+                
+                guard
+                    let ready = readyResponse.request.data as? MockReady
+                else { XCTFail("Expect a ready."); return }
+                
+                XCTAssert(
+                    server.session.readys.contains(ready)
+                )
+                
+                let readyLeeway = server.session.updated.timeIntervalSince(updatedBeforeReady)
+                
+                XCTAssert(readyLeeway > 0.0)
             
             }
             .catch(in: .main) { error in XCTFail("\(error)") }
+            .always(in: .main) { promise.fulfill() }
             
         }
     

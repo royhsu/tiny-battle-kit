@@ -46,6 +46,18 @@ extension TBReadyRequestResponder: TBRequestResponder {
                 
             }
             
+            guard
+                let ready = request.data as? Ready
+            else {
+                
+                let error: TBServerError = .badRequest(request)
+                
+                reject(error)
+                
+                return
+                    
+            }
+            
             let player = request.player
             
             let hasPlayerJoined = self.session
@@ -60,18 +72,6 @@ extension TBReadyRequestResponder: TBRequestResponder {
                 
                 return
                 
-            }
-            
-            guard
-                let ready = request.data as? Ready
-            else {
-                
-                let error: TBServerError = .badRequest(request)
-                
-                reject(error)
-                
-                return
-                    
             }
             
             self.session.readys.insert(ready)

@@ -38,6 +38,6 @@ extension MockPlayer: Equatable {
 
 extension MockPlayer: Hashable {
 
-    internal var hashValue: Int { return self.id.hashValue }
+    internal var hashValue: Int { return id.hashValue }
     
 }
