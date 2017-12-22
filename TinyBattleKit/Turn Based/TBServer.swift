@@ -38,20 +38,31 @@ open class TBServer<Session: TBSession> {
 
 public extension TBServer {
     
+    @discardableResult
     public func addListener<Listener: AnyObject>(
         _ listener: Listener,
         action: @escaping (Listener) -> (Any) -> Void,
         for event: TBServerEvent
-    ) {
+    )
+    -> TBServer {
         
         events[event] = TBAnyServerEventEmitter(
             listener: listener,
             action: action
         )
         
+        return self
+        
     }
     
-    public func removeListener(for event: TBServerEvent) { events[event] = nil }
+    @discardableResult
+    public func removeListener(for event: TBServerEvent) -> TBServer {
+        
+        events[event] = nil
+        
+        return self
+        
+    }
     
 }
 
