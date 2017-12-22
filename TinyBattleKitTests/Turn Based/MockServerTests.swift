@@ -1,18 +1,18 @@
 //
-//  TBServerTests.swift
+//  MockServerTests.swift
 //  TinyBattleKitTests
 //
 //  Created by Roy Hsu on 21/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - TBServerTests
+// MARK: - MockServerTests
 
 import XCTest
 
 @testable import TinyBattleKit
 
-internal final class TBServerTests: XCTestCase {
+internal final class MockServerTests: XCTestCase {
     
     // MARK: Test
     
@@ -45,19 +45,24 @@ internal final class TBServerTests: XCTestCase {
                 .start
             )
             
-            let joined = MockJoined(player: owner)
+            XCTAssert(server.session.joineds.isEmpty)
             
-            let request = TBRequest(
+            let joinedRequest = TBRequest(
                 player: owner,
-                data: joined
+                data: MockJoined(player: owner)
             )
             
-            server.respond(to: request)
+            server
+                .respond(to: joinedRequest)
                 .then(in: .main) { response in
                     
-                    let a = response.request.data as? MockJoined
-                    
-                    XCTAssertNotNil(a)
+                    guard
+                        let joined = response.request.data as? MockJoined
+                    else { XCTFail("Unexpected request data."); return }
+                        
+                    XCTAssert(
+                        server.session.joineds.contains(joined)
+                    )
                     
                 }
                 .catch(in: .main) { error in XCTFail("\(error)") }

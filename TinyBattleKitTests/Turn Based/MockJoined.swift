@@ -23,3 +23,15 @@ internal final class MockJoined: TBJoined {
     internal init(player: Player) { self.player = player }
     
 }
+
+// MARK: - Equatable
+
+extension MockJoined: Equatable {
+    
+    public static func ==(
+        lhs: MockJoined,
+        rhs: MockJoined
+    )
+    -> Bool { return lhs === rhs }
+    
+}

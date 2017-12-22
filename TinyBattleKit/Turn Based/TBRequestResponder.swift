@@ -18,6 +18,8 @@ public protocol TBRequestResponder {
     
     typealias Request = Response.Request
     
+    var session: Session { get set }
+    
     func respond(to request: Request) -> Promise<Response>
     
 }

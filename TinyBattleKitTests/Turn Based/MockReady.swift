@@ -23,3 +23,15 @@ internal final class MockReady: TBReady {
     internal init(player: Player) { self.player = player }
     
 }
+
+// MARK: - Equatable
+
+extension MockReady: Equatable {
+    
+    public static func ==(
+        lhs: MockReady,
+        rhs: MockReady
+    )
+    -> Bool { return lhs === rhs }
+    
+}

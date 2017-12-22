@@ -61,7 +61,7 @@ public extension TBServer {
         
         let responders = [
             TBAnyRequestResponder(
-                JoineRequestResponder()
+                JoineRequestResponder(session: session)
             )
         ]
         

@@ -12,11 +12,33 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Session = S
     
-    // MARK: - Responder
+    public typealias Error = TBServerError<Session.Player>
+    
+    // MARK: Property
+    
+    public var session: Session
+    
+    // MARK: Init
+    
+    public init(session: Session) { self.session = session }
+    
+    // MARK: Responder
     
     public func respond(to request: Request) -> Promise<Response> {
         
         return Promise { fulfill, reject, _ in
+            
+            let requiredState: TBSessionState = .start
+            
+            if self.session.state != requiredState {
+                
+                let error: Error = .requiredState(requiredState)
+                
+                reject(error)
+                
+                return
+                
+            }
             
             guard
                 let joined = request.data as? S.Joined
@@ -29,6 +51,8 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
                 return
                 
             }
+            
+            self.session.joineds.append(joined)
             
             let response = Response(request: request)
             

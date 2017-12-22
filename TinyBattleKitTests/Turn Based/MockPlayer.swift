@@ -11,3 +11,15 @@
 import TinyBattleKit
 
 internal final class MockPlayer: TBPlayer { }
+
+// MARK: - Equatable
+
+extension MockPlayer: Equatable {
+    
+    public static func ==(
+        lhs: MockPlayer,
+        rhs: MockPlayer
+    )
+    -> Bool { return lhs === rhs }
+    
+}

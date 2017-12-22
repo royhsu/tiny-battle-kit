@@ -71,7 +71,7 @@
 		B0B9D9681FEBBC2C0037C1FF /* TBJoined.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9671FEBBC2C0037C1FF /* TBJoined.swift */; };
 		B0B9D96A1FEBBCDD0037C1FF /* TBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9691FEBBCDD0037C1FF /* TBServer.swift */; };
 		B0B9D96C1FEBBD410037C1FF /* TBSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D96B1FEBBD410037C1FF /* TBSession.swift */; };
-		B0B9D96F1FEBBDAE0037C1FF /* TBServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D96E1FEBBDAE0037C1FF /* TBServerTests.swift */; };
+		B0B9D96F1FEBBDAE0037C1FF /* MockServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D96E1FEBBDAE0037C1FF /* MockServerTests.swift */; };
 		B0B9D9711FEBE2E60037C1FF /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9701FEBE2E60037C1FF /* MockSession.swift */; };
 		B0B9D9731FEBE3190037C1FF /* MockPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9721FEBE3190037C1FF /* MockPlayer.swift */; };
 		B0B9D9751FEBE3410037C1FF /* MockJoined.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9D9741FEBE3410037C1FF /* MockJoined.swift */; };
@@ -181,7 +181,7 @@
 		B0B9D9671FEBBC2C0037C1FF /* TBJoined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBJoined.swift; sourceTree = "<group>"; };
 		B0B9D9691FEBBCDD0037C1FF /* TBServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBServer.swift; sourceTree = "<group>"; };
 		B0B9D96B1FEBBD410037C1FF /* TBSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBSession.swift; sourceTree = "<group>"; };
-		B0B9D96E1FEBBDAE0037C1FF /* TBServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBServerTests.swift; sourceTree = "<group>"; };
+		B0B9D96E1FEBBDAE0037C1FF /* MockServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerTests.swift; sourceTree = "<group>"; };
 		B0B9D9701FEBE2E60037C1FF /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		B0B9D9721FEBE3190037C1FF /* MockPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayer.swift; sourceTree = "<group>"; };
 		B0B9D9741FEBE3410037C1FF /* MockJoined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJoined.swift; sourceTree = "<group>"; };
@@ -396,7 +396,7 @@
 				B02F858C1FEBF8100057D411 /* MockReady.swift */,
 				B0B9D9701FEBE2E60037C1FF /* MockSession.swift */,
 				B02F85921FEBF9C20057D411 /* MockServer.swift */,
-				B0B9D96E1FEBBDAE0037C1FF /* TBServerTests.swift */,
+				B0B9D96E1FEBBDAE0037C1FF /* MockServerTests.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -646,7 +646,7 @@
 				B0885E191FDA63A900629629 /* MockBattleInvolved.swift in Sources */,
 				B024ED571FD0673600E6DB72 /* CalculatorResult.swift in Sources */,
 				B0A676751FD1710C00278CBE /* TurnBasedBattleServerTests.swift in Sources */,
-				B0B9D96F1FEBBDAE0037C1FF /* TBServerTests.swift in Sources */,
+				B0B9D96F1FEBBDAE0037C1FF /* MockServerTests.swift in Sources */,
 				B024ED551FD0670600E6DB72 /* AddOperatorProvider.swift in Sources */,
 				B0B9D9731FEBE3190037C1FF /* MockPlayer.swift in Sources */,
 				B0B9D9711FEBE2E60037C1FF /* MockSession.swift in Sources */,

@@ -18,5 +18,7 @@ public enum TBServerError<Player: TBPlayer>: Error {
     
     case unsupportedRequest(Request)
     
+    case requiredState(TBSessionState)
+    
 }
 
