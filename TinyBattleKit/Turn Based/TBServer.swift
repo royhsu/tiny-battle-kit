@@ -14,7 +14,8 @@ open class TBServer<Session: TBSession> {
     
     // MARK: Property
     
-    // Please make to keep the state between the session and the state machine in synchronization.
+    // Please make to use the function transit(:) to change the state of the session and state machine.
+    // NEVER to directly access them to change the state.
     public private(set) final var session: Session
     
     private final let stateMachine = TBSessionStateMachine(state: .end)
@@ -33,11 +34,12 @@ open class TBServer<Session: TBSession> {
 
 public extension TBServer {
     
-    public final func resume() {
+    // Keep the state between the session and the state machine in synchronization.
+    private final func transit(to state: TBSessionState) {
         
         do {
             
-            try stateMachine.transit(to: .start)
+            try stateMachine.transit(to: state)
             
             session.state = stateMachine.state
             
@@ -45,6 +47,8 @@ public extension TBServer {
         catch { fatalError("\(error)") }
         
     }
+    
+    public final func resume() { transit(to: .start) }
     
 }
 
