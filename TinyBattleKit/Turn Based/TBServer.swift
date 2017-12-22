@@ -20,6 +20,8 @@ open class TBServer<Session: TBSession> {
     
     private final let stateMachine = TBSessionStateMachine(state: .end)
     
+    private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
+    
     // MARK: Init
     
     public init(session: Session) {
@@ -29,6 +31,27 @@ open class TBServer<Session: TBSession> {
         self.session.state = stateMachine.state
         
     }
+    
+}
+
+// MARK: - Event
+
+public extension TBServer {
+    
+    public func addListener<Listener: AnyObject>(
+        _ listener: Listener,
+        action: @escaping (Listener) -> () -> Void,
+        for event: TBServerEvent
+    ) {
+        
+        events[event] = TBAnyServerEventEmitter(
+            listener: listener,
+            action: action
+        )
+        
+    }
+    
+    public func removeListener(for event: TBServerEvent) { events[event] = nil }
     
 }
 
