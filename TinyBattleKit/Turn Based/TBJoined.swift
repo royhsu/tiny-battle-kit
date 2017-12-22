@@ -8,10 +8,10 @@
 
 // MARK: - TBJoined
 
-public protocol TBJoined: class {
+public protocol TBJoined {
     
     associatedtype Player: TBPlayer, Hashable
     
-    var player: Player? { get }
+    var player: Player { get }
     
 }

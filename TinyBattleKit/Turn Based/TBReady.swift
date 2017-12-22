@@ -8,10 +8,10 @@
 
 // MARK: - TBReady
 
-public protocol TBReady: class {
+public protocol TBReady {
     
     associatedtype Player: TBPlayer, Hashable
     
-    var player: Player? { get }
+    var player: Player { get }
     
 }

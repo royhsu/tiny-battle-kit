@@ -18,7 +18,7 @@ internal final class MockReady: TBReady {
     
     internal final let id: MockReadyID
     
-    internal final let player: Player?
+    internal final let player: Player
     
     // MARK: Init
     
@@ -57,6 +57,12 @@ extension MockReady: Equatable {
 
 extension MockReady: Hashable {
     
-    internal var hashValue: Int { return id.hashValue }
+    internal var hashValue: Int {
+        
+        return
+            id.hashValue
+            ^ player.hashValue
+        
+    }
     
 }

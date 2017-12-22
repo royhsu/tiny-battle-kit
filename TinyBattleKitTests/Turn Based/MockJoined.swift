@@ -18,7 +18,7 @@ internal final class MockJoined: TBJoined {
     
     internal final let id: MockJoinedID
     
-    internal final let player: Player?
+    internal final let player: Player
     
     // MARK: Init
     
@@ -57,6 +57,12 @@ extension MockJoined: Equatable {
 
 extension MockJoined: Hashable {
     
-    internal var hashValue: Int { return id.hashValue }
+    internal var hashValue: Int {
+        
+        return
+            id.hashValue
+            ^ player.hashValue
+        
+    }
     
 }
