@@ -8,6 +8,8 @@
 
 // MARK: - TBAnyServerEventEmitter
 
+// Reference: https://oleb.net/blog/2014/07/swift-instance-methods-curried-functions/
+
 public struct TBAnyServerEventEmitter<Listener: AnyObject> {
     
     public typealias Action = (_ listener: Listener) -> (_ trigger: Any) -> ()
