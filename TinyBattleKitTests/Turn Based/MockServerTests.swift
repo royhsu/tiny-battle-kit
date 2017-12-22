@@ -24,9 +24,13 @@ internal final class MockServerTests: XCTestCase {
 
             let owner = MockPlayer()
             
+            let now = Date()
+            
             let session = MockSession(
                 state: .start,
                 owner: owner,
+                created: now,
+                updated: now,
                 joineds: [],
                 readys: []
             )
@@ -52,6 +56,8 @@ internal final class MockServerTests: XCTestCase {
                 data: MockJoined(player: owner)
             )
             
+            let updatedBeforeJoined = session.updated
+            
             server
                 .respond(to: joinedRequest)
                 .then(in: .main) { response in
@@ -62,7 +68,11 @@ internal final class MockServerTests: XCTestCase {
                         
                     XCTAssert(
                         server.session.joineds.contains(joined)
-                    )
+                    )g
+                    
+                    let leeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
+                    
+                    XCTAssert(leeway > 0.0)
                     
                 }
                 .catch(in: .main) { error in XCTFail("\(error)") }

@@ -20,6 +20,10 @@ public protocol TBSession: class {
     
     var owner: Player { get }
     
+    var created: Date { get }
+    
+    var updated: Date { get set }
+    
     var joineds: [Joined] { get set }
 
     var readys: [Ready] { get set }

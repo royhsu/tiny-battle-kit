@@ -54,6 +54,8 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
             
             self.session.joineds.append(joined)
             
+            self.session.updated = Date()
+            
             let response = Response(request: request)
             
             fulfill(response)
