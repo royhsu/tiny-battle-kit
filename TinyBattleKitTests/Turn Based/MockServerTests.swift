@@ -41,6 +41,16 @@ internal final class MockServerTests: XCTestCase {
             
             let server = MockServer(session: session)
             
+            let listener = StubServerEventListener(
+                online: { trigger in print("Online!") }
+            )
+            
+            server.addListener(
+                listener,
+                action: StubServerEventListener.online,
+                for: .online
+            )
+            
             XCTAssertEqual(
                 server.session.state,
                 .end

@@ -31,7 +31,7 @@ open class TBServer<Session: TBSession> {
         self.session.state = stateMachine.state
         
     }
-    
+
 }
 
 // MARK: - Event
@@ -40,7 +40,7 @@ public extension TBServer {
     
     public func addListener<Listener: AnyObject>(
         _ listener: Listener,
-        action: @escaping (Listener) -> () -> Void,
+        action: @escaping (Listener) -> (Any) -> Void,
         for event: TBServerEvent
     ) {
         
@@ -62,9 +62,25 @@ public extension TBServer {
         
         do {
             
-            try stateMachine.transit(to: state)
+            let old = session.state
+            
+            let new = state
+            
+            try stateMachine.transit(to: new)
             
             session.state = stateMachine.state
+            
+            switch (old, new) {
+                
+            case (.end, .start):
+                
+                let emitter = events[.online]
+                
+                emitter?.emit(by: self)
+                
+            default: break
+                
+            }
             
         }
         catch { fatalError("\(error)") }

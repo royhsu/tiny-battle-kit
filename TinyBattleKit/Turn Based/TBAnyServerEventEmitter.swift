@@ -1,22 +1,16 @@
 //
-//  TBServerEventResponder.swift
+//  TBAnyServerEventEmitter.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 22/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - TBServerEventEmitter
-
-public protocol TBServerEventEmitter {
-    
-    func emit()
-    
-}
+// MARK: - TBAnyServerEventEmitter
 
 public struct TBAnyServerEventEmitter<Listener: AnyObject> {
     
-    public typealias Action = (Listener) -> () -> Void
+    public typealias Action = (_ listener: Listener) -> (_ trigger: Any) -> ()
     
     // MARK: Property
     
@@ -39,15 +33,15 @@ public struct TBAnyServerEventEmitter<Listener: AnyObject> {
     
 }
 
-// MARK: - TBAnyServerEventEmitter
+// MARK: - TBServerEventEmitter
 
 extension TBAnyServerEventEmitter: TBServerEventEmitter {
     
-    public func emit() {
-     
+    public func emit(by trigger: Any) {
+        
         guard let listener = _listener else { return }
         
-        _action(listener)()
+        _action(listener)(trigger)
         
     }
     
