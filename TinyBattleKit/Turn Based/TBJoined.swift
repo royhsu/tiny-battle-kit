@@ -10,7 +10,7 @@
 
 public protocol TBJoined {
     
-    associatedtype Player: TBPlayer
+    associatedtype Player: TBPlayer, Hashable
     
     var player: Player { get }
     

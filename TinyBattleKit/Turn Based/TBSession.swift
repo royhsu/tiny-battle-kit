@@ -10,9 +10,9 @@
 
 public protocol TBSession: class {
     
-    associatedtype Ready: TBReady
+    associatedtype Ready: TBReady, Hashable
     
-    associatedtype Joined: TBJoined where Joined.Player == Ready.Player
+    associatedtype Joined: TBJoined, Hashable where Joined.Player == Ready.Player
     
     typealias Player = Ready.Player
     
@@ -24,9 +24,9 @@ public protocol TBSession: class {
     
     var updated: Date { get set }
     
-    var joineds: [Joined] { get set }
+    var joineds: Set<Joined> { get set }
 
-    var readys: [Ready] { get set }
+    var readys: Set<Ready> { get set }
     
     func save() -> Promise<Self>
     

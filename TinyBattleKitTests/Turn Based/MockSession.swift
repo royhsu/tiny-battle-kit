@@ -28,9 +28,9 @@ internal final class MockSession: TBSession {
     
     internal final let owner: Player
     
-    internal final var joineds: [Joined]
+    internal final var joineds: Set<Joined>
     
-    internal final var readys: [Ready]
+    internal final var readys: Set<Ready>
     
     // MARK: Init
     
@@ -39,8 +39,8 @@ internal final class MockSession: TBSession {
         owner: Player,
         created: Date,
         updated: Date,
-        joineds: [Joined],
-        readys: [Ready]
+        joineds: Set<Joined>,
+        readys: Set<Ready>
     ) {
         
         self.state = state

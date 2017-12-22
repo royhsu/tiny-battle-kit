@@ -10,16 +10,34 @@
 
 import TinyBattleKit
 
-internal final class MockPlayer: TBPlayer { }
+internal final class MockPlayer: TBPlayer {
+    
+    // MARK: Property
+    
+    internal final let id: MockPlayerID
+    
+    // MARK: Init
+    
+    internal init(id: MockPlayerID) { self.id = id }
+    
+}
 
 // MARK: - Equatable
 
 extension MockPlayer: Equatable {
     
-    public static func ==(
+    internal static func ==(
         lhs: MockPlayer,
         rhs: MockPlayer
     )
     -> Bool { return lhs === rhs }
+    
+}
+
+// MARK: - Equatable
+
+extension MockPlayer: Hashable {
+
+    internal var hashValue: Int { return self.id.hashValue }
     
 }

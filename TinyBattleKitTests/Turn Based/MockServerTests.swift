@@ -22,7 +22,11 @@ internal final class MockServerTests: XCTestCase {
 
         performTest {
 
-            let owner = MockPlayer()
+            let owner = MockPlayer(
+                id: MockPlayerID(
+                    UUID().uuidString
+                )
+            )
             
             let now = Date()
             
@@ -68,7 +72,7 @@ internal final class MockServerTests: XCTestCase {
                         
                     XCTAssert(
                         server.session.joineds.contains(joined)
-                    )g
+                    )
                     
                     let leeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
                     

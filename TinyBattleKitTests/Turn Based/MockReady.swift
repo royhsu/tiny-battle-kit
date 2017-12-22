@@ -35,3 +35,11 @@ extension MockReady: Equatable {
     -> Bool { return lhs === rhs }
     
 }
+
+// MARK: - Hashable
+
+extension MockReady: Hashable {
+    
+    internal var hashValue: Int { return player.hashValue }
+    
+}

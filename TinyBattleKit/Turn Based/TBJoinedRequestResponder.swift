@@ -52,7 +52,7 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
                 
             }
             
-            self.session.joineds.append(joined)
+            self.session.joineds.insert(joined)
             
             self.session.updated = Date()
             

@@ -22,6 +22,8 @@
 		B02F85971FEC9C3B0057D411 /* TBRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F85961FEC9C3B0057D411 /* TBRequestResponder.swift */; };
 		B02F85991FEC9D270057D411 /* TBJoinedRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F85981FEC9D270057D411 /* TBJoinedRequestResponder.swift */; };
 		B02FA4411FECA174003E6019 /* TBAnyRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4401FECA174003E6019 /* TBAnyRequestResponder.swift */; };
+		B02FA4431FECAFAB003E6019 /* MockPlayerID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4421FECAFAB003E6019 /* MockPlayerID.swift */; };
+		B02FA4451FECB16C003E6019 /* TinyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02FA4461FECB16C003E6019 /* TinyCore.framework */; };
 		B04272A21FD243E100ED3D74 /* MockBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */; };
 		B081909A1FDFA63B00B28743 /* NextTurnBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */; };
 		B081909C1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */; };
@@ -132,6 +134,8 @@
 		B02F85961FEC9C3B0057D411 /* TBRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBRequestResponder.swift; sourceTree = "<group>"; };
 		B02F85981FEC9D270057D411 /* TBJoinedRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBJoinedRequestResponder.swift; sourceTree = "<group>"; };
 		B02FA4401FECA174003E6019 /* TBAnyRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBAnyRequestResponder.swift; sourceTree = "<group>"; };
+		B02FA4421FECAFAB003E6019 /* MockPlayerID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerID.swift; sourceTree = "<group>"; };
+		B02FA4461FECB16C003E6019 /* TinyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TinyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleTurn.swift; sourceTree = "<group>"; };
 		B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequest.swift; sourceTree = "<group>"; };
 		B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequestResponder.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B02FA4451FECB16C003E6019 /* TinyCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +243,7 @@
 				B024ED321FD0484200E6DB72 /* TinyBattleKit */,
 				B024ED3D1FD0484200E6DB72 /* TinyBattleKitTests */,
 				B024ED311FD0484200E6DB72 /* Products */,
+				B02FA4441FECB16C003E6019 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -272,6 +278,14 @@
 				B024ED401FD0484200E6DB72 /* Info.plist */,
 			);
 			path = TinyBattleKitTests;
+			sourceTree = "<group>";
+		};
+		B02FA4441FECB16C003E6019 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B02FA4461FECB16C003E6019 /* TinyCore.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B0885DD41FDA3A3C00629629 /* Turn Based */ = {
@@ -391,6 +405,7 @@
 		B0B9D96D1FEBBD980037C1FF /* Turn Based */ = {
 			isa = PBXGroup;
 			children = (
+				B02FA4421FECAFAB003E6019 /* MockPlayerID.swift */,
 				B0B9D9721FEBE3190037C1FF /* MockPlayer.swift */,
 				B0B9D9741FEBE3410037C1FF /* MockJoined.swift */,
 				B02F858C1FEBF8100057D411 /* MockReady.swift */,
@@ -630,6 +645,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0885E0D1FDA54F500629629 /* MockBattleJoined.swift in Sources */,
+				B02FA4431FECAFAB003E6019 /* MockPlayerID.swift in Sources */,
 				B02F858D1FEBF8100057D411 /* MockReady.swift in Sources */,
 				B0A676901FD1A6D200278CBE /* MockBattlePlayer.swift in Sources */,
 				B0885E131FDA582600629629 /* MockBattleReady.swift in Sources */,

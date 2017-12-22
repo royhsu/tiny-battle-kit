@@ -28,10 +28,18 @@ internal final class MockJoined: TBJoined {
 
 extension MockJoined: Equatable {
     
-    public static func ==(
+    internal static func ==(
         lhs: MockJoined,
         rhs: MockJoined
     )
     -> Bool { return lhs === rhs }
+    
+}
+
+// MARK: - Hashable
+
+extension MockJoined: Hashable {
+    
+    internal var hashValue: Int { return player.hashValue }
     
 }
