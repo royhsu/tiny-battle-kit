@@ -69,7 +69,12 @@ internal final class MockServerTests: XCTestCase {
                 
                 let joinedRequest = TBRequest(
                     player: owner,
-                    data: MockJoined(player: owner)
+                    data: MockJoined(
+                        id: MockJoinedID(
+                            UUID().uuidString
+                        ),
+                        player: owner
+                    )
                 )
                 
                 let updatedBeforeJoined = session.updated
@@ -90,7 +95,12 @@ internal final class MockServerTests: XCTestCase {
 
                 let readyRequest = TBRequest(
                     player: owner,
-                    data: MockReady(player: owner)
+                    data: MockReady(
+                        id: MockReadyID(
+                            UUID().uuidString
+                        ),
+                        player: owner
+                    )
                 )
 
                 let updatedBeforeReady = session.updated

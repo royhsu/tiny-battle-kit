@@ -16,11 +16,22 @@ internal final class MockReady: TBReady {
     
     // MARK: Property
     
-    internal final let player: Player
+    internal final let id: MockReadyID
+    
+    internal final let player: Player?
     
     // MARK: Init
     
-    internal init(player: Player) { self.player = player }
+    internal init(
+        id: MockReadyID,
+        player: Player
+    ) {
+        
+        self.id = id
+        
+        self.player = player
+        
+    }
     
 }
 
@@ -32,7 +43,13 @@ extension MockReady: Equatable {
         lhs: MockReady,
         rhs: MockReady
     )
-    -> Bool { return lhs === rhs }
+    -> Bool {
+        
+        return
+            lhs.id == rhs.id
+            && lhs.player === rhs.player
+        
+    }
     
 }
 
@@ -40,6 +57,6 @@ extension MockReady: Equatable {
 
 extension MockReady: Hashable {
     
-    internal var hashValue: Int { return player.hashValue }
+    internal var hashValue: Int { return id.hashValue }
     
 }

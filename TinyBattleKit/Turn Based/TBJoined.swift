@@ -12,6 +12,6 @@ public protocol TBJoined: class {
     
     associatedtype Player: TBPlayer, Hashable
     
-    var player: Player { get }
+    var player: Player? { get }
     
 }

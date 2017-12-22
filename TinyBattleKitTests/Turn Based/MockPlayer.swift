@@ -30,7 +30,7 @@ extension MockPlayer: Equatable {
         lhs: MockPlayer,
         rhs: MockPlayer
     )
-    -> Bool { return lhs === rhs }
+    -> Bool { return lhs.id == rhs.id }
     
 }
 

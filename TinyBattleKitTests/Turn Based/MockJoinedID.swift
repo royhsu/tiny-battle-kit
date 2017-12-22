@@ -1,16 +1,16 @@
 //
-//  MockPlayerID.swift
+//  MockJoinedID.swift
 //  TinyBattleKitTests
 //
 //  Created by Roy Hsu on 22/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - MockPlayerID
+// MARK: - MockJoinedID
 
 import TinyCore
 
-internal struct MockPlayerID: ID {
+internal struct MockJoinedID: ID {
     
     internal typealias RawValue = String
     

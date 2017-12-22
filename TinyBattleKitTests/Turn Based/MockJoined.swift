@@ -16,11 +16,22 @@ internal final class MockJoined: TBJoined {
     
     // MARK: Property
     
-    internal final let player: Player
+    internal final let id: MockJoinedID
+    
+    internal final let player: Player?
     
     // MARK: Init
     
-    internal init(player: Player) { self.player = player }
+    internal init(
+        id: MockJoinedID,
+        player: Player
+    ) {
+        
+        self.id = id
+        
+        self.player = player
+        
+    }
     
 }
 
@@ -32,7 +43,13 @@ extension MockJoined: Equatable {
         lhs: MockJoined,
         rhs: MockJoined
     )
-    -> Bool { return lhs === rhs }
+    -> Bool {
+        
+        return
+            lhs.id == rhs.id
+            && lhs.player === rhs.player
+        
+    }
     
 }
 
@@ -40,6 +57,6 @@ extension MockJoined: Equatable {
 
 extension MockJoined: Hashable {
     
-    internal var hashValue: Int { return player.hashValue }
+    internal var hashValue: Int { return id.hashValue }
     
 }
