@@ -20,5 +20,7 @@ public enum TBServerError<Player: TBPlayer>: Error {
     
     case requiredState(TBSessionState)
     
+    case notJoined(Player)
+    
 }
 

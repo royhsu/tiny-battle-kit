@@ -1,18 +1,18 @@
 //
-//  TBJoinedRequestResponder.swift
+//  TBReadyRequestResponder.swift
 //  TinyBattleKit
 //
 //  Created by Roy Hsu on 22/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - TBJoinedRequestResponder
+// MARK: - TBReadyRequestResponder
 
-public struct TBJoinedRequestResponder<S: TBSession> {
+public struct TBReadyRequestResponder<S: TBSession> {
     
     public typealias Session = S
     
-    public typealias Joined = Session.Joined
+    public typealias Ready = Session.Ready
     
     // MARK: Property
     
@@ -26,7 +26,7 @@ public struct TBJoinedRequestResponder<S: TBSession> {
 
 // MARK: - TBRequestResponder
 
-extension TBJoinedRequestResponder: TBRequestResponder {
+extension TBReadyRequestResponder: TBRequestResponder {
     
     public typealias Error = TBServerError<Session.Player>
     
@@ -46,11 +46,15 @@ extension TBJoinedRequestResponder: TBRequestResponder {
                 
             }
             
-            guard
-                let joined = request.data as? Joined
-            else {
+            let player = request.player
+            
+            let hasPlayerJoined = self.session
+                .joineds
+                .contains { $0.player == player }
+            
+            guard hasPlayerJoined else {
                 
-                let error: TBServerError = .badRequest(request)
+                let error: Error = .notJoined(player)
                 
                 reject(error)
                 
@@ -58,7 +62,19 @@ extension TBJoinedRequestResponder: TBRequestResponder {
                 
             }
             
-            self.session.joineds.insert(joined)
+            guard
+                let ready = request.data as? Ready
+            else {
+                
+                let error: TBServerError = .badRequest(request)
+                
+                reject(error)
+                
+                return
+                    
+            }
+            
+            self.session.readys.insert(ready)
             
             self.session.updated = Date()
             

@@ -24,6 +24,7 @@
 		B02FA4411FECA174003E6019 /* TBAnyRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4401FECA174003E6019 /* TBAnyRequestResponder.swift */; };
 		B02FA4431FECAFAB003E6019 /* MockPlayerID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4421FECAFAB003E6019 /* MockPlayerID.swift */; };
 		B02FA4451FECB16C003E6019 /* TinyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02FA4461FECB16C003E6019 /* TinyCore.framework */; };
+		B02FA4481FECB55D003E6019 /* TBReadyRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4471FECB55D003E6019 /* TBReadyRequestResponder.swift */; };
 		B04272A21FD243E100ED3D74 /* MockBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */; };
 		B081909A1FDFA63B00B28743 /* NextTurnBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */; };
 		B081909C1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */; };
@@ -136,6 +137,7 @@
 		B02FA4401FECA174003E6019 /* TBAnyRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBAnyRequestResponder.swift; sourceTree = "<group>"; };
 		B02FA4421FECAFAB003E6019 /* MockPlayerID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerID.swift; sourceTree = "<group>"; };
 		B02FA4461FECB16C003E6019 /* TinyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TinyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B02FA4471FECB55D003E6019 /* TBReadyRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBReadyRequestResponder.swift; sourceTree = "<group>"; };
 		B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleTurn.swift; sourceTree = "<group>"; };
 		B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequest.swift; sourceTree = "<group>"; };
 		B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequestResponder.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				B02F85961FEC9C3B0057D411 /* TBRequestResponder.swift */,
 				B02FA4401FECA174003E6019 /* TBAnyRequestResponder.swift */,
 				B02F85981FEC9D270057D411 /* TBJoinedRequestResponder.swift */,
+				B02FA4471FECB55D003E6019 /* TBReadyRequestResponder.swift */,
 			);
 			path = "Turn Based";
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				B02F85991FEC9D270057D411 /* TBJoinedRequestResponder.swift in Sources */,
 				B0885DFC1FDA3A3C00629629 /* TurnBasedBattleServerStateMachine.swift in Sources */,
 				B0EF52C61FD393C80043014F /* Promise+Recover.swift in Sources */,
+				B02FA4481FECB55D003E6019 /* TBReadyRequestResponder.swift in Sources */,
 				B02F85971FEC9C3B0057D411 /* TBRequestResponder.swift in Sources */,
 				B0EF52C51FD393C80043014F /* Promise+Reduce.swift in Sources */,
 				B0885DF91FDA3A3C00629629 /* ContinueBattleRequest.swift in Sources */,

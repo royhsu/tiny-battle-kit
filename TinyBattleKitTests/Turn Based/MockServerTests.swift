@@ -55,33 +55,34 @@ internal final class MockServerTests: XCTestCase {
             
             XCTAssert(server.session.joineds.isEmpty)
             
-            let joinedRequest = TBRequest(
-                player: owner,
-                data: MockJoined(player: owner)
-            )
+            async { _ in
+                
+                let joinedRequest = TBRequest(
+                    player: owner,
+                    data: MockJoined(player: owner)
+                )
+                
+                let updatedBeforeJoined = session.updated
             
-            let updatedBeforeJoined = session.updated
+                let joinedResponse = try ..server.respond(to: joinedRequest)
+                
+                guard
+                    let joined = joinedResponse.request.data as? MockJoined
+                else { XCTFail("Unexpected request data."); return }
+                
+                XCTAssert(
+                    server.session.joineds.contains(joined)
+                )
+                
+                let leeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
+                
+                XCTAssert(leeway > 0.0)
+                
+                promise.fulfill()
             
-            server
-                .respond(to: joinedRequest)
-                .then(in: .main) { response in
-                    
-                    guard
-                        let joined = response.request.data as? MockJoined
-                    else { XCTFail("Unexpected request data."); return }
-                        
-                    XCTAssert(
-                        server.session.joineds.contains(joined)
-                    )
-                    
-                    let leeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
-                    
-                    XCTAssert(leeway > 0.0)
-                    
-                }
-                .catch(in: .main) { error in XCTFail("\(error)") }
-                .always(in: .main) { promise.fulfill() }
-
+            }
+            .catch(in: .main) { error in XCTFail("\(error)") }
+            
         }
     
         wait(
