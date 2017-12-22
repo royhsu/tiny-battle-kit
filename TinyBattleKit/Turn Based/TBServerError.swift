@@ -10,9 +10,13 @@
 
 public enum TBServerError<Player: TBPlayer>: Error {
     
+    public typealias Request = TBRequest<Player>
+    
     // MARK: Case
     
-    case unsupportedRequest(TBRequest<Player>)
+    case badRequest(Request)
+    
+    case unsupportedRequest(Request)
     
 }
 

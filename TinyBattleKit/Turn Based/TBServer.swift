@@ -55,35 +55,19 @@ public extension TBServer {
     
     public typealias Reqeust = Response.Request
     
+    public typealias JoineRequestResponder = TBJoinedRequestResponder<Session>
+    
     public final func respond(to request: Reqeust) -> Promise<Response> {
         
-        return Promise { fulfill, reject, _ in
-            
-            if let joined = request.data as? Session.Joined {
-                
-                self.session.joineds.append(joined)
-                
-                self.session
-                    .save()
-                    .then { session in
-                        
-                        fulfill(
-                            TBResponse(request: request)
-                        )
-                        
-                    }
-                    .catch(reject)
-                
-            }
-            else {
-                
-                let error: TBServerError = .unsupportedRequest(request)
-                
-                reject(error)
-                
-            }
-            
-        }
+        let responders = [
+            TBAnyRequestResponder(
+                JoineRequestResponder()
+            )
+        ]
+        
+        let promises = responders.map { $0.respond(to: request) }
+        
+        return any(promises)
         
     }
 
