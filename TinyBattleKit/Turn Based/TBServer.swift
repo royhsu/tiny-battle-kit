@@ -14,6 +14,7 @@ open class TBServer<Session: TBSession> {
     
     // MARK: Property
     
+    // Please make to keep the state between the session and the state machine in synchronization.
     public private(set) final var session: Session
     
     private final let stateMachine = TBSessionStateMachine(state: .end)
