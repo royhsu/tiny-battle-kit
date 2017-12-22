@@ -65,24 +65,24 @@ internal final class MockServerTests: XCTestCase {
                 let updatedBeforeJoined = session.updated
             
                 let joinedResponse = try ..server.respond(to: joinedRequest)
-                
+
                 guard
                     let joined = joinedResponse.request.data as? MockJoined
                 else { XCTFail("Expect an joined."); return }
-                
+
                 XCTAssert(
                     server.session.joineds.contains(joined)
                 )
-                
+
                 let joinedLeeway = server.session.updated.timeIntervalSince(updatedBeforeJoined)
-                
+
                 XCTAssert(joinedLeeway > 0.0)
-                
+
                 let readyRequest = TBRequest(
                     player: owner,
                     data: MockReady(player: owner)
                 )
-                
+
                 let updatedBeforeReady = session.updated
                 
                 let readyResponse = try ..server.respond(to: readyRequest)

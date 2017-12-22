@@ -74,6 +74,8 @@ public extension TBServer {
         
         return async { _ in
             
+            // Todo: throwing the error by a responder if it can handle request.
+            // The current implementation alway throws unsupported request error while all responders failed.
             for responder in responders {
                 
                 guard
