@@ -18,7 +18,7 @@ public protocol TBSession: class {
     
     var state: TBSessionState { get set }
     
-    var owner: Player { get }
+    var owner: Player? { get }
     
     var created: Date { get }
     

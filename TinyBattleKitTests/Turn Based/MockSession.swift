@@ -26,7 +26,7 @@ internal final class MockSession: TBSession {
     
     internal final var updated: Date
     
-    internal final let owner: Player
+    internal final let owner: Player?
     
     internal final var joineds: Set<Joined>
     
