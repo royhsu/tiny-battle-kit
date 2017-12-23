@@ -8,27 +8,15 @@
 
 // MARK: - TBReadyRequestResponder
 
-public struct TBReadyRequestResponder<S: TBSession> {
+public struct TBReadyRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Session = S
     
     public typealias Ready = Session.Ready
     
-    // MARK: Property
+    public typealias Error = TBServerError<Session>
     
-    public var session: Session
-    
-    // MARK: Init
-    
-    public init(session: Session) { self.session = session }
-    
-}
-
-// MARK: - TBRequestResponder
-
-extension TBReadyRequestResponder: TBRequestResponder {
-    
-    public typealias Error = TBServerError<Session.Player>
+    // MARK: Respond
     
     public func respond(to request: Request) -> Promise<Response> {
         
@@ -36,7 +24,7 @@ extension TBReadyRequestResponder: TBRequestResponder {
             
             let requiredState: TBSessionState = .start
             
-            if self.session.state != requiredState {
+            if request.session.state != requiredState {
                 
                 let error: Error = .requiredState(requiredState)
                 
@@ -60,7 +48,7 @@ extension TBReadyRequestResponder: TBRequestResponder {
             
             let player = request.player
             
-            let hasPlayerJoined = self.session
+            let hasPlayerJoined = request.session
                 .joineds
                 .contains { $0.player == player }
             
@@ -74,11 +62,16 @@ extension TBReadyRequestResponder: TBRequestResponder {
                 
             }
             
-            self.session.readys.insert(ready)
+            var updatedSession = request.session
             
-            self.session.updated = Date()
+            updatedSession.readys.insert(ready)
             
-            let response = Response(request: request)
+            updatedSession.updated = Date()
+            
+            let response = Response(
+                request: request,
+                session: updatedSession
+            )
             
             fulfill(response)
             

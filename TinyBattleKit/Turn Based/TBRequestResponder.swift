@@ -12,13 +12,9 @@ public protocol TBRequestResponder {
     
     associatedtype Session: TBSession
     
-    typealias Player = Session.Player
-    
-    typealias Response = TBResponse<Player>
+    typealias Response = TBResponse<Session>
     
     typealias Request = Response.Request
-    
-    var session: Session { get set }
     
     func respond(to request: Request) -> Promise<Response>
     

@@ -8,27 +8,15 @@
 
 // MARK: - TBJoinedRequestResponder
 
-public struct TBJoinedRequestResponder<S: TBSession> {
+public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Session = S
     
     public typealias Joined = Session.Joined
     
-    // MARK: Property
+    public typealias Error = TBServerError<Session>
     
-    public var session: Session
-    
-    // MARK: Init
-    
-    public init(session: Session) { self.session = session }
-    
-}
-
-// MARK: - TBRequestResponder
-
-extension TBJoinedRequestResponder: TBRequestResponder {
-    
-    public typealias Error = TBServerError<Session.Player>
+    // MARK: Responder
     
     public func respond(to request: Request) -> Promise<Response> {
         
@@ -36,7 +24,7 @@ extension TBJoinedRequestResponder: TBRequestResponder {
             
             let requiredState: TBSessionState = .start
             
-            if self.session.state != requiredState {
+            if request.session.state != requiredState {
                 
                 let error: Error = .requiredState(requiredState)
                 
@@ -58,11 +46,16 @@ extension TBJoinedRequestResponder: TBRequestResponder {
                 
             }
             
-            self.session.joineds.insert(joined)
+            var updatedSession = request.session
             
-            self.session.updated = Date()
+            updatedSession.joineds.insert(joined)
             
-            let response = Response(request: request)
+            updatedSession.updated = Date()
+            
+            let response = Response(
+                request: request,
+                session: updatedSession
+            )
             
             fulfill(response)
             

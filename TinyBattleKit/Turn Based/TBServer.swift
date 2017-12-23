@@ -106,24 +106,24 @@ public extension TBServer {
 
 public extension TBServer {
     
-    public typealias Error = TBServerError<Player>
+    public typealias Response = TBResponse<Session>
     
-    public typealias Response = TBResponse<Player>
+    public typealias Request = Response.Request
     
-    public typealias Reqeust = Response.Request
+    public typealias Error = TBServerError<Session>
     
     public typealias JoineRequestResponder = TBJoinedRequestResponder<Session>
     
     public typealias ReadyRequestResponder = TBReadyRequestResponder<Session>
     
-    public final func respond(to request: Reqeust) -> Promise<Response> {
+    public final func respond(to request: Request) -> Promise<Response> {
         
         let responders = [
             TBAnyRequestResponder(
-                JoineRequestResponder(session: session)
+                JoineRequestResponder()
             ),
             TBAnyRequestResponder(
-                ReadyRequestResponder(session: session)
+                ReadyRequestResponder()
             )
         ]
         
@@ -136,7 +136,7 @@ public extension TBServer {
                 guard
                     let response = try? ..responder.respond(to: request)
                 else { continue }
-                    
+                
                 return response
                 
             }

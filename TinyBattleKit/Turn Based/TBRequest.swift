@@ -8,22 +8,27 @@
 
 // MARK: - TBRequest
 
-public struct TBRequest<Player: TBPlayer> {
+public struct TBRequest<Session: TBSession> {
 
     // MARK: Property
 
-    public let player: Player
+    public let player: Session.Player
+    
+    public let session: Session
 
     public let data: Any
 
     // MARK: Init
 
     public init(
-        player: Player,
+        player: Session.Player,
+        session: Session,
         data: Any
     ) {
 
         self.player = player
+        
+        self.session = session
 
         self.data = data
 

@@ -8,17 +8,28 @@
 
 // MARK: - TBResponse
 
-public struct TBResponse<Player: TBPlayer> {
+public struct TBResponse<Session: TBSession> {
 
-    public typealias Request = TBRequest<Player>
+    public typealias Request = TBRequest<Session>
 
     // MARK: Property
 
     public let request: Request
+    
+    public let session: Session
 
     // MARK: Init
 
-    public init(request: Request) { self.request = request }
+    public init(
+        request: Request,
+        session: Session
+    ) {
+        
+        self.request = request
+        
+        self.session = session
+        
+    }
 
 }
 

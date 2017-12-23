@@ -8,9 +8,13 @@
 
 // MARL: - TBServerError
 
-public enum TBServerError<Player: TBPlayer>: Error {
+public enum TBServerError<Session: TBSession>: Error {
     
-    public typealias Request = TBRequest<Player>
+    public typealias Response = TBResponse<Session>
+    
+    public typealias Request = Response.Request
+    
+    public typealias Player = Session.Player
     
     // MARK: Case
     

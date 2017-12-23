@@ -8,7 +8,7 @@
 
 // MARK: - TBSession
 
-public protocol TBSession: class {
+public protocol TBSession {
     
     associatedtype Ready: TBReady, Hashable
     
@@ -27,7 +27,5 @@ public protocol TBSession: class {
     var joineds: Set<Joined> { get set }
 
     var readys: Set<Ready> { get set }
-    
-    func save() -> Promise<Self>
     
 }
