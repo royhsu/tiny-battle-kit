@@ -14,6 +14,8 @@ open class TBServer<Session: TBSession> {
     
     // MARK: Property
     
+    public final let database: TBDatabase
+    
     // Please make to use the function transit(:) to change the state of the session and state machine.
     // NEVER to directly access them to change the state.
     public private(set) final var session: Session
@@ -24,7 +26,12 @@ open class TBServer<Session: TBSession> {
     
     // MARK: Init
     
-    public init(session: Session) {
+    public init(
+        database: TBDatabase,
+        session: Session
+    ) {
+        
+        self.database = database
         
         self.session = session
         
@@ -136,6 +143,10 @@ public extension TBServer {
                 guard
                     let response = try? ..responder.respond(to: request)
                 else { continue }
+                
+                let updatedSession = try ..self.database.upsert(response.session)
+                
+                self.session = updatedSession
                 
                 return response
                 

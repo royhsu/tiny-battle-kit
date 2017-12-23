@@ -31,6 +31,7 @@
 		B02FA4501FECE3BF003E6019 /* StubServerEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA44F1FECE3BF003E6019 /* StubServerEventListener.swift */; };
 		B02FA4581FED3C5A003E6019 /* MockReadyID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4571FED3C5A003E6019 /* MockReadyID.swift */; };
 		B02FA45A1FED3D09003E6019 /* MockJoinedID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA4591FED3D09003E6019 /* MockJoinedID.swift */; };
+		B02FA47D1FEE6218003E6019 /* TBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02FA47C1FEE6218003E6019 /* TBDatabase.swift */; };
 		B04272A21FD243E100ED3D74 /* MockBattleTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */; };
 		B081909A1FDFA63B00B28743 /* NextTurnBattleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */; };
 		B081909C1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */; };
@@ -150,6 +151,7 @@
 		B02FA44F1FECE3BF003E6019 /* StubServerEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubServerEventListener.swift; sourceTree = "<group>"; };
 		B02FA4571FED3C5A003E6019 /* MockReadyID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReadyID.swift; sourceTree = "<group>"; };
 		B02FA4591FED3D09003E6019 /* MockJoinedID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJoinedID.swift; sourceTree = "<group>"; };
+		B02FA47C1FEE6218003E6019 /* TBDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBDatabase.swift; sourceTree = "<group>"; };
 		B04272A11FD243E100ED3D74 /* MockBattleTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBattleTurn.swift; sourceTree = "<group>"; };
 		B08190991FDFA63B00B28743 /* NextTurnBattleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequest.swift; sourceTree = "<group>"; };
 		B081909B1FDFA69000B28743 /* NextTurnBattleRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTurnBattleRequestResponder.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				B0B9D9651FEBBBFD0037C1FF /* TBPlayer.swift */,
 				B0B9D9671FEBBC2C0037C1FF /* TBJoined.swift */,
 				B02F85881FEBF5CB0057D411 /* TBReady.swift */,
+				B02FA47C1FEE6218003E6019 /* TBDatabase.swift */,
 				B0B9D9691FEBBCDD0037C1FF /* TBServer.swift */,
 				B02F85941FEC07040057D411 /* TBServerError.swift */,
 				B0B9D96B1FEBBD410037C1FF /* TBSession.swift */,
@@ -649,6 +652,7 @@
 				B0EF52D81FD393C80043014F /* Promise+Then.swift in Sources */,
 				B0885E011FDA3A3C00629629 /* BattleActionAnimatorContext.swift in Sources */,
 				B02FA44C1FECD80F003E6019 /* TBServerEventEmitter.swift in Sources */,
+				B02FA47D1FEE6218003E6019 /* TBDatabase.swift in Sources */,
 				B0B9D96C1FEBBD410037C1FF /* TBSession.swift in Sources */,
 				B0885E091FDA42BA00629629 /* PlayerJoinBattleRequestResponder.swift in Sources */,
 				B0885E0B1FDA47B700629629 /* BattleResponse.swift in Sources */,
