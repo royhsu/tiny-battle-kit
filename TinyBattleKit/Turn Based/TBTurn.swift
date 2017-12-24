@@ -12,6 +12,8 @@ public protocol TBTurn {
     
     associatedtype Involved: TBInvolved, Hashable
     
-    var involveds: Set<Involved> { get }
+    var involveds: Set<Involved> { get set }
+    
+    var created: Date { get }
     
 }

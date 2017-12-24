@@ -26,6 +26,8 @@ public enum TBServerError<Session: TBSession>: Error {
     
     case notJoined(Player)
     
+    case currentTurnNotFound
+    
     case requiredPermission(TBSessionPermission)
     
 }

@@ -113,6 +113,8 @@ public extension TBServer {
     
     public typealias TurnRequestResponder = TBTurnRequestResponder<Session>
     
+    public typealias InvolvedRequestResponder = TBInvolvedRequestResponder<Session>
+    
     public final func respond(to request: Request) -> Promise<Response> {
         
         let responders = [
@@ -124,6 +126,9 @@ public extension TBServer {
             ),
             TBAnyRequestResponder(
                 TurnRequestResponder()
+            ),
+            TBAnyRequestResponder(
+                InvolvedRequestResponder()
             )
         ]
         
