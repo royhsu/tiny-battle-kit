@@ -12,7 +12,10 @@ public enum TBServerEvent {
     
     // MARK: Case
     
-    // The server chagned its state.
+    // The server chagned its session state.
     case stateChanged
+    
+    // The server changed its session.
+    case sessionChanged
     
 }

@@ -18,7 +18,17 @@ open class TBServer<Session: TBSession> {
     
     // Please make to use the function transit(:) to change the state of the session and state machine.
     // NEVER to directly access them to change the state.
-    public private(set) final var session: Session
+    public private(set) final var session: Session {
+        
+        didSet {
+            
+            let emitter = events[.sessionChanged]
+            
+            emitter?.emit(by: self)
+            
+        }
+        
+    }
     
     private final let stateMachine = TBSessionStateMachine(state: .idle)
     
