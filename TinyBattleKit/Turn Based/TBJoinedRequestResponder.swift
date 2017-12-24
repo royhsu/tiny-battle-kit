@@ -22,7 +22,7 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
         
         return Promise { fulfill, reject, _ in
             
-            let requiredState: TBSessionState = .start
+            let requiredState: TBSessionState = .running
             
             if request.session.state != requiredState {
                 

@@ -12,6 +12,10 @@ public enum TBServerEvent {
     
     // MARK: Case
     
-    case online, offline
+    // The server chagned its state.
+    case stateChanged
+    
+    // The server added a new turn.
+    case turnAdded
     
 }

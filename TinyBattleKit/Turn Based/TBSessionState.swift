@@ -12,7 +12,17 @@ public enum TBSessionState {
     
     // MARK: Case
     
-    case start, end
+    // The session has been closed and denies any changes. There is no way to re-activate it.
+    case terminated
+    
+    // The session will timeout if there is no updates for a period of time. Calling resume() on server for re-activating the session.
+    case timeout
+    
+    // The session has been created but is not ready to apply any changes.
+    case idle
+    
+    // The session is alive to respond to changes.
+    case running
     
 }
 
@@ -28,7 +38,13 @@ extension TBSessionState {
             
         switch (old, new) {
             
-        case (.end, .start): return true
+        case
+            (.idle, .running),
+            (.timeout, .running),
+            (.running, .timeout),
+            (.running, .terminated):
+            
+            return true
             
         default: return false
             

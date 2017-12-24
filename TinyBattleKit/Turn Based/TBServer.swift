@@ -20,7 +20,7 @@ open class TBServer<Session: TBSession> {
     // NEVER to directly access them to change the state.
     public private(set) final var session: Session
     
-    private final let stateMachine = TBSessionStateMachine(state: .end)
+    private final let stateMachine = TBSessionStateMachine(state: .idle)
     
     private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
     
@@ -80,32 +80,20 @@ public extension TBServer {
         
         do {
             
-            let old = session.state
-            
-            let new = state
-            
-            try stateMachine.transit(to: new)
+            try stateMachine.transit(to: state)
             
             session.state = stateMachine.state
             
-            switch (old, new) {
-                
-            case (.end, .start):
-                
-                let emitter = events[.online]
-                
-                emitter?.emit(by: self)
-                
-            default: break
-                
-            }
+            let emitter = events[.stateChanged]
+            
+            emitter?.emit(by: self)
             
         }
         catch { fatalError("\(error)") }
         
     }
     
-    public final func resume() { transit(to: .start) }
+    public final func resume() { transit(to: .running) }
     
 }
 
