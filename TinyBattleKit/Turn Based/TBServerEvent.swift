@@ -15,7 +15,4 @@ public enum TBServerEvent {
     // The server chagned its state.
     case stateChanged
     
-    // The server added a new turn.
-    case turnAdded
-    
 }
