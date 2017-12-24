@@ -10,11 +10,13 @@
 
 public protocol TBSession {
     
-    associatedtype Ready: TBReady, Hashable
+    associatedtype Joined: TBJoined, Hashable
     
-    associatedtype Joined: TBJoined, Hashable where Joined.Player == Ready.Player
+    associatedtype Ready: TBReady, Hashable where Ready.Player == Joined.Player
     
-    typealias Player = Ready.Player
+    associatedtype Turn: TBTurn, Hashable where Turn.Involved.Player == Joined.Player
+    
+    typealias Player = Joined.Player
     
     var state: TBSessionState { get set }
     
@@ -27,5 +29,7 @@ public protocol TBSession {
     var joineds: Set<Joined> { get set }
 
     var readys: Set<Ready> { get set }
+    
+    var turns: Set<Turn> { get set }
     
 }
