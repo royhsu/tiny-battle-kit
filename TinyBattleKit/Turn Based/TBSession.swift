@@ -30,6 +30,6 @@ public protocol TBSession {
 
     var readys: Set<Ready> { get set }
     
-    var turns: Set<Turn> { get set }
+    var turns: [Turn] { get set }
     
 }

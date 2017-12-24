@@ -40,7 +40,7 @@ public struct TBInvolvedRequestResponder<S: TBSession>: TBRequestResponder {
                 let involved = request.data as? Involved
             else {
                 
-                let error: TBServerError = .badRequest(request)
+                let error: Error = .badRequest(request)
                 
                 reject(error)
                 
@@ -48,15 +48,10 @@ public struct TBInvolvedRequestResponder<S: TBSession>: TBRequestResponder {
                     
             }
             
-            var updatedTurns = request.session.turns
+            var updatedSession = request.session
             
             guard
-                let currentTurn = updatedTurns
-                    .sorted(
-                        by: { $0.created > $1.created }
-                    )
-                    .first,
-                var updatedCurrentTurn = updatedTurns.remove(currentTurn)
+                updatedSession.turns.last != nil
             else {
                 
                 let error: Error = .currentTurnNotFound
@@ -67,13 +62,11 @@ public struct TBInvolvedRequestResponder<S: TBSession>: TBRequestResponder {
                 
             }
             
+            var updatedCurrentTurn = updatedSession.turns.removeLast()
+            
             updatedCurrentTurn.involveds.insert(involved)
             
-            updatedTurns.insert(updatedCurrentTurn)
-            
-            var updatedSession = request.session
-            
-            updatedSession.turns = updatedTurns
+            updatedSession.turns.append(updatedCurrentTurn)
             
             updatedSession.updated = Date()
             

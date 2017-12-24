@@ -58,9 +58,21 @@ public struct TBTurnRequestResponder<S: TBSession>: TBRequestResponder {
                 
             }
             
+            let isTurnAdded = request.session.turns.contains(turn)
+            
+            if isTurnAdded {
+                
+                let error: Error = .conflictTurn(turn)
+                
+                reject(error)
+                
+                return
+                
+            }
+            
             var updatedSession = request.session
             
-            updatedSession.turns.insert(turn)
+            updatedSession.turns.append(turn)
             
             updatedSession.updated = Date()
             

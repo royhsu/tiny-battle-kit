@@ -28,6 +28,8 @@ public enum TBServerError<Session: TBSession>: Error {
     
     case currentTurnNotFound
     
+    case conflictTurn(Session.Turn)
+    
     case requiredPermission(TBSessionPermission)
     
 }
