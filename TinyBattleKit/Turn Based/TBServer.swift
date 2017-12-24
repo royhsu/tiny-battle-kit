@@ -125,6 +125,8 @@ public extension TBServer {
     
     public typealias InvolvedRequestResponder = TBInvolvedRequestResponder<Session>
     
+    public typealias ResultRequestResponder = TBResultRequestResponder<Session>
+    
     public final func respond(
         in context: Context,
         to request: Request
@@ -167,6 +169,17 @@ public extension TBServer {
                         to: request
                     )
 
+                }
+            )
+            .recover(
+                in: context,
+                { _ in
+                    
+                    return ResultRequestResponder().respond(
+                        in: context,
+                        to: request
+                    )
+                    
                 }
             )
             .then(in: context) { response in

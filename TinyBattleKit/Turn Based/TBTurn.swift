@@ -12,6 +12,10 @@ public protocol TBTurn {
     
     associatedtype Involved: TBInvolved, Hashable
     
+    associatedtype Result: TBResult, Hashable where Result.Player == Involved.Player
+    
     var involveds: Set<Involved> { get set }
+    
+    var results: Set<Result> { get set }
     
 }
