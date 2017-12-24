@@ -14,7 +14,7 @@ public struct TBAnyRequestResponder<S: TBSession>: TBRequestResponder {
 
     // MARK: Property
     
-    private let _respondToRequest: (Request) -> Promise<Response>
+    private let _respondToRequest: (Context, Request) -> Promise<Response>
     
     // MARK: Init
 
@@ -29,6 +29,17 @@ public struct TBAnyRequestResponder<S: TBSession>: TBRequestResponder {
 
     // MARK: Forwarding
 
-    public func respond(to request: Request) -> Promise<Response> { return _respondToRequest(request) }
+    public func respond(
+        in context: Context,
+        to request: Request
+    )
+    -> Promise<Response> {
+        
+        return _respondToRequest(
+            context,
+            request
+        )
+        
+    }
 
 }

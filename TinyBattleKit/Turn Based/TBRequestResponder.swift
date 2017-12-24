@@ -16,6 +16,10 @@ public protocol TBRequestResponder {
     
     typealias Request = Response.Request
     
-    func respond(to request: Request) -> Promise<Response>
+    func respond(
+        in context: Context,
+        to request: Request
+    )
+    -> Promise<Response>
     
 }

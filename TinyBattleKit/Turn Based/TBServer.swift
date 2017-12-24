@@ -115,46 +115,74 @@ public extension TBServer {
     
     public typealias InvolvedRequestResponder = TBInvolvedRequestResponder<Session>
     
-    public final func respond(to request: Request) -> Promise<Response> {
+    public final func respond(
+        in context: Context,
+        to request: Request
+    )
+    -> Promise<Response> {
         
-        let responders = [
-            TBAnyRequestResponder(
-                JoineRequestResponder()
-            ),
-            TBAnyRequestResponder(
-                ReadyRequestResponder()
-            ),
-            TBAnyRequestResponder(
-                TurnRequestResponder()
-            ),
-            TBAnyRequestResponder(
-                InvolvedRequestResponder()
+        return JoineRequestResponder()
+            .respond(
+                in: context,
+                to: request
             )
-        ]
-        
-        return async { _ in
-            
-            // Todo: throwing the error by a responder if it can handle request.
-            // The current implementation alway throws unsupported request error while all responders failed.
-            for responder in responders {
+            .recover(
+                in: context,
+                { _ in
+
+                    return ReadyRequestResponder().respond(
+                        in: context,
+                        to: request
+                    )
+
+                }
+            )
+            .recover(
+                in: context,
+                { _ in
+
+                    return TurnRequestResponder().respond(
+                        in: context,
+                        to: request
+                    )
+
+                }
+            )
+            .recover(
+                in: context,
+                { _ in
+
+                    return InvolvedRequestResponder().respond(
+                        in: context,
+                        to: request
+                    )
+
+                }
+            )
+            .then(in: context) { response in
                 
-                guard
-                    let response = try? ..responder.respond(to: request)
-                else { continue }
+                return self.database.upsert(
+                    in: context,
+                    with: response.session
+                )
+
+            }
+            .then(in: context) { updatedSession in
                 
-                let updatedSession = try ..self.database.upsert(response.session)
-                
-                self.session = updatedSession
-                
-                return response
+                return Promise(in: context) { fulfill, _, _ in
+                    
+                    self.session = updatedSession
+                    
+                    let response = Response(
+                        request: request,
+                        session: updatedSession
+                    )
+                    
+                    fulfill(response)
+                    
+                }
                 
             }
-            
-            let error: Error = .unsupportedRequest(request)
-            
-            throw error
-            
-        }
         
     }
 

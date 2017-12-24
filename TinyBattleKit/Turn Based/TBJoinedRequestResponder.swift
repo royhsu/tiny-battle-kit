@@ -16,11 +16,15 @@ public struct TBJoinedRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Error = TBServerError<Session>
     
-    // MARK: Responder
+    // MARK: Respond
     
-    public func respond(to request: Request) -> Promise<Response> {
+    public func respond(
+        in context: Context,
+        to request: Request
+    )
+    -> Promise<Response> {
         
-        return Promise { fulfill, reject, _ in
+        return Promise(in: context) { fulfill, reject, _ in
             
             let requiredState: TBSessionState = .running
             

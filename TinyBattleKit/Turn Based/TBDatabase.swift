@@ -11,6 +11,10 @@
 public protocol TBDatabase {
     
     // Update the object in the database and insert it while the database can't not find it.
-    func upsert<Object>(_ object: Object) -> Promise<Object>
+    func upsert<Object>(
+        in context: Context,
+        with object: Object
+    )
+    -> Promise<Object>
     
 }
