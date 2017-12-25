@@ -118,6 +118,8 @@
 		B0EF52D61FD393C80043014F /* Promise+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52BF1FD393C80043014F /* Promise+Zip.swift */; };
 		B0EF52D71FD393C80043014F /* Promise+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C01FD393C80043014F /* Promise+Validate.swift */; };
 		B0EF52D81FD393C80043014F /* Promise+Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF52C11FD393C80043014F /* Promise+Then.swift */; };
+		B0F1B0641FF0A69600C3F583 /* TBQueued.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1B0631FF0A69600C3F583 /* TBQueued.swift */; };
+		B0F1B0661FF0A7F100C3F583 /* TBQueuedRequestResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1B0651FF0A7F100C3F583 /* TBQueuedRequestResponder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +247,8 @@
 		B0EF52BF1FD393C80043014F /* Promise+Zip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Zip.swift"; sourceTree = "<group>"; };
 		B0EF52C01FD393C80043014F /* Promise+Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Validate.swift"; sourceTree = "<group>"; };
 		B0EF52C11FD393C80043014F /* Promise+Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promise+Then.swift"; sourceTree = "<group>"; };
+		B0F1B0631FF0A69600C3F583 /* TBQueued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBQueued.swift; sourceTree = "<group>"; };
+		B0F1B0651FF0A7F100C3F583 /* TBQueuedRequestResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBQueuedRequestResponder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +423,7 @@
 				B0B9D9671FEBBC2C0037C1FF /* TBJoined.swift */,
 				B02F85881FEBF5CB0057D411 /* TBReady.swift */,
 				B02FA49C1FEF3507003E6019 /* TBInvolved.swift */,
+				B0F1B0631FF0A69600C3F583 /* TBQueued.swift */,
 				B02FA4B61FEFD386003E6019 /* TBResult.swift */,
 				B02FA49A1FEF34D0003E6019 /* TBTurn.swift */,
 				B0B9D96B1FEBBD410037C1FF /* TBSession.swift */,
@@ -439,6 +444,7 @@
 				B02FA4471FECB55D003E6019 /* TBReadyRequestResponder.swift */,
 				B02FA49E1FEF35A6003E6019 /* TBTurnRequestResponder.swift */,
 				B02FA4A21FEF3915003E6019 /* TBInvolvdRequestResponder.swift */,
+				B0F1B0651FF0A7F100C3F583 /* TBQueuedRequestResponder.swift */,
 				B02FA4B81FEFD44B003E6019 /* TBResultRequestResponder.swift */,
 			);
 			path = "Turn Based";
@@ -620,6 +626,7 @@
 				B0EF52CB1FD393C80043014F /* Promise+Await.swift in Sources */,
 				B02FA4A11FEF373F003E6019 /* TBSessionPermission.swift in Sources */,
 				B0885E111FDA56DF00629629 /* TurnBasedBattleResponse.swift in Sources */,
+				B0F1B0661FF0A7F100C3F583 /* TBQueuedRequestResponder.swift in Sources */,
 				B0885DF61FDA3A3C00629629 /* TurnBasedBattleServerDataProvider.swift in Sources */,
 				B0EF52D51FD393C80043014F /* Promise+Map.swift in Sources */,
 				B02FA44A1FECD713003E6019 /* TBServerEvent.swift in Sources */,
@@ -635,6 +642,7 @@
 				B0885E031FDA3A3C00629629 /* AnyBattleActionProvider.swift in Sources */,
 				B0EF52CE1FD393C80043014F /* Promise+Always.swift in Sources */,
 				B02F85991FEC9D270057D411 /* TBJoinedRequestResponder.swift in Sources */,
+				B0F1B0641FF0A69600C3F583 /* TBQueued.swift in Sources */,
 				B0885DFC1FDA3A3C00629629 /* TurnBasedBattleServerStateMachine.swift in Sources */,
 				B0EF52C61FD393C80043014F /* Promise+Recover.swift in Sources */,
 				B02FA4481FECB55D003E6019 /* TBReadyRequestResponder.swift in Sources */,

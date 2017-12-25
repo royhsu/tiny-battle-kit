@@ -1,20 +1,21 @@
 //
-//  TBResultRequestResponder.swift
+//  TBQueuedRequestResponder.swift
 //  TinyBattleKit
 //
-//  Created by Roy Hsu on 24/12/2017.
+//  Created by Roy Hsu on 25/12/2017.
 //  Copyright © 2017 TinyWorld. All rights reserved.
 //
 
-// MARK: - TBResultRequestResponder
+// MARK: - TBQueuedRequestResponder
 
-public struct TBResultRequestResponder<S: TBSession>: TBRequestResponder {
+// Only the owner of a session can add a new queued.
+public struct TBQueuedRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Session = S
     
     public typealias Turn = Session.Turn
     
-    public typealias Result = Turn.Result
+    public typealias Queued = Turn.Queued
     
     public typealias Error = TBServerError<Session>
     
@@ -41,10 +42,22 @@ public struct TBResultRequestResponder<S: TBSession>: TBRequestResponder {
             }
             
             guard
-                let result = request.data as? Result
+                let queued = request.data as? Queued
             else {
                 
                 let error: Error = .badRequest(request)
+                
+                reject(error)
+                
+                return
+                    
+            }
+            
+            let isOwner = (request.session.owner == request.player)
+            
+            guard isOwner else {
+                
+                let error: Error = .requiredPermission(.administrator)
                 
                 reject(error)
                 
@@ -63,12 +76,12 @@ public struct TBResultRequestResponder<S: TBSession>: TBRequestResponder {
                 reject(error)
                 
                 return
-                
+                    
             }
             
             var updatedCurrentTurn = updatedSession.turns.removeLast()
             
-            updatedCurrentTurn.results.append(result)
+            updatedCurrentTurn.queueds.append(queued)
             
             updatedSession.turns.append(updatedCurrentTurn)
             

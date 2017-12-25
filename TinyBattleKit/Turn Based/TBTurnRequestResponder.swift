@@ -8,6 +8,7 @@
 
 // MARK: - TBTurnRequestResponder
 
+// Only the owner of a session can add a new turn.
 public struct TBTurnRequestResponder<S: TBSession>: TBRequestResponder {
     
     public typealias Session = S
