@@ -34,8 +34,13 @@ open class TBServer<Session: TBSession> {
     
     private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
     
+    private final var timer: Timer?
+    
+    private final var isResolvingQueued = false
+    
     private typealias Queued = (context: Context, request: Request)
     
+    // Todo: find a better strategy.
     private final var queueds: [Queued] = []
     
     // MARK: Init
@@ -52,6 +57,8 @@ open class TBServer<Session: TBSession> {
         self.session.state = stateMachine.state
         
     }
+    
+    deinit { timer?.invalidate() }
 
 }
 
@@ -107,7 +114,17 @@ public extension TBServer {
         
     }
     
-    public final func resume() { transit(to: .running) }
+    public final func resume() {
+        
+        transit(to: .running)
+        
+        timer = .scheduledTimer(
+            withTimeInterval: 1.0,
+            repeats: true,
+            block: { _ in self.resolveQueuedsIfNeeded() }
+        )
+        
+    }
     
 }
 
@@ -144,15 +161,18 @@ public extension TBServer {
         
         queueds.append(queued)
         
-        resolveQueueds()
-        
         return self
         
     }
     
-    private final func resolveQueueds() {
+    private final func resolveQueuedsIfNeeded() {
         
-        if queueds.isEmpty { return }
+        if
+            queueds.isEmpty
+            && !isResolvingQueued
+        { return }
+        
+        isResolvingQueued = true
 
         let queued = queueds.removeFirst()
         
@@ -249,7 +269,7 @@ public extension TBServer {
                 emitter?.emit(by: error)
         
             }
-            .always(in: context) { self.resolveQueueds() }
+            .always(in: context) { self.isResolvingQueued = false }
         
     }
 
