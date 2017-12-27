@@ -18,4 +18,7 @@ public enum TBServerEvent {
     // The server changed its session.
     case sessionChanged
     
+    // The server sent a response for one of the previous requests.
+    case responseSent
+    
 }

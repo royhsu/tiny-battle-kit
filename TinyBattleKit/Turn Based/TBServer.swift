@@ -34,6 +34,10 @@ open class TBServer<Session: TBSession> {
     
     private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
     
+    private typealias Queued = (context: Context, request: Request)
+    
+    private final var queueds: [Queued] = []
+    
     // MARK: Init
     
     public init(
@@ -129,13 +133,34 @@ public extension TBServer {
     
     public typealias ResultRequestResponder = TBResultRequestResponder<Session>
     
+    @discardableResult
     public final func respond(
         in context: Context,
         to request: Request
     )
-    -> Promise<Response> {
+    -> Self {
         
-        return JoineRequestResponder()
+        let queued = Queued(context, request)
+        
+        queueds.append(queued)
+        
+        resolveQueueds()
+        
+        return self
+        
+    }
+    
+    private final func resolveQueueds() {
+        
+        if queueds.isEmpty { return }
+
+        let queued = queueds.removeFirst()
+        
+        let context = queued.context
+        
+        let request = queued.request
+        
+        JoineRequestResponder()
             .respond(
                 in: context,
                 to: request
@@ -176,27 +201,27 @@ public extension TBServer {
             .recover(
                 in: context,
                 { _ in
-                    
+
                     return QueuedRequestResponder().respond(
                         in: context,
                         to: request
                     )
-                    
+
                 }
             )
             .recover(
                 in: context,
                 { _ in
-                    
+
                     return ResultRequestResponder().respond(
                         in: context,
                         to: request
                     )
-                    
+
                 }
             )
             .then(in: context) { response in
-                
+
                 return self.database.upsert(
                     in: context,
                     with: response.session
@@ -204,21 +229,27 @@ public extension TBServer {
 
             }
             .then(in: context) { updatedSession in
+
+                self.session = updatedSession
+
+                let response = Response(
+                    request: request,
+                    session: updatedSession
+                )
+
+                let emitter = self.events[.responseSent]
                 
-                return Promise(in: context) { fulfill, _, _ in
-                    
-                    self.session = updatedSession
-                    
-                    let response = Response(
-                        request: request,
-                        session: updatedSession
-                    )
-                    
-                    fulfill(response)
-                    
-                }
+                emitter?.emit(by: response)
                 
             }
+            .catch(in: context) { error in
+                
+                let emitter = self.events[.responseSent]
+                
+                emitter?.emit(by: error)
+        
+            }
+            .always(in: context) { self.resolveQueueds() }
         
     }
 
