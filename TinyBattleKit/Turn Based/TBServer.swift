@@ -41,7 +41,34 @@ open class TBServer<Session: TBSession> {
     private typealias Queued = (context: Context, request: Request)
     
     // Todo: find a better strategy.
-    private final var queueds: [Queued] = []
+    private final var queueds: [Queued] = [] {
+        
+        didSet {
+            
+            if queueds.isEmpty {
+                
+                timer?.invalidate()
+                
+                timer = nil
+                
+            }
+            else {
+                
+                if timer == nil {
+                    
+                    timer = .scheduledTimer(
+                        withTimeInterval: 1.0,
+                        repeats: true,
+                        block: { _ in self.resolveQueuedsIfNeeded() }
+                    )
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
     
     // MARK: Init
     
@@ -57,8 +84,6 @@ open class TBServer<Session: TBSession> {
         self.session.state = stateMachine.state
         
     }
-    
-    deinit { timer?.invalidate() }
 
 }
 
@@ -114,17 +139,7 @@ public extension TBServer {
         
     }
     
-    public final func resume() {
-        
-        transit(to: .running)
-        
-        timer = .scheduledTimer(
-            withTimeInterval: 1.0,
-            repeats: true,
-            block: { _ in self.resolveQueuedsIfNeeded() }
-        )
-        
-    }
+    public final func resume() { transit(to: .running) }
     
 }
 
@@ -160,6 +175,8 @@ public extension TBServer {
         let queued = Queued(context, request)
         
         queueds.append(queued)
+        
+        print(#function, type(of: request.data))
         
         return self
         
