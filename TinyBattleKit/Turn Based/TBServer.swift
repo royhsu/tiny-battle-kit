@@ -34,29 +34,28 @@ open class TBServer<Session: TBSession> {
     
     private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
     
-    private final var timer: Timer?
-    
-    private final var isResolvingQueued = false
-    
     private typealias Queued = (context: Context, request: Request)
     
-    // Todo: find a better strategy.
+    private final var resolvingQueued: Queued?
+    
+    private final var queuedsTimer: Timer?
+    
     private final var queueds: [Queued] = [] {
         
         didSet {
             
             if queueds.isEmpty {
                 
-                timer?.invalidate()
+                queuedsTimer?.invalidate()
                 
-                timer = nil
+                queuedsTimer = nil
                 
             }
             else {
                 
-                if timer == nil {
+                if queuedsTimer == nil {
                     
-                    timer = .scheduledTimer(
+                    queuedsTimer = .scheduledTimer(
                         withTimeInterval: 1.0,
                         repeats: true,
                         block: { _ in self.resolveQueuedsIfNeeded() }
@@ -176,8 +175,6 @@ public extension TBServer {
         
         queueds.append(queued)
         
-        print(#function, type(of: request.data))
-        
         return self
         
     }
@@ -186,12 +183,12 @@ public extension TBServer {
         
         if
             queueds.isEmpty
-            && !isResolvingQueued
+            && (resolvingQueued != nil)
         { return }
-        
-        isResolvingQueued = true
 
         let queued = queueds.removeFirst()
+        
+        resolvingQueued = queued
         
         let context = queued.context
         
@@ -286,7 +283,7 @@ public extension TBServer {
                 emitter?.emit(by: error)
         
             }
-            .always(in: context) { self.isResolvingQueued = false }
+            .always(in: context) { self.resolvingQueued = nil }
         
     }
 
