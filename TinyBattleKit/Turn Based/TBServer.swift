@@ -34,28 +34,28 @@ open class TBServer<Session: TBSession> {
     
     private final var events: [TBServerEvent: TBServerEventEmitter] = [:]
     
-    private typealias Queued = (context: Context, request: Request)
+    private typealias ContextRequest = (context: Context, request: Request)
     
-    private final var resolvingQueued: Queued?
+    private final var resolvingContextRequest: ContextRequest?
     
-    private final var queuedsTimer: Timer?
+    private final var queuingTimer: Timer?
     
-    private final var queueds: [Queued] = [] {
+    private final var queuingContextRequests: [ContextRequest] = [] {
         
         didSet {
             
-            if queueds.isEmpty {
+            if queuingContextRequests.isEmpty {
                 
-                queuedsTimer?.invalidate()
+                queuingTimer?.invalidate()
                 
-                queuedsTimer = nil
+                queuingTimer = nil
                 
             }
             else {
                 
-                if queuedsTimer == nil {
+                if queuingTimer == nil {
                     
-                    queuedsTimer = .scheduledTimer(
+                    queuingTimer = .scheduledTimer(
                         withTimeInterval: 1.0,
                         repeats: true,
                         block: { _ in self.resolveQueuedsIfNeeded() }
@@ -171,9 +171,9 @@ public extension TBServer {
     )
     -> Self {
         
-        let queued = Queued(context, request)
+        let contextRequest = ContextRequest(context, request)
         
-        queueds.append(queued)
+        queuingContextRequests.append(contextRequest)
         
         return self
         
@@ -182,17 +182,17 @@ public extension TBServer {
     private final func resolveQueuedsIfNeeded() {
         
         if
-            queueds.isEmpty
-            && (resolvingQueued != nil)
+            queuingContextRequests.isEmpty
+            && (resolvingContextRequest != nil)
         { return }
 
-        let queued = queueds.removeFirst()
+        let contextRequest = queuingContextRequests.removeFirst()
         
-        resolvingQueued = queued
+        resolvingContextRequest = contextRequest
         
-        let context = queued.context
+        let context = contextRequest.context
         
-        let request = queued.request
+        let request = contextRequest.request
         
         JoineRequestResponder()
             .respond(
@@ -283,7 +283,7 @@ public extension TBServer {
                 emitter?.emit(by: error)
         
             }
-            .always(in: context) { self.resolvingQueued = nil }
+            .always(in: context) { self.resolvingContextRequest = nil }
         
     }
 
